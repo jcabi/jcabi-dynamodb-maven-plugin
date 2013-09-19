@@ -75,7 +75,6 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * Location of DynamoDB Local distribution TGZ.
      */
     @MojoParameter(
-        defaultValue = "${maven.dependency.com.jcabi.DynamoDBLocal.tgz.path}",
         required = true,
         description = "DynamoDB Local distribution TGZ"
     )

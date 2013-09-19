@@ -67,7 +67,7 @@ Integration Testing of DynamoDB
 +--
 <project>
   <properties>
-    <dynamodblocal.tgz>${com.jcabi:DynamoDBLocal:tgz}</dynamodblocal.tgz>
+    <dynamodblocal.tgz>${sign}{com.jcabi:DynamoDBLocal:tgz}</dynamodblocal.tgz>
   </properties>
   [...]
 </project>
@@ -124,8 +124,8 @@ Integration Testing of DynamoDB
         <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
         <version>${project.version}</version>
         <configuration>
-          <port>${dynamodblocal.port}</port>
-          <tgz>${dynamodblocal.tgz}</tgz>
+          <port>${sign}{dynamodblocal.port}</port>
+          <tgz>${sign}{dynamodblocal.tgz}</tgz>
         </configuration>
         <executions>
           <execution>
@@ -153,7 +153,7 @@ Integration Testing of DynamoDB
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <systemPropertyVariables>
-                <dynamodb.port>${dynamodblocal.port}</dynamodb.port>
+                <dynamodb.port>${sign}{dynamodblocal.port}</dynamodb.port>
               </systemPropertyVariables>
             </configuration>
         </plugin>

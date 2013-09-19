@@ -39,8 +39,25 @@
 
 DynamoDB Maven Plugin
 
-  The plugin starts a local version of DynamoDB in <<<pre-integration-test>>>
-  phase and stops it in <<<post-integration-test>>>.
+  AWS recently announced a tool,
+  {{{http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html}DynamoDB Local}},
+  for testing applications based on DynamoDB. The tool is a standalone
+  Java application, shipped by Amazon in form of a <<<tar.gz>>> archive. Inside
+  the archive there is a JAR file and a collection of supplementary
+  shared libraries for different platforms.
+
+  The tool starts as a standalone web server and responds to AWS SDK requests
+  through HTTP RESTful API similar to the one provided by DynamoDB. It's
+  a very handy instrument for unit testing, but it needs additional wrapping
+  in order to become useful in Maven builds.
+
+  In a Maven build we want this fake DynamoDB server to start automatically
+  right before JUnit runs all unit/integration tests. And we want to shut it
+  down right after the tests are finished.
+
+  This plugin does exactly that by starting DynamoDB Local
+  in <<<pre-integration-test>>> phase and shutting it down
+  in <<<post-integration-test>>>.
 
   See {{{./usage.html}Usage}} page.
 
