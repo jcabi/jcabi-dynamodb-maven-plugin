@@ -5,7 +5,7 @@ More details are here: [www.jcabi.com/jcabi-dynamodb-maven-plugin](http://www.jc
 ## Questions?
 
 If you have any questions about the framework, or something doesn't work as expected,
-please [submit an issue here](https://github.com/jcabi/jcabi-heroku-maven-plugin/issues/new).
+please [submit an issue here](https://github.com/jcabi/jcabi-dynamodb-maven-plugin/issues/new).
 If you want to discuss, please use our [Google Group](https://groups.google.com/forum/#!forum/jcabi).
 
 ## How to contribute?

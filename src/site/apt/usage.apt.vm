@@ -55,6 +55,7 @@ Integration Testing of DynamoDB
       <artifactId>DynamoDBLocal</artifactId>
       <version>2013-09-12</version>
       <type>tgz</type>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   [...]
