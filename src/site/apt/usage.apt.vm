@@ -39,7 +39,9 @@
 
 Integration Testing of DynamoDB
 
-  Add this dependency first, which contains the DynamoDB Local:
+  First, add this dependency to your <<<pom.xml>>>, in test scope (the
+  dependency is exactly the same as the one provided by Amazon, but
+  shipped by JCabi in Maven-friendly format):
 
 +--
 <project>
@@ -62,7 +64,7 @@ Integration Testing of DynamoDB
 </project>
 +--
 
-  Then define this property:
+  Then, define this new property:
 
 +--
 <project>
@@ -73,7 +75,7 @@ Integration Testing of DynamoDB
 </project>
 +--
 
-  Then add these two supplementary plugins:
+  Then, add these two supplementary plugins:
 
 +--
 <project>
@@ -197,7 +199,7 @@ public class FooTest {
   <plugins>
     <plugin>
       <groupId>com.jcabi</groupId>
-      <artifactId>jcabi-heroku-maven-plugin</artifactId>
+      <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
       <version>1.0-SNAPSHOT</version>
       [...]
     </plugin>
