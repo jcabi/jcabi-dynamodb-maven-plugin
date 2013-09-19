@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.codehaus.plexus.util.FileUtils;
@@ -52,6 +53,7 @@ import org.codehaus.plexus.util.FileUtils;
 @ToString
 @EqualsAndHashCode(of = "threads")
 @Loggable(Loggable.INFO)
+@SuppressWarnings("PMD.DoNotUseThreads")
 final class Instances {
 
     /**
@@ -60,12 +62,19 @@ final class Instances {
     private final transient File dir;
 
     /**
+     * Running threads.
+     */
+    private final transient ConcurrentMap<Integer, Thread> threads =
+        new ConcurrentHashMap<Integer, Thread>(0);
+
+    /**
      * Public ctor.
-     * @param path Path to DynamoDBLocal.zip
+     * @param tgz Path to DynamoDBLocal.zip
      * @param temp Temp directory to unpack TGZ into
      * @throws IOException If fails
      */
-    protected Instances(final File zip, final File temp) throws IOException {
+    protected Instances(@NotNull final File tgz,
+        @NotNull final File temp) throws IOException {
         FileUtils.deleteDirectory(temp);
         temp.mkdirs();
         new VerboseProcess(
@@ -73,20 +82,14 @@ final class Instances {
                 new String[] {
                     "/usr/bin/tar",
                     "xzf",
-                    zip.getAbsolutePath(),
+                    tgz.getAbsolutePath(),
                     "-C",
-                    temp.getAbsolutePath()
+                    temp.getAbsolutePath(),
                 }
             )
         ).stdout();
         this.dir = temp.listFiles()[0];
     }
-
-    /**
-     * Running threads.
-     */
-    private final transient ConcurrentMap<Integer, Thread> threads =
-        new ConcurrentHashMap<Integer, Thread>(0);
 
     /**
      * Start a new one at this port.
@@ -103,7 +106,7 @@ final class Instances {
                 "-jar",
                 new File(this.dir, "DynamoDBLocal.jar").getAbsolutePath(),
                 "--port",
-                Integer.toString(port)
+                Integer.toString(port),
             }
         ).directory(Instances.this.dir);
         final Thread thread = new Thread(

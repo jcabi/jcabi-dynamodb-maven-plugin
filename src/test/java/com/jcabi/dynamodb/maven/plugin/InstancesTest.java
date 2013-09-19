@@ -51,6 +51,7 @@ import org.junit.Test;
  * Test case for {@link Instances}.
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
+ * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
 public final class InstancesTest {
 
@@ -78,7 +79,7 @@ public final class InstancesTest {
         );
         instances.start(port);
         final AmazonDynamoDB aws = new AmazonDynamoDBClient(
-            new BasicAWSCredentials("key", "secret")
+            new BasicAWSCredentials("AWS-key", "AWS-secret")
         );
         aws.setEndpoint(String.format("http://localhost:%d", port));
         final String table = "test";

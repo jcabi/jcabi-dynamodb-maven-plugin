@@ -132,6 +132,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * Get instances.
      * @param file Distribution of DynamoDBLocal
      * @param tmp Temp directory
+     * @return Instances
      * @throws MojoFailureException If fails
      */
     @Cacheable(forever = true)
