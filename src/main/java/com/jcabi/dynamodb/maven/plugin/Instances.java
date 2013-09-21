@@ -101,12 +101,16 @@ final class Instances {
                     System.getProperty("java.home"),
                     System.getProperty("file.separator")
                 ),
+                String.format(
+                    "-Djava.library.path=%s",
+                    this.dir.getAbsolutePath()
+                ),
                 "-jar",
-                new File(this.dir, "DynamoDBLocal.jar").getAbsolutePath(),
+                "DynamoDBLocal.jar",
                 "--port",
                 Integer.toString(port),
             }
-        ).directory(Instances.this.dir).redirectErrorStream(true).start();
+        ).directory(this.dir).redirectErrorStream(true).start();
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {
