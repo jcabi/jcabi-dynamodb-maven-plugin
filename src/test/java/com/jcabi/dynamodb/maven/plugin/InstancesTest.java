@@ -78,41 +78,44 @@ public final class InstancesTest {
             new File(InstancesTest.TGZ), dir
         );
         instances.start(port);
-        final AmazonDynamoDB aws = new AmazonDynamoDBClient(
-            new BasicAWSCredentials("AWS-key", "AWS-secret")
-        );
-        aws.setEndpoint(String.format("http://localhost:%d", port));
-        final String table = "test";
-        final String attr = "key";
-        final CreateTableResult result = aws.createTable(
-            new CreateTableRequest()
-                .withTableName(table)
-                .withProvisionedThroughput(
-                    new ProvisionedThroughput()
-                        .withReadCapacityUnits(1L)
-                        .withWriteCapacityUnits(1L)
-                )
-                .withAttributeDefinitions(
-                    new AttributeDefinition()
-                        .withAttributeName(attr)
-                        .withAttributeType(ScalarAttributeType.S)
-                )
-                .withKeySchema(
-                    new KeySchemaElement()
-                        .withAttributeName(attr)
-                        .withKeyType(KeyType.HASH)
-                )
-        );
-        MatcherAssert.assertThat(
-            result.getTableDescription().getTableName(),
-            Matchers.equalTo(table)
-        );
-        aws.putItem(
-            new PutItemRequest()
-                .withTableName(table)
-                .addItemEntry(attr, new AttributeValue("testvalue"))
-        );
-        instances.stop(port);
+        try {
+            final AmazonDynamoDB aws = new AmazonDynamoDBClient(
+                new BasicAWSCredentials("AWS-key", "AWS-secret")
+            );
+            aws.setEndpoint(String.format("http://localhost:%d", port));
+            final String table = "test";
+            final String attr = "key";
+            final CreateTableResult result = aws.createTable(
+                new CreateTableRequest()
+                    .withTableName(table)
+                    .withProvisionedThroughput(
+                        new ProvisionedThroughput()
+                            .withReadCapacityUnits(1L)
+                            .withWriteCapacityUnits(1L)
+                    )
+                    .withAttributeDefinitions(
+                        new AttributeDefinition()
+                            .withAttributeName(attr)
+                            .withAttributeType(ScalarAttributeType.S)
+                    )
+                    .withKeySchema(
+                        new KeySchemaElement()
+                            .withAttributeName(attr)
+                            .withKeyType(KeyType.HASH)
+                    )
+            );
+            MatcherAssert.assertThat(
+                result.getTableDescription().getTableName(),
+                Matchers.equalTo(table)
+            );
+            aws.putItem(
+                new PutItemRequest()
+                    .withTableName(table)
+                    .addItemEntry(attr, new AttributeValue("testvalue"))
+            );
+        } finally {
+            instances.stop(port);
+        }
     }
 
     /**

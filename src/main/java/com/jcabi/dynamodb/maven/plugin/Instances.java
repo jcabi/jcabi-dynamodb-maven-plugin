@@ -55,7 +55,7 @@ import org.rauschig.jarchivelib.CompressionType;
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
  */
 @ToString
-@EqualsAndHashCode(of = "threads")
+@EqualsAndHashCode(of = "processes")
 @Loggable(Loggable.INFO)
 @SuppressWarnings("PMD.DoNotUseThreads")
 final class Instances {
@@ -66,10 +66,10 @@ final class Instances {
     private final transient File dir;
 
     /**
-     * Running threads.
+     * Running processes.
      */
-    private final transient ConcurrentMap<Integer, Thread> threads =
-        new ConcurrentHashMap<Integer, Thread>(0);
+    private final transient ConcurrentMap<Integer, Process> processes =
+        new ConcurrentHashMap<Integer, Process>(0);
 
     /**
      * Public ctor.
@@ -91,9 +91,10 @@ final class Instances {
     /**
      * Start a new one at this port.
      * @param port The port to start at
+     * @throws IOException If fails to start
      */
-    public void start(final int port) {
-        final ProcessBuilder proc = new ProcessBuilder().command(
+    public void start(final int port) throws IOException {
+        final Process proc = new ProcessBuilder().command(
             new String[] {
                 String.format(
                     "%s%sbin%<sjava",
@@ -105,7 +106,7 @@ final class Instances {
                 "--port",
                 Integer.toString(port),
             }
-        ).directory(Instances.this.dir);
+        ).directory(Instances.this.dir).redirectErrorStream(true).start();
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {
@@ -119,7 +120,7 @@ final class Instances {
         );
         thread.setDaemon(true);
         thread.start();
-        this.threads.put(port, thread);
+        this.processes.put(port, proc);
     }
 
     /**
@@ -127,20 +128,15 @@ final class Instances {
      * @param port The port to stop at
      */
     public void stop(final int port) {
-        final Thread thread = this.threads.get(port);
-        if (thread == null) {
+        final Process proc = this.processes.get(port);
+        if (proc == null) {
             throw new IllegalArgumentException(
                 String.format(
                     "No DynamoDB Local instances running on port %d", port
                 )
             );
         }
-        thread.interrupt();
-        try {
-            thread.join();
-        } catch (InterruptedException ex) {
-            throw new IllegalStateException(ex);
-        }
+        proc.destroy();
     }
 
 }

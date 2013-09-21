@@ -29,6 +29,7 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
+import java.io.IOException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.MojoFailureException;
@@ -53,7 +54,13 @@ public final class StartMojo extends AbstractDynamoMojo {
      */
     @Override
     protected void run(final Instances instances) throws MojoFailureException {
-        instances.start(this.tcpPort());
+        try {
+            instances.start(this.tcpPort());
+        } catch (IOException ex) {
+            throw new MojoFailureException(
+                "failed to start DynamoDB Local", ex
+            );
+        }
     }
 
 }
