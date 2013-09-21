@@ -59,7 +59,7 @@ DynamoDB Maven Plugin
   in <<<pre-integration-test>>> phase and shutting it down
   in <<<post-integration-test>>>.
 
-  See {{{./usage.html}Usage}} page.
+  {{{./usage.html}Usage}} page explains how to get it up and running.
 
   The plugin was tested with Maven 3.0.5 on:
 
@@ -72,4 +72,4 @@ DynamoDB Maven Plugin
   If you use it somewhere else and it works for you, please let us know
   and we'll add your platform to this list.
   If you have problems, please submit an issue to
-  [Github](http://github.com/jcabi/jcabi-dynamodb-maven-plugin/issues).
+  {{{http://github.com/jcabi/jcabi-dynamodb-maven-plugin/issues}Github}}.
