@@ -117,6 +117,7 @@ final class Instances {
                 }
             )
         );
+        thread.setDaemon(true);
         thread.start();
         this.threads.put(port, thread);
     }
@@ -135,6 +136,11 @@ final class Instances {
             );
         }
         thread.interrupt();
+        try {
+            thread.join();
+        } catch (InterruptedException ex) {
+            throw new IllegalStateException(ex);
+        }
     }
 
 }
