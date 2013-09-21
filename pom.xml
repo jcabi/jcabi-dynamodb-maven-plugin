@@ -88,6 +88,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.rauschig</groupId>
+            <artifactId>jarchivelib</artifactId>
+            <version>0.3.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-aspects</artifactId>
             <version>0.7.22</version>

@@ -41,6 +41,10 @@ import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.codehaus.plexus.util.FileUtils;
+import org.rauschig.jarchivelib.ArchiveFormat;
+import org.rauschig.jarchivelib.Archiver;
+import org.rauschig.jarchivelib.ArchiverFactory;
+import org.rauschig.jarchivelib.CompressionType;
 
 /**
  * Running instances of DynamoDB Local.
@@ -77,17 +81,10 @@ final class Instances {
         @NotNull final File temp) throws IOException {
         FileUtils.deleteDirectory(temp);
         temp.mkdirs();
-        new VerboseProcess(
-            new ProcessBuilder().command(
-                new String[] {
-                    "/usr/bin/tar",
-                    "xzf",
-                    tgz.getAbsolutePath(),
-                    "-C",
-                    temp.getAbsolutePath(),
-                }
-            )
-        ).stdout();
+        final Archiver archiver = ArchiverFactory.createArchiver(
+            ArchiveFormat.TAR, CompressionType.GZIP
+        );
+        archiver.extract(tgz, temp);
         this.dir = temp.listFiles()[0];
     }
 

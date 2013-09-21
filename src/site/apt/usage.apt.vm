@@ -144,7 +144,7 @@ Integration Testing of DynamoDB
 </project>
 +--
 
-  Now you need to know this temporary port number in your tests:
+  Now you need to know this temporary port number in your integration tests:
 
 +--
 <project>
@@ -152,7 +152,7 @@ Integration Testing of DynamoDB
     <pluginManagement>
       <plugins>
         <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
+            <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <systemPropertyVariables>
                 <dynamodb.port>${sign}{dynamodblocal.port}</dynamodb.port>
@@ -166,11 +166,11 @@ Integration Testing of DynamoDB
 </project>
 +--
 
-  In your integration tests make sure that you set correct
+  In your integration tests make sure that you set a correct
   entry point for AWS Dynamo:
 
 +--
-public class FooTest {
+public class FooITCase {
   private static final String PORT = System.getProperty("dynamodb.port");
   @Test
   public void worksWithAwsDynamoDb() {
