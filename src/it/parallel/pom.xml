@@ -32,7 +32,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jcabi</groupId>
     <artifactId>jcabi-test</artifactId>
-    <name>basic-usage</name>
+    <name>parallel</name>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
@@ -58,7 +58,8 @@
                         </goals>
                         <configuration>
                             <portNames>
-                                <portName>dynamodblocal.port</portName>
+                                <portName>dynamodb.first</portName>
+                                <portName>dynamodb.second</portName>
                             </portNames>
                         </configuration>
                     </execution>
@@ -80,16 +81,30 @@
                 <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
                 <version>@project.version@</version>
                 <configuration>
-                    <port>${dynamodblocal.port}</port>
                     <tgz>${dynamodblocal.tgz}</tgz>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>jcabi-dynamodb-local</id>
+                        <id>dynamodb-first</id>
                         <goals>
                             <goal>start</goal>
                             <goal>stop</goal>
                         </goals>
+                        <configuration>
+                            <port>${dynamodb.first}</port>
+                            <temp>${project.build.directory}/dynamodb-first</temp>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>dynamodb-second</id>
+                        <goals>
+                            <goal>start</goal>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <port>${dynamodb.second}</port>
+                            <temp>${project.build.directory}/dynamodb-second</temp>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -61,39 +61,27 @@ import org.rauschig.jarchivelib.CompressionType;
 final class Instances {
 
     /**
-     * Directory where to run.
-     */
-    private final transient File dir;
-
-    /**
      * Running processes.
      */
     private final transient ConcurrentMap<Integer, Process> processes =
         new ConcurrentHashMap<Integer, Process>(0);
 
     /**
-     * Public ctor.
+     * Start a new one at this port.
      * @param tgz Path to DynamoDBLocal.zip
      * @param temp Temp directory to unpack TGZ into
-     * @throws IOException If fails
+     * @param port The port to start at
+     * @throws IOException If fails to start
      */
-    protected Instances(@NotNull final File tgz,
-        @NotNull final File temp) throws IOException {
+    public void start(@NotNull final File tgz,
+        @NotNull final File temp, final int port) throws IOException {
         FileUtils.deleteDirectory(temp);
         temp.mkdirs();
         final Archiver archiver = ArchiverFactory.createArchiver(
             ArchiveFormat.TAR, CompressionType.GZIP
         );
         archiver.extract(tgz, temp);
-        this.dir = temp.listFiles()[0];
-    }
-
-    /**
-     * Start a new one at this port.
-     * @param port The port to start at
-     * @throws IOException If fails to start
-     */
-    public void start(final int port) throws IOException {
+        final File dir = temp.listFiles()[0];
         final Process proc = new ProcessBuilder().command(
             new String[] {
                 String.format(
@@ -103,14 +91,14 @@ final class Instances {
                 ),
                 String.format(
                     "-Djava.library.path=%s",
-                    this.dir.getAbsolutePath()
+                    dir.getAbsolutePath()
                 ),
                 "-jar",
                 "DynamoDBLocal.jar",
                 "--port",
                 Integer.toString(port),
             }
-        ).directory(this.dir).redirectErrorStream(true).start();
+        ).directory(dir).redirectErrorStream(true).start();
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {

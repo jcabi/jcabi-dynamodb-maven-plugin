@@ -29,12 +29,14 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
+import java.io.File;
 import java.io.IOException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Starts DynamoDB Local.
@@ -46,18 +48,39 @@ import org.apache.maven.plugins.annotations.Mojo;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Mojo(
-    threadSafe = false, name = "start",
+    threadSafe = true, name = "start",
     defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
 )
 public final class StartMojo extends AbstractDynamoMojo {
+
+    /**
+     * Location of DynamoDB Local distribution TGZ.
+     */
+    @Parameter(required = true)
+    private transient File tgz;
+
+    /**
+     * Directory for TGZ unpacking.
+     */
+    @Parameter(
+        defaultValue = "${project.build.directory}/dynamodb-local",
+        required = true
+    )
+    private transient File temp;
 
     /**
      * {@inheritDoc}
      */
     @Override
     protected void run(final Instances instances) throws MojoFailureException {
+        if (!this.tgz.exists()) {
+            throw new MojoFailureException(
+                String.format("TGZ file doesn't exist: %s", this.tgz)
+            );
+        }
+        this.temp.mkdirs();
         try {
-            instances.start(this.tcpPort());
+            instances.start(this.tgz, this.temp, this.tcpPort());
         } catch (IOException ex) {
             throw new MojoFailureException(
                 "failed to start DynamoDB Local", ex

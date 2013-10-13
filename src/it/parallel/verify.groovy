@@ -27,35 +27,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.jcabi.dynamodb.maven.plugin;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-
-/**
- * Stops DynamoDB Local.
- *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
- * @since 0.1
- */
-@ToString
-@EqualsAndHashCode(callSuper = false)
-@Mojo(
-    threadSafe = true, name = "stop",
-    defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST
-)
-public final class StopMojo extends AbstractDynamoMojo {
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void run(final Instances instances) throws MojoFailureException {
-        instances.stop(this.tcpPort());
-    }
-
-}
+def log = new File(basedir, 'build.log')
+assert log.text.contains('start (dynamodb-first) @ jcabi-test')
+assert log.text.contains('stop (dynamodb-second) @ jcabi-test')

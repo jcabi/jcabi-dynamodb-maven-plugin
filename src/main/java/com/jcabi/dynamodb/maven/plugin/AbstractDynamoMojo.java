@@ -29,10 +29,7 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
-import com.jcabi.aspects.Cacheable;
 import com.jcabi.log.Logger;
-import java.io.File;
-import java.io.IOException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.AbstractMojo;
@@ -50,6 +47,11 @@ import org.slf4j.impl.StaticLoggerBinder;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 abstract class AbstractDynamoMojo extends AbstractMojo {
+
+    /**
+     * All instances.
+     */
+    private static final Instances INSTANCES = new Instances();
 
     /**
      * Shall we skip execution?
@@ -70,21 +72,6 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     private transient int port;
 
     /**
-     * Location of DynamoDB Local distribution TGZ.
-     */
-    @Parameter(required = true)
-    private transient File tgz;
-
-    /**
-     * Directory for TGZ unpacking.
-     */
-    @Parameter(
-        defaultValue = "${project.build.directory}/dynamodb-local",
-        required = true
-    )
-    private transient File temp;
-
-    /**
      * Set skip option.
      * @param skp Shall we skip execution?
      */
@@ -102,7 +89,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
             Logger.info(this, "execution skipped because of 'skip' option");
             return;
         }
-        this.run(AbstractDynamoMojo.instances(this.tgz, this.temp));
+        this.run(AbstractDynamoMojo.INSTANCES);
     }
 
     /**
@@ -120,30 +107,5 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      */
     protected abstract void run(final Instances instances)
         throws MojoFailureException;
-
-    /**
-     * Get instances.
-     * @param file Distribution of DynamoDBLocal
-     * @param tmp Temp directory
-     * @return Instances
-     * @throws MojoFailureException If fails
-     */
-    @Cacheable(forever = true)
-    private static Instances instances(final File file, final File tmp)
-        throws MojoFailureException {
-        if (!file.exists()) {
-            throw new MojoFailureException(
-                String.format("file doesn't exist: %s", file)
-            );
-        }
-        tmp.mkdirs();
-        try {
-            return new Instances(file, tmp);
-        } catch (IOException ex) {
-            throw new MojoFailureException(
-                "failed to unpack DynamoDBLocal", ex
-            );
-        }
-    }
 
 }
