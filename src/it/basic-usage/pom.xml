@@ -35,12 +35,6 @@
     <name>test</name>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <repositories>
-        <repository>
-            <id>jcabi-dynamodb-maven-plugin</id>
-            <url>http://repo.jcabi.com/releases</url>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.jcabi</groupId>

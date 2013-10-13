@@ -37,7 +37,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
-import org.jfrog.maven.annomojo.annotations.MojoParameter;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.slf4j.impl.StaticLoggerBinder;
 
 /**
@@ -54,39 +54,33 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     /**
      * Shall we skip execution?
      */
-    @MojoParameter(
+    @Parameter(
         defaultValue = "false",
-        required = false,
-        description = "Skips execution"
+        required = false
     )
     private transient boolean skip;
 
     /**
      * Port to use.
      */
-    @MojoParameter(
+    @Parameter(
         defaultValue = "10101",
-        required = false,
-        description = "TCP port to start at"
+        required = false
     )
     private transient int port;
 
     /**
      * Location of DynamoDB Local distribution TGZ.
      */
-    @MojoParameter(
-        required = true,
-        description = "DynamoDB Local distribution TGZ"
-    )
+    @Parameter(required = true)
     private transient File tgz;
 
     /**
      * Directory for TGZ unpacking.
      */
-    @MojoParameter(
+    @Parameter(
         defaultValue = "${project.build.directory}/dynamodb-local",
-        required = true,
-        description = "Directory to unpack TGZ"
+        required = true
     )
     private transient File temp;
 

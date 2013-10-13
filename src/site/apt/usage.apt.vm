@@ -41,16 +41,10 @@ Integration Testing of DynamoDB
 
   First, add this dependency to your <<<pom.xml>>>, in test scope (the
   dependency is exactly the same as the one provided by Amazon, but
-  shipped by JCabi in Maven-friendly format):
+  shipped by JCabi in Maven-friendly format, from Maven Central):
 
 +--
 <project>
-  <repositories>
-    <repository>
-      <id>jcabi-dynamodb-maven-plugin</id>
-      <url>http://repo.jcabi.com/releases</url>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>com.jcabi</groupId>

@@ -33,8 +33,8 @@ import java.io.IOException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.MojoFailureException;
-import org.jfrog.maven.annomojo.annotations.MojoGoal;
-import org.jfrog.maven.annomojo.annotations.MojoPhase;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Starts DynamoDB Local.
@@ -45,8 +45,10 @@ import org.jfrog.maven.annomojo.annotations.MojoPhase;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@MojoGoal("start")
-@MojoPhase("pre-integration-test")
+@Mojo(
+    threadSafe = false, name = "start",
+    defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
+)
 public final class StartMojo extends AbstractDynamoMojo {
 
     /**
