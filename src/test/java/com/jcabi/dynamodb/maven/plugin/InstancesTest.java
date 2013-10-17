@@ -75,7 +75,10 @@ public final class InstancesTest {
         final File dir = new File(InstancesTest.TEMP);
         dir.mkdirs();
         final Instances instances = new Instances();
-        instances.start(new File(InstancesTest.TGZ), dir, port);
+        instances.start(
+            new File(InstancesTest.TGZ), dir, port,
+            new File(System.getProperty("java.home"))
+        );
         try {
             final AmazonDynamoDB aws = new AmazonDynamoDBClient(
                 new BasicAWSCredentials("AWS-key", "AWS-secret")

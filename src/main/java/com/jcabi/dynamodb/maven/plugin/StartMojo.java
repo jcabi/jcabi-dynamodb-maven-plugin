@@ -69,6 +69,13 @@ public final class StartMojo extends AbstractDynamoMojo {
     private transient File temp;
 
     /**
+     * Java home directory, where "bin/java" can be executed.
+     * @since 0.3
+     */
+    @Parameter(required = false)
+    private transient File home;
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -78,9 +85,17 @@ public final class StartMojo extends AbstractDynamoMojo {
                 String.format("TGZ file doesn't exist: %s", this.tgz)
             );
         }
+        if (this.home == null) {
+            this.home = new File(System.getProperty("java.home"));
+        }
+        if (!this.home.exists()) {
+            throw new MojoFailureException(
+                String.format("Java home doesn't exist: %s", this.home)
+            );
+        }
         this.temp.mkdirs();
         try {
-            instances.start(this.tgz, this.temp, this.tcpPort());
+            instances.start(this.tgz, this.temp, this.tcpPort(), this.home);
         } catch (IOException ex) {
             throw new MojoFailureException(
                 "failed to start DynamoDB Local", ex

@@ -71,34 +71,14 @@ final class Instances {
      * @param tgz Path to DynamoDBLocal.zip
      * @param temp Temp directory to unpack TGZ into
      * @param port The port to start at
+     * @param home Java home directory
      * @throws IOException If fails to start
+     * @checkstyle ParameterNumber (5 lines)
      */
     public void start(@NotNull final File tgz,
-        @NotNull final File temp, final int port) throws IOException {
-        FileUtils.deleteDirectory(temp);
-        temp.mkdirs();
-        final Archiver archiver = ArchiverFactory.createArchiver(
-            ArchiveFormat.TAR, CompressionType.GZIP
-        );
-        archiver.extract(tgz, temp);
-        final File dir = temp.listFiles()[0];
-        final Process proc = new ProcessBuilder().command(
-            new String[] {
-                String.format(
-                    "%s%sbin%<sjava",
-                    System.getProperty("java.home"),
-                    System.getProperty("file.separator")
-                ),
-                String.format(
-                    "-Djava.library.path=%s",
-                    dir.getAbsolutePath()
-                ),
-                "-jar",
-                "DynamoDBLocal.jar",
-                "--port",
-                Integer.toString(port),
-            }
-        ).directory(dir).redirectErrorStream(true).start();
+        @NotNull final File temp, final int port, final File home)
+        throws IOException {
+        final Process proc = this.process(tgz, temp, port, home);
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {
@@ -120,15 +100,52 @@ final class Instances {
      * @param port The port to stop at
      */
     public void stop(final int port) {
-        final Process proc = this.processes.get(port);
-        if (proc == null) {
-            throw new IllegalArgumentException(
-                String.format(
-                    "No DynamoDB Local instances running on port %d", port
-                )
-            );
+        synchronized (this.processes) {
+            final Process proc = this.processes.get(port);
+            if (proc == null) {
+                throw new IllegalArgumentException(
+                    String.format(
+                        "No DynamoDB Local instances running on port %d", port
+                    )
+                );
+            }
+            proc.destroy();
+            this.processes.remove(port);
         }
-        proc.destroy();
+    }
+
+    /**
+     * Create new process.
+     * @param tgz Path to DynamoDBLocal.zip
+     * @param temp Temp directory to unpack TGZ into
+     * @param port The port to start at
+     * @param home Java home directory
+     * @return Process ready to be started
+     * @throws IOException If fails to start
+     * @checkstyle ParameterNumber (5 lines)
+     */
+    public Process process(final File tgz,
+        final File temp, final int port, final File home) throws IOException {
+        FileUtils.deleteDirectory(temp);
+        temp.mkdirs();
+        final Archiver archiver = ArchiverFactory.createArchiver(
+            ArchiveFormat.TAR, CompressionType.GZIP
+        );
+        archiver.extract(tgz, temp);
+        final File dir = temp.listFiles()[0];
+        return new ProcessBuilder().command(
+            new String[] {
+                new File(home, "bin/java").getAbsolutePath(),
+                String.format(
+                    "-Djava.library.path=%s",
+                    dir.getAbsolutePath()
+                ),
+                "-jar",
+                "DynamoDBLocal.jar",
+                "--port",
+                Integer.toString(port),
+            }
+        ).directory(dir).redirectErrorStream(true).start();
     }
 
 }
