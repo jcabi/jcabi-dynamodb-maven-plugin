@@ -91,6 +91,7 @@
                             <goal>stop</goal>
                         </goals>
                         <configuration>
+                            <home>${java.home}</home>
                             <port>${dynamodb.first}</port>
                             <temp>${project.build.directory}/dynamodb-first</temp>
                         </configuration>
