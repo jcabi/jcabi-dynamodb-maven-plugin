@@ -40,11 +40,6 @@ import java.util.concurrent.ConcurrentMap;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.codehaus.plexus.util.FileUtils;
-import org.rauschig.jarchivelib.ArchiveFormat;
-import org.rauschig.jarchivelib.Archiver;
-import org.rauschig.jarchivelib.ArchiverFactory;
-import org.rauschig.jarchivelib.CompressionType;
 
 /**
  * Running instances of DynamoDB Local.
@@ -68,23 +63,20 @@ final class Instances {
 
     /**
      * Start a new one at this port.
-     * @param tgz Path to DynamoDBLocal.zip
-     * @param temp Temp directory to unpack TGZ into
+     * @param dist Path to DynamoDBLocal distribution
      * @param port The port to start at
      * @param home Java home directory
      * @throws IOException If fails to start
-     * @checkstyle ParameterNumber (5 lines)
      */
-    public void start(@NotNull final File tgz,
-        @NotNull final File temp, final int port, final File home)
+    public void start(@NotNull final File dist, final int port, final File home)
         throws IOException {
-        final Process proc = this.process(tgz, temp, port, home);
+        final Process proc = this.process(dist, port, home);
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-                        new VerboseProcess(proc).stdout();
+                        new VerboseProcess(proc).stdoutQuietly();
                         return null;
                     }
                 }
@@ -116,36 +108,27 @@ final class Instances {
 
     /**
      * Create new process.
-     * @param tgz Path to DynamoDBLocal.zip
-     * @param temp Temp directory to unpack TGZ into
+     * @param dist Path to DynamoDBLocal distribution
      * @param port The port to start at
      * @param home Java home directory
      * @return Process ready to be started
      * @throws IOException If fails to start
-     * @checkstyle ParameterNumber (5 lines)
      */
-    public Process process(final File tgz,
-        final File temp, final int port, final File home) throws IOException {
-        FileUtils.deleteDirectory(temp);
-        temp.mkdirs();
-        final Archiver archiver = ArchiverFactory.createArchiver(
-            ArchiveFormat.TAR, CompressionType.GZIP
-        );
-        archiver.extract(tgz, temp);
-        final File dir = temp.listFiles()[0];
+    public Process process(final File dist, final int port,
+        final File home) throws IOException {
         return new ProcessBuilder().command(
             new String[] {
                 new File(home, "bin/java").getAbsolutePath(),
                 String.format(
                     "-Djava.library.path=%s",
-                    dir.getAbsolutePath()
+                    dist.getAbsolutePath()
                 ),
                 "-jar",
                 "DynamoDBLocal.jar",
                 "--port",
                 Integer.toString(port),
             }
-        ).directory(dir).redirectErrorStream(true).start();
+        ).directory(dist).redirectErrorStream(true).start();
     }
 
 }

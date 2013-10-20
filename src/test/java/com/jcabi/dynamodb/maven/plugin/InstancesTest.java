@@ -56,14 +56,9 @@ import org.junit.Test;
 public final class InstancesTest {
 
     /**
-     * Location of DynamoDBLocal TGZ dependency.
+     * Location of DynamoDBLocal distribution.
      */
-    private static final String TGZ = System.getProperty("surefire.tgz");
-
-    /**
-     * Location of temp directory.
-     */
-    private static final String TEMP = System.getProperty("surefire.temp");
+    private static final String DIST = System.getProperty("surefire.dist");
 
     /**
      * Instances can start and stop.
@@ -72,11 +67,9 @@ public final class InstancesTest {
     @Test
     public void startsAndStops() throws Exception {
         final int port = this.reserve();
-        final File dir = new File(InstancesTest.TEMP);
-        dir.mkdirs();
         final Instances instances = new Instances();
         instances.start(
-            new File(InstancesTest.TGZ), dir, port,
+            new File(InstancesTest.DIST), port,
             new File(System.getProperty("java.home"))
         );
         try {

@@ -54,19 +54,11 @@ import org.apache.maven.plugins.annotations.Parameter;
 public final class StartMojo extends AbstractDynamoMojo {
 
     /**
-     * Location of DynamoDB Local distribution TGZ.
+     * Location of DynamoDB Local distribution.
+     * @since 0.4
      */
     @Parameter(required = true)
-    private transient File tgz;
-
-    /**
-     * Directory for TGZ unpacking.
-     */
-    @Parameter(
-        defaultValue = "${project.build.directory}/dynamodb-local",
-        required = true
-    )
-    private transient File temp;
+    private transient File dist;
 
     /**
      * Java home directory, where "bin/java" can be executed.
@@ -80,9 +72,20 @@ public final class StartMojo extends AbstractDynamoMojo {
      */
     @Override
     protected void run(final Instances instances) throws MojoFailureException {
-        if (!this.tgz.exists()) {
+        if (!this.dist.exists()) {
             throw new MojoFailureException(
-                String.format("TGZ file doesn't exist: %s", this.tgz)
+                String.format(
+                    "DynamoDB Local distribution doesn't exist: %s",
+                    this.dist
+                )
+            );
+        }
+        if (!this.dist.isDirectory()) {
+            throw new MojoFailureException(
+                String.format(
+                    "DynamoDB Local distribution is not a directory: %s",
+                    this.dist
+                )
             );
         }
         if (this.home == null) {
@@ -93,9 +96,8 @@ public final class StartMojo extends AbstractDynamoMojo {
                 String.format("Java home doesn't exist: %s", this.home)
             );
         }
-        this.temp.mkdirs();
         try {
-            instances.start(this.tgz, this.temp, this.tcpPort(), this.home);
+            instances.start(this.dist, this.tcpPort(), this.home);
         } catch (IOException ex) {
             throw new MojoFailureException(
                 "failed to start DynamoDB Local", ex

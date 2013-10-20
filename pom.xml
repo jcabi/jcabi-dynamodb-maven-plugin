@@ -61,32 +61,13 @@
     </distributionManagement>
     <properties>
         <maven.version>3.0.5</maven.version>
-        <tgz>${com.jcabi:DynamoDBLocal:tgz}</tgz>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.jcabi</groupId>
-            <artifactId>DynamoDBLocal</artifactId>
-            <version>2013-09-12</version>
-            <type>tgz</type>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
             <version>1.5.7</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.rauschig</groupId>
-            <artifactId>jarchivelib</artifactId>
-            <version>0.3.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-compress</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
@@ -193,7 +174,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
                         <systemPropertyVariables>
-                            <surefire.tgz>${tgz}</surefire.tgz>
+                            <surefire.dist>${project.build.directory}/dynamodb-dist</surefire.dist>
                             <surefire.temp>${project.build.directory}/dynamodb-local-temp</surefire.temp>
                         </systemPropertyVariables>
                     </configuration>
@@ -206,8 +187,20 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>properties</goal>
+                            <goal>unpack</goal>
                         </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.jcabi</groupId>
+                                    <artifactId>DynamoDBLocal</artifactId>
+                                    <version>2013-09-12</version>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.directory}/dynamodb-dist</outputDirectory>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

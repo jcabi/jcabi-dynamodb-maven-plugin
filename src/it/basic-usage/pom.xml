@@ -34,17 +34,6 @@
     <artifactId>jcabi-test</artifactId>
     <name>basic-usage</name>
     <version>1.0-SNAPSHOT</version>
-    <dependencies>
-        <dependency>
-            <groupId>com.jcabi</groupId>
-            <artifactId>DynamoDBLocal</artifactId>
-            <version>2013-09-12</version>
-            <type>tgz</type>
-        </dependency>
-    </dependencies>
-    <properties>
-        <dynamodblocal.tgz>${com.jcabi:DynamoDBLocal:tgz}</dynamodblocal.tgz>
-    </properties>
     <build>
         <plugins>
             <plugin>
@@ -66,12 +55,23 @@
             </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.3</version>
                 <executions>
                     <execution>
                         <goals>
-                            <goal>properties</goal>
+                            <goal>unpack</goal>
                         </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.jcabi</groupId>
+                                    <artifactId>DynamoDBLocal</artifactId>
+                                    <version>2013-09-12</version>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.directory}/dynamodb-dist</outputDirectory>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -81,7 +81,7 @@
                 <version>@project.version@</version>
                 <configuration>
                     <port>${dynamodblocal.port}</port>
-                    <tgz>${dynamodblocal.tgz}</tgz>
+                    <dist>${project.build.directory}/dynamodb-dist</dist>
                 </configuration>
                 <executions>
                     <execution>
