@@ -31,3 +31,4 @@
 def log = new File(basedir, 'build.log')
 assert log.text.contains('start (jcabi-dynamodb-local) @ jcabi-test')
 assert log.text.contains('stop (jcabi-dynamodb-local) @ jcabi-test')
+assert !log.text.contains('Non-zero exit code')
