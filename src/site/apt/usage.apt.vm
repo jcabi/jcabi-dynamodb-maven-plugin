@@ -39,7 +39,7 @@
 
 Integration Testing of DynamoDB
 
-  First, configure `maven-dependency-plugin` to unpack DynamoDB Local
+  First, configure <<<maven-dependency-plugin>>> to unpack DynamoDB Local
   ZIP archive (it is in Maven Central):
 
 +--
@@ -74,7 +74,7 @@ Integration Testing of DynamoDB
 </project>
 +--
 
-  Then, add `build-helper-maven-plugin` to reserve a random TCP port
+  Then, add <<<build-helper-maven-plugin>>> to reserve a random TCP port
   for DynamoDB Local running instance:
 
 +--
@@ -125,7 +125,7 @@ Integration Testing of DynamoDB
             <configuration>
               <port>${sign}{dynamodblocal.port}</port>
               <dist>${sign}{project.build.directory}/dynamodb-dist</tgz>
-              </configuration>
+            </configuration>
           </execution>
         </executions>
       </plugin>
