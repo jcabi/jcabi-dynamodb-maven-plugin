@@ -61,7 +61,7 @@ Integration Testing of DynamoDB
                 <artifactId>DynamoDBLocal</artifactId>
                 <version>2013-09-12</version>
                 <type>zip</type>
-                <outputDirectory>${project.build.directory}/dynamodb-dist</outputDirectory>
+                <outputDirectory>${sign}{project.build.directory}/dynamodb-dist</outputDirectory>
                 <overWrite>false</overWrite>
               </artifactItem>
             </artifactItems>
