@@ -33,7 +33,7 @@
     <parent>
         <groupId>com.jcabi</groupId>
         <artifactId>parent</artifactId>
-        <version>0.11</version>
+        <version>0.12</version>
     </parent>
     <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -55,8 +55,8 @@
     </scm>
     <distributionManagement>
         <site>
-            <id>www.jcabi.com</id>
-            <url>s3://www.jcabi.com/jcabi-dynamodb-maven-plugin</url>
+            <id>dynamodb.jcabi.com</id>
+            <url>https://dynamodb.jcabi.com/</url>
         </site>
     </distributionManagement>
     <properties>
@@ -64,19 +64,12 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
-            <version>1.5.7</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-aspects</artifactId>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-log</artifactId>
-            <version>0.10</version>
         </dependency>
         <dependency>
             <groupId>com.jcabi</groupId>
@@ -89,6 +82,12 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.5.7</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -175,7 +174,6 @@
                     <configuration>
                         <systemPropertyVariables>
                             <surefire.dist>${project.build.directory}/dynamodb-dist</surefire.dist>
-                            <surefire.temp>${project.build.directory}/dynamodb-local-temp</surefire.temp>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>

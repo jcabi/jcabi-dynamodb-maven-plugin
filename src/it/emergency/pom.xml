@@ -31,8 +31,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jcabi</groupId>
-    <artifactId>parallel</artifactId>
-    <name>parallel</name>
+    <artifactId>emergency</artifactId>
+    <name>emergency</name>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -48,7 +48,6 @@
                         <configuration>
                             <portNames>
                                 <portName>dynamodb.first</portName>
-                                <portName>dynamodb.second</portName>
                             </portNames>
                         </configuration>
                     </execution>
@@ -68,15 +67,7 @@
                                     <artifactId>DynamoDBLocal</artifactId>
                                     <version>2013-09-12</version>
                                     <type>zip</type>
-                                    <outputDirectory>${project.build.directory}/dynamodb-first</outputDirectory>
-                                    <overWrite>false</overWrite>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.jcabi</groupId>
-                                    <artifactId>DynamoDBLocal</artifactId>
-                                    <version>2013-09-12</version>
-                                    <type>zip</type>
-                                    <outputDirectory>${project.build.directory}/dynamodb-second</outputDirectory>
+                                    <outputDirectory>${project.build.directory}/dynamodb</outputDirectory>
                                     <overWrite>false</overWrite>
                                 </artifactItem>
                             </artifactItems>
@@ -99,20 +90,8 @@
                             <goal>stop</goal>
                         </goals>
                         <configuration>
-                            <home>${java.home}</home>
                             <port>${dynamodb.first}</port>
-                            <dist>${project.build.directory}/dynamodb-first</dist>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>dynamodb-second</id>
-                        <goals>
-                            <goal>start</goal>
-                            <goal>stop</goal>
-                        </goals>
-                        <configuration>
-                            <port>${dynamodb.second}</port>
-                            <dist>${project.build.directory}/dynamodb-second</dist>
+                            <dist>${project.build.directory}/dynamodb</dist>
                         </configuration>
                     </execution>
                 </executions>
