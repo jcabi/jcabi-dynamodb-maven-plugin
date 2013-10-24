@@ -84,10 +84,8 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>dynamodb-first</id>
                         <goals>
                             <goal>start</goal>
-                            <goal>stop</goal>
                         </goals>
                         <configuration>
                             <port>${dynamodb.first}</port>

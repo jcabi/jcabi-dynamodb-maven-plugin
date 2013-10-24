@@ -29,5 +29,5 @@
  */
 
 def log = new File(basedir, 'build.log')
-assert log.text.contains('start (dynamodb-first) @ jcabi-test')
-assert log.text.contains('stop (dynamodb-second) @ jcabi-test')
+assert log.text.contains('#start(')
+assert log.text.contains('#stop(')
