@@ -47,6 +47,7 @@ import lombok.ToString;
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
  * @since 0.1
+ * @checkstyle ClassDataAbstractionCoupling (500 lines)
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
  */
 @ToString
@@ -62,6 +63,22 @@ final class Instances {
         new ConcurrentHashMap<Integer, Process>(0);
 
     /**
+     * Public ctor.
+     */
+    Instances() {
+        Runtime.getRuntime().addShutdownHook(
+            new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        Instances.this.shutdown();
+                    }
+                }
+            )
+        );
+    }
+
+    /**
      * Start a new one at this port.
      * @param dist Path to DynamoDBLocal distribution
      * @param port The port to start at
@@ -70,13 +87,13 @@ final class Instances {
      */
     public void start(@NotNull final File dist, final int port, final File home)
         throws IOException {
-        final Process proc = this.process(dist, port, home);
+        final Process process = Instances.process(dist, port, home);
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {
                     @Override
                     public Void call() throws Exception {
-                        new VerboseProcess(proc).stdoutQuietly();
+                        new VerboseProcess(process).stdoutQuietly();
                         return null;
                     }
                 }
@@ -84,7 +101,7 @@ final class Instances {
         );
         thread.setDaemon(true);
         thread.start();
-        this.processes.put(port, proc);
+        this.processes.put(port, process);
     }
 
     /**
@@ -93,16 +110,25 @@ final class Instances {
      */
     public void stop(final int port) {
         synchronized (this.processes) {
-            final Process proc = this.processes.get(port);
-            if (proc == null) {
+            final Process process = this.processes.get(port);
+            if (process == null) {
                 throw new IllegalArgumentException(
                     String.format(
                         "No DynamoDB Local instances running on port %d", port
                     )
                 );
             }
-            proc.destroy();
+            process.destroy();
             this.processes.remove(port);
+        }
+    }
+
+    /**
+     * Shutdown everything that is still running.
+     */
+    private void shutdown() {
+        for (final int port : this.processes.keySet()) {
+            this.stop(port);
         }
     }
 
@@ -114,7 +140,7 @@ final class Instances {
      * @return Process ready to be started
      * @throws IOException If fails to start
      */
-    public Process process(final File dist, final int port,
+    private static Process process(final File dist, final int port,
         final File home) throws IOException {
         return new ProcessBuilder().command(
             new String[] {
