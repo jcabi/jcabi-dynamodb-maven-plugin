@@ -70,6 +70,15 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
         required = false
     )
     private transient int port;
+    
+    /**
+     * Port to use.
+     */
+    @Parameter(
+        defaultValue = "",
+        required = false
+    )
+    private transient String javaLibraryPath;
 
     /**
      * Set skip option.
@@ -98,6 +107,14 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      */
     public int tcpPort() {
         return this.port;
+    }
+    
+    /**
+     * Get java.library.path
+     * @return java.library.path number
+     */
+    public String configuredPath(){
+        return this.javaLibraryPath;
     }
 
     /**

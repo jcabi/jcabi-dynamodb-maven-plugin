@@ -70,7 +70,8 @@ public final class InstancesTest {
         final Instances instances = new Instances();
         instances.start(
             new File(InstancesTest.DIST), port,
-            new File(System.getProperty("java.home"))
+            new File(System.getProperty("java.home")),
+            null
         );
         try {
             final AmazonDynamoDB aws = new AmazonDynamoDBClient(

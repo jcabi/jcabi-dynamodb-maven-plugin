@@ -85,9 +85,9 @@ final class Instances {
      * @param home Java home directory
      * @throws IOException If fails to start
      */
-    public void start(@NotNull final File dist, final int port, final File home)
+    public void start(@NotNull final File dist, final int port, final File home, final String configuredPath)
         throws IOException {
-        final Process process = Instances.process(dist, port, home);
+        final Process process = Instances.process(dist, port, home, configuredPath);
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {
@@ -141,13 +141,13 @@ final class Instances {
      * @throws IOException If fails to start
      */
     private static Process process(final File dist, final int port,
-        final File home) throws IOException {
+        final File home, final String configuredPath) throws IOException {
         return new ProcessBuilder().command(
             new String[] {
                 new File(home, "bin/java").getAbsolutePath(),
                 String.format(
                     "-Djava.library.path=%s",
-                    dist.getAbsolutePath()
+                            choosePath(dist.getAbsolutePath(), configuredPath)
                 ),
                 "-jar",
                 "DynamoDBLocal.jar",
@@ -155,6 +155,14 @@ final class Instances {
                 Integer.toString(port),
             }
         ).directory(dist).redirectErrorStream(true).start();
+    }
+    
+    private static String choosePath(final String distAbsolutePath, final String configuredPath) {
+        if (null != configuredPath && false == configuredPath.isEmpty()) {
+            return configuredPath;
+        } else {
+            return distAbsolutePath;
+        }
     }
 
 }
