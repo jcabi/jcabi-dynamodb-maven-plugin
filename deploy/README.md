@@ -28,4 +28,12 @@ $ mvn install:install-file -Dfile=dynamo.zip -DgroupId=com.jcabi \
  $ gpg -ab dynamo.zip
  ```
 
- 5. Login to sonatype and deploy them both (pom.xml and dynamo.zip).
+ 5. Login to sonatype and deploy them both (pom.xml and dynamo.zip). You
+ should have these files before upload:
+
+ ```
+ pom.xml
+ pom.pom.asc
+ dynamo.zip
+ dynamo.zip.asc
+ ```
