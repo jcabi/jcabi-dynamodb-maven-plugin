@@ -1,6 +1,6 @@
 <img src="http://img.jcabi.com/logo.png" width="200px" height="48px" />
 
-More details are here: [www.jcabi.com/jcabi-dynamodb-maven-plugin](http://www.jcabi.com/jcabi-dynamodb-maven-plugin/index.html)
+More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html)
 
 ## Questions?
 

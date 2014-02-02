@@ -145,10 +145,11 @@ final class Instances {
         return new ProcessBuilder().command(
             new String[] {
                 new File(home, "bin/java").getAbsolutePath(),
-                String.format(
-                    "-Djava.library.path=%s",
-                    dist.getAbsolutePath()
-                ),
+                new StringBuilder("-Djava.library.path=")
+                    .append(dist)
+                    .append(System.getProperty("path.separator"))
+                    .append(new File(dist, "DynamoDBLocal_lib"))
+                    .toString(),
                 "-jar",
                 "DynamoDBLocal.jar",
                 "--port",
