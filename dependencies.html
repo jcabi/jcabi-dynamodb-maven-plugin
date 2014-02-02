@@ -41,16 +41,6 @@
     <body>
                 <ul id="menu">
                                                     <li>
-                    Parent Project
-                                            <ul>
-                                                                            <li>
-                                                                    <a href="../../http:/parent.jcabi.com/index.html" title="parent">parent</a>
-                                                                                                                        <ul>
-                                                    </ul>
-                                    </li>
-                                                                </ul>
-                                    </li>
-                            <li>
                     Overview
                                             <ul>
                                                                             <li>
@@ -84,7 +74,12 @@
                     Examples
                                             <ul>
                                                                             <li>
-                                                                    <a href="example-it.html" title="Integration Testing">Integration Testing</a>
+                                                                    <a href="example-it.html" title="Integration testing">Integration testing</a>
+                                                                                                                        <ul>
+                                                    </ul>
+                                    </li>
+                                                                                        <li>
+                                                                    <a href="example-arguments.html" title="Command line arguments">Command line arguments</a>
                                                                                                                         <ul>
                                                     </ul>
                                     </li>
@@ -165,8 +160,8 @@
             </a>
                         <p>
                 
-                24-Oct-2013
-                0.4.1
+                02-Feb-2014
+                0.5
             </p>
             <article>
                 <a name="Project_Dependencies"></a>
@@ -204,6 +199,12 @@
 <td>javax.validation</td>
 <td><a class="externalLink" href="http://beanvalidation.org">validation-api</a></td>
 <td>1.1.0.Final</td>
+<td>jar</td>
+<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
+<tr class="b">
+<td>org.apache.commons</td>
+<td><a class="externalLink" href="http://commons.apache.org/lang/">commons-lang3</a></td>
+<td>3.1</td>
 <td>jar</td>
 <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr></table></div><a name="Project_Dependencies_runtime"></a>
 <div class="section">
@@ -352,12 +353,6 @@
 <td>jar</td>
 <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
 <tr class="a">
-<td>org.apache.commons</td>
-<td><a class="externalLink" href="http://commons.apache.org/lang/">commons-lang3</a></td>
-<td>3.1</td>
-<td>jar</td>
-<td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></td></tr>
-<tr class="b">
 <td>org.slf4j</td>
 <td><a class="externalLink" href="http://www.slf4j.org">slf4j-api</a></td>
 <td>1.7.5</td>
@@ -588,7 +583,7 @@
 <div class="section">
 <h3>Dependency Tree<a name="Dependency_Tree"></a></h3>
 <ul>
-<li>com.jcabi:jcabi-dynamodb-maven-plugin:maven-plugin:0.4.1 <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
+<li>com.jcabi:jcabi-dynamodb-maven-plugin:maven-plugin:0.5 <img id="_img1" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep0', '_img1' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep0" style="display:none">
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>jcabi-dynamodb-maven-plugin</th></tr>
@@ -634,19 +629,8 @@
 <td>
 <p><b>Description: </b>The slf4j API</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.slf4j.org">http://www.slf4j.org</a></p>
-<p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li>
-<li>org.apache.commons:commons-lang3:jar:3.1 (compile) <img id="_img11" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep10', '_img11' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep10" style="display:none">
-<table border="0" class="bodyTable">
-<tr class="a">
-<th>Commons Lang</th></tr>
-<tr class="b">
-<td>
-<p><b>Description: </b>Commons Lang, a package of Java utility classes for the
-  classes that are in java.lang's hierarchy, or are considered to be so
-  standard as to justify existence in java.lang.</p>
-<p><b>URL: </b><a class="externalLink" href="http://commons.apache.org/lang/">http://commons.apache.org/lang/</a></p>
-<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div></li></ul></li>
-<li>com.jcabi:jcabi-maven-slf4j:jar:0.8 (compile) <img id="_img13" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep12', '_img13' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep12" style="display:none">
+<p><b>Project License: </b><a class="externalLink" href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></p></td></tr></table></div></li></ul></li>
+<li>com.jcabi:jcabi-maven-slf4j:jar:0.8 (compile) <img id="_img11" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep10', '_img11' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep10" style="display:none">
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>jcabi-maven-slf4j</th></tr>
@@ -656,6 +640,17 @@
         More details you can find at www.jcabi.com.</p>
 <p><b>URL: </b><a class="externalLink" href="http://www.jcabi.com/jcabi-maven-slf4j">http://www.jcabi.com/jcabi-maven-slf4j</a></p>
 <p><b>Project License: </b><a class="externalLink" href="http://www.jcabi.com/LICENSE.txt">BSD</a></p></td></tr></table></div></li>
+<li>org.apache.commons:commons-lang3:jar:3.1 (compile) <img id="_img13" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep12', '_img13' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep12" style="display:none">
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Commons Lang</th></tr>
+<tr class="b">
+<td>
+<p><b>Description: </b>Commons Lang, a package of Java utility classes for the
+  classes that are in java.lang's hierarchy, or are considered to be so
+  standard as to justify existence in java.lang.</p>
+<p><b>URL: </b><a class="externalLink" href="http://commons.apache.org/lang/">http://commons.apache.org/lang/</a></p>
+<p><b>Project License: </b><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.txt">The Apache Software License, Version 2.0</a></p></td></tr></table></div></li>
 <li>org.projectlombok:lombok:jar:1.12.2 (provided) <img id="_img15" src="./images/icon_info_sml.gif" alt="Information" onclick="toggleDependencyDetail( '_dep14', '_img15' );" style="cursor: pointer;vertical-align:text-bottom;"></img><div id="_dep14" style="display:none">
 <table border="0" class="bodyTable">
 <tr class="a">
@@ -1087,7 +1082,7 @@ file comparators, endian transformation classes, and much more.</p>
             </article>
             <p style="margin-bottom: 3em; margin-top: 2em;">
                 Copyright &#169;
-                                                    2012-2013
+                                                    2012-2014
                                 jcabi.com, All Rights Reserved.
                 <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a>.
             </p>
