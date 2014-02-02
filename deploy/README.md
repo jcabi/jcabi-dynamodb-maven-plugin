@@ -1,7 +1,7 @@
 In order to deploy a new version of DynamoDBLocal artifact
 to Maven Central you should do the following steps:
 
- 1. Update deploy/pom.xml file with a new version of DynamoDBLocal
+ 1. Update `deploy/pom.xml` file with a new version of DynamoDBLocal
 
  2. Download latest TAR.GZ archive from [Amazon](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.DynamoDBLocal.html)
 
@@ -21,5 +21,11 @@ $ mvn install:install-file -Dfile=dynamo.zip -DgroupId=com.jcabi \
     -DartifactId=DynamoDBLocal -Dversion=2014-01-08 -Dpackaging=zip
 ```
 
- 5. Login to sonatype and deploy them both (pom.xml and dynamo.zip)
+ 6. Sign them both, using gnupg:
 
+ ```
+ $ gpg -ab pom.xml
+ $ gpg -ab dynamo.zip
+ ```
+
+ 5. Login to sonatype and deploy them both (pom.xml and dynamo.zip).
