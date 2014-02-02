@@ -65,7 +65,7 @@
                                 <artifactItem>
                                     <groupId>com.jcabi</groupId>
                                     <artifactId>DynamoDBLocal</artifactId>
-                                    <version>2013-09-12</version>
+                                    <version>2014-01-08</version>
                                     <type>zip</type>
                                     <outputDirectory>${project.build.directory}/dynamodb-dist</outputDirectory>
                                     <overWrite>false</overWrite>
@@ -82,6 +82,9 @@
                 <configuration>
                     <port>${dynamodblocal.port}</port>
                     <dist>${project.build.directory}/dynamodb-dist</dist>
+                    <arguments>
+                        <argument>-inMemory</argument>
+                    </arguments>
                 </configuration>
                 <executions>
                     <execution>

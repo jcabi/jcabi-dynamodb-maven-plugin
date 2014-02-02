@@ -1,14 +1,14 @@
  ------
- AWS DynamoDB Maven Plugin
+ DynamoDBLocal Command Line Args
  ------
  Yegor Bugayenko
  ------
- 2013-09-199
+ 2014-02-02
  ------
 
 ~~
 ~~ #set($sign="$")
-~~ Copyright (c) 2012-2013, JCabi.com
+~~ Copyright (c) 2012-2012, JCabi.com
 ~~ All rights reserved.
 ~~
 ~~ Redistribution and use in source and binary forms, with or without
@@ -37,39 +37,31 @@
 ~~ OF THE POSSIBILITY OF SUCH DAMAGE.
 ~~
 
-DynamoDB Maven Plugin
+DynamoDBLocal Command Line Args
 
-  AWS recently announced a tool,
-  {{{http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html}DynamoDB Local}},
-  for testing applications based on DynamoDB. The tool is a standalone
-  Java application, shipped by Amazon in form of a <<<tar.gz>>> archive. Inside
-  the archive there is a JAR file and a collection of supplementary
-  shared libraries for different platforms.
+  Since version 0.5 it's possible to specify extra command line
+  arguments for DynamoDBLocal, for example:
 
-  The tool starts as a standalone web server and responds to AWS SDK requests
-  through HTTP RESTful API similar to the one provided by DynamoDB. It's
-  a very handy instrument for unit testing, but it needs additional wrapping
-  in order to become useful in Maven builds.
++--
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.jcabi</groupId>
+        <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <port>${sign}{dynamodblocal.port}</port>
+          <dist>${sign}{project.build.directory}/dynamodb-dist</tgz>
+          <arguments>
+            <argument>-inMemory</argument>
+            <argument>-dbPath=/tmp/dynamodb-data</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  [...]
+</project>
++--
 
-  In Maven build, we want this fake DynamoDB server to start automatically,
-  right before JUnit runs all unit/integration tests. And we want to shut it
-  down right after the tests are finished.
-
-  This plugin does exactly that, by starting DynamoDB Local
-  in <<<pre-integration-test>>> phase and shutting it down
-  in <<<post-integration-test>>>.
-
-  {{{./usage.html}Usage}} page explains how to get it up and running.
-
-  The plugin was tested with Maven 3.0.5 and 3.1.0 on:
-
-   * Mac OS X 10.8.5
-
-   * Windows 7 SP 1
-
-   * Ubuntu Linux 12.04 Desktop
-
-  If you use it somewhere else and it works for you, please let us know
-  and we'll add your platform to this list.
-  If you have problems or suggestions, please submit them as issues to
-  {{{http://github.com/jcabi/jcabi-dynamodb-maven-plugin/issues}Github}}.

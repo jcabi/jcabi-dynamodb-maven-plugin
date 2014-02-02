@@ -43,6 +43,7 @@ import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
 import java.io.File;
 import java.net.ServerSocket;
+import java.util.Collections;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -70,7 +71,8 @@ public final class InstancesTest {
         final Instances instances = new Instances();
         instances.start(
             new File(InstancesTest.DIST), port,
-            new File(System.getProperty("java.home"))
+            new File(System.getProperty("java.home")),
+            Collections.singletonList("-inMemory")
         );
         try {
             final AmazonDynamoDB aws = new AmazonDynamoDBClient(

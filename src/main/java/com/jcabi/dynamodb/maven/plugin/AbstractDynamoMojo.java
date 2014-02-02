@@ -30,6 +30,9 @@
 package com.jcabi.dynamodb.maven.plugin;
 
 import com.jcabi.log.Logger;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.AbstractMojo;
@@ -63,6 +66,13 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     private transient boolean skip;
 
     /**
+     * Command line arguments of DynamoDBLocal.
+     * @since 0.5
+     */
+    @Parameter(required = false)
+    private transient List<String> arguments;
+
+    /**
      * Port to use.
      */
     @Parameter(
@@ -79,9 +89,6 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
         this.skip = skp;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void execute() throws MojoFailureException {
         StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());
@@ -96,8 +103,20 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * Get TCP port we're on.
      * @return Port number
      */
-    public int tcpPort() {
+    protected int tcpPort() {
         return this.port;
+    }
+
+    /**
+     * Command line arguments.
+     * @return List of arguments
+     */
+    protected List<String> args() {
+        final List<String> args = new LinkedList<String>();
+        if (this.arguments != null) {
+            args.addAll(this.arguments);
+        }
+        return Collections.unmodifiableList(args);
     }
 
     /**
@@ -105,7 +124,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * @param instances Instances to work with
      * @throws MojoFailureException If fails
      */
-    protected abstract void run(final Instances instances)
+    protected abstract void run(Instances instances)
         throws MojoFailureException;
 
 }

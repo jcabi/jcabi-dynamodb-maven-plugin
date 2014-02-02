@@ -50,9 +50,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 )
 public final class StopMojo extends AbstractDynamoMojo {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void run(final Instances instances) throws MojoFailureException {
         instances.stop(this.tcpPort());

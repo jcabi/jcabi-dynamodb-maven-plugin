@@ -34,12 +34,14 @@ import com.jcabi.log.VerboseProcess;
 import com.jcabi.log.VerboseRunnable;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Running instances of DynamoDB Local.
@@ -83,11 +85,14 @@ final class Instances {
      * @param dist Path to DynamoDBLocal distribution
      * @param port The port to start at
      * @param home Java home directory
+     * @param args Command line arguments
      * @throws IOException If fails to start
+     * @checkstyle ParameterNumber (5 lines)
      */
-    public void start(@NotNull final File dist, final int port, final File home)
+    public void start(@NotNull final File dist, final int port, final File home,
+        @NotNull final List<String> args)
         throws IOException {
-        final Process process = Instances.process(dist, port, home);
+        final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
             new VerboseRunnable(
                 new Callable<Void>() {
@@ -137,11 +142,13 @@ final class Instances {
      * @param dist Path to DynamoDBLocal distribution
      * @param port The port to start at
      * @param home Java home directory
+     * @param args Extra command line args
      * @return Process ready to be started
      * @throws IOException If fails to start
+     * @checkstyle ParameterNumber (5 lines)
      */
     private static Process process(final File dist, final int port,
-        final File home) throws IOException {
+        final File home, final List<String> args) throws IOException {
         return new ProcessBuilder().command(
             new String[] {
                 new File(home, "bin/java").getAbsolutePath(),
@@ -154,6 +161,7 @@ final class Instances {
                 "DynamoDBLocal.jar",
                 "--port",
                 Integer.toString(port),
+                StringUtils.join(args, " "),
             }
         ).directory(dist).redirectErrorStream(true).start();
     }

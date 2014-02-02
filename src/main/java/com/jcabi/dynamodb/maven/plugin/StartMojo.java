@@ -67,9 +67,6 @@ public final class StartMojo extends AbstractDynamoMojo {
     @Parameter(required = false)
     private transient File home;
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected void run(final Instances instances) throws MojoFailureException {
         if (!this.dist.exists()) {
@@ -97,7 +94,7 @@ public final class StartMojo extends AbstractDynamoMojo {
             );
         }
         try {
-            instances.start(this.dist, this.tcpPort(), this.home);
+            instances.start(this.dist, this.tcpPort(), this.home, this.args());
         } catch (IOException ex) {
             throw new MojoFailureException(
                 "failed to start DynamoDB Local", ex

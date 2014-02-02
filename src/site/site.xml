@@ -56,7 +56,8 @@
             <item name="Release History" href="changes-report.html"/>
         </menu>
         <menu name="Examples">
-            <item name="Integration Testing" href="example-it.html"/>
+            <item name="Integration testing" href="example-it.html"/>
+            <item name="Command line arguments" href="example-arguments.html"/>
         </menu>
         <menu ref="reports"/>
     </body>
