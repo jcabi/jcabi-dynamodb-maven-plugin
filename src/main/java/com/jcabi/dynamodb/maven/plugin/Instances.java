@@ -94,15 +94,7 @@ final class Instances {
         throws IOException {
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
-            new VerboseRunnable(
-                new Callable<Void>() {
-                    @Override
-                    public Void call() throws Exception {
-                        new VerboseProcess(process).stdoutQuietly();
-                        return null;
-                    }
-                }
-            )
+            new VerboseRunnable(new InstanceProcess(process))
         );
         thread.setDaemon(true);
         thread.start();
@@ -166,4 +158,25 @@ final class Instances {
         ).directory(dist).redirectErrorStream(true).start();
     }
 
+    /**
+     * Instance process of each local DynamoDB.
+     */
+    private static final class InstanceProcess implements Callable<Void> {
+        /**
+         * Process.
+         */
+        private final transient Process prc;
+        /**
+         * Constructor.
+         * @param process The process to work with.
+         */
+        InstanceProcess(final Process process) {
+            this.prc = process;
+        }
+        @Override
+        public Void call() throws Exception {
+            new VerboseProcess(this.prc).stdoutQuietly();
+            return null;
+        }
+    }
 }
