@@ -38,6 +38,7 @@ import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.Tables;
 import com.jcabi.log.Logger;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -78,19 +79,19 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
     /**
      * AWS endpoint, use localhost if not specified.
      */
-    @Parameter(required = false, defaultValue = "localhost")
+    @Parameter(required = false, defaultValue = "http://localhost")
     private transient String endpoint;
 
     /**
      * AWS key.
      */
-    @Parameter(required = false, defaultValue = "")
+    @Parameter(required = false, defaultValue = "AWS-Key")
     private transient String key;
 
     /**
      * AWS secret.
      */
-    @Parameter(required = false, defaultValue = "")
+    @Parameter(required = false, defaultValue = "AWS-Secret")
     private transient String secret;
 
     @Override
@@ -98,7 +99,7 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
         final AmazonDynamoDB aws = new AmazonDynamoDBClient(
             new BasicAWSCredentials(this.key, this.secret)
         );
-        aws.setEndpoint(this.endpoint);
+        aws.setEndpoint(String.format("%s:%d", this.endpoint, this.tcpPort()));
         for (final String table : this.tables) {
             final JsonObject json = CreateTableMojo.readJson(table);
             if (json.containsKey("TableName")) {
@@ -186,19 +187,25 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
      * Reads a file's contents into a JsonObject.
      * @param file The path of the file to read
      * @return The JSON object
+     * @throws MojoFailureException If there is an execution failure.
      */
-    private static JsonObject readJson(final String file) {
+    private static JsonObject readJson(final String file)
+        throws MojoFailureException {
         InputStream stream = null;
         JsonObject json = null;
         try {
-            stream = CreateTableMojo.class.getResourceAsStream(file);
+            stream = new FileInputStream(file);
             json = Json.createReader(stream).readObject();
+        } catch (final IOException ex) {
+            throw new MojoFailureException(
+                "Failed to read table definition", ex
+            );
         } finally {
             if (stream != null) {
                 try {
                     stream.close();
                 } catch (final IOException ex) {
-                    throw new IllegalStateException(ex);
+                    throw new MojoFailureException("IO failure occured", ex);
                 }
             }
         }
