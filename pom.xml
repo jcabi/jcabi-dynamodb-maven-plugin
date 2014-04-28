@@ -88,10 +88,14 @@
             <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk</artifactId>
-            <version>1.5.7</version>
-            <scope>test</scope>
+            <version>1.7.7</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
