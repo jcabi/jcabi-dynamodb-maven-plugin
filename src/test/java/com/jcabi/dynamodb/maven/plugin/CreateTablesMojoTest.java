@@ -32,12 +32,12 @@ package com.jcabi.dynamodb.maven.plugin;
 import org.junit.Test;
 
 /**
- * Test case for {@link CreateTableMojo} (more detailed test is in maven
+ * Test case for {@link CreateTablesMojo} (more detailed test is in maven
  * invoker).
  * @author Carlos Miranda (miranda.cma@gmail.com)
  * @version $Id$
  */
-public final class CreateTableMojoTest {
+public final class CreateTablesMojoTest {
 
     /**
      * CreateTableMojo can skip execution when flag is set.
@@ -45,7 +45,7 @@ public final class CreateTableMojoTest {
      */
     @Test
     public void skipsExecutionWhenRequired() throws Exception {
-        final CreateTableMojo mojo = new CreateTableMojo();
+        final CreateTablesMojo mojo = new CreateTablesMojo();
         mojo.setSkip(true);
         mojo.execute();
     }

@@ -65,10 +65,10 @@ import org.apache.maven.plugins.annotations.Parameter;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Mojo(
-    threadSafe = true, name = "create-table",
+    threadSafe = true, name = "create-tables",
     defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
 )
-public final class CreateTableMojo extends AbstractDynamoMojo {
+public final class CreateTablesMojo extends AbstractDynamoMojo {
 
     /**
      * The location of the tables to be created, in JSON format.

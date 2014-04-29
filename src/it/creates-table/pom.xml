@@ -96,7 +96,7 @@
                         <id>jcabi-dynamodb-local</id>
                         <goals>
                             <goal>start</goal>
-                            <goal>create-table</goal>
+                            <goal>create-tables</goal>
                             <goal>stop</goal>
                         </goals>
                     </execution>
