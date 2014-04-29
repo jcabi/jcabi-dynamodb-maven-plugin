@@ -83,7 +83,9 @@
                     <port>${dynamodblocal.port}</port>
                     <dist>${project.build.directory}/dynamodb-dist</dist>
                     <tables>
-                        <table>${basedir}/test.json</table>
+                        <table>${basedir}/first.json</table>
+                        <table>${basedir}/first2.json</table>
+                        <table>${basedir}/second.json</table>
                     </tables>
                     <arguments>
                         <argument>-inMemory</argument>

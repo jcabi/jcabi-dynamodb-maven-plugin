@@ -74,7 +74,7 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
      * The location of the tables to be created, in JSON format.
      */
     @Parameter(required = false)
-    private transient Collection<String> tables = new LinkedList<String>();
+    private transient Collection<String> tables;
 
     /**
      * AWS endpoint, use localhost if not specified.
@@ -101,12 +101,12 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
         );
         aws.setEndpoint(String.format("%s:%d", this.endpoint, this.tcpPort()));
         for (final String table : this.tables) {
-            final JsonObject json = CreateTableMojo.readJson(table);
+            final JsonObject json = this.readJson(table);
             if (json.containsKey("TableName")) {
                 final String name = json.getString("TableName");
                 if (Tables.doesTableExist(aws, name)) {
                     Logger.info(
-                        this, "Table '%s' already exists, skipping...", table
+                        this, "Table '%s' already exists, skipping...", name
                     );
                 } else {
                     this.createTable(aws, json);
@@ -127,7 +127,9 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
      * @param aws DynamoDB client
      * @param json JSON definition of table
      * @checkstyle ExecutableStatementCount (50 lines)
+     * @checkstyle ExecutableStatementCount (50 lines)
      */
+    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private void createTable(final AmazonDynamoDB aws,  final JsonObject json) {
         final String name = json.getString("TableName");
         final CreateTableRequest request =
@@ -178,9 +180,9 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
             );
         }
         aws.createTable(request);
-        Logger.info(this, "Waiting for table %s to become active", name);
+        Logger.info(this, "Waiting for table '%s' to become active", name);
         Tables.waitForTableToBecomeActive(aws, name);
-        Logger.info(this, "Table %s is now ready for use", name);
+        Logger.info(this, "Table '%s' is now ready for use", name);
     }
 
     /**
@@ -189,7 +191,7 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
      * @return The JSON object
      * @throws MojoFailureException If there is an execution failure.
      */
-    private static JsonObject readJson(final String file)
+    private JsonObject readJson(final String file)
         throws MojoFailureException {
         InputStream stream = null;
         JsonObject json = null;
@@ -205,7 +207,11 @@ public final class CreateTableMojo extends AbstractDynamoMojo {
                 try {
                     stream.close();
                 } catch (final IOException ex) {
-                    throw new MojoFailureException("IO failure occured", ex);
+                    Logger.error(
+                        this,
+                        "Failed to close stream with message %s",
+                        ex.getMessage()
+                    );
                 }
             }
         }

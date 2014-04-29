@@ -1,13 +1,13 @@
 {
     "AttributeDefinitions": [
         {
-            "AttributeName": "attr",
+            "AttributeName": "second",
             "AttributeType": "S"
         }
     ],
     "KeySchema": [
         {
-            "AttributeName": "attr",
+            "AttributeName": "second",
             "KeyType": "HASH"
         }
     ],
@@ -15,5 +15,5 @@
         "ReadCapacityUnits": "100",
         "WriteCapacityUnits": "100"
     },
-    "TableName": "TestTable"
+    "TableName": "SecondTable"
 }
