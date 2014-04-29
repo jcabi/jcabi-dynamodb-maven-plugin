@@ -124,7 +124,7 @@ Integration Testing of DynamoDB
             </goals>
             <configuration>
               <port>${sign}{dynamodblocal.port}</port>
-              <dist>${sign}{project.build.directory}/dynamodb-dist</tgz>
+              <dist>${sign}{project.build.directory}/dynamodb-dist</dist>
             </configuration>
           </execution>
         </executions>
