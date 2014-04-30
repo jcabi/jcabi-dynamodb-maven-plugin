@@ -95,7 +95,7 @@ public final class StartMojo extends AbstractDynamoMojo {
         }
         try {
             instances.start(this.dist, this.tcpPort(), this.home, this.args());
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             throw new MojoFailureException(
                 "failed to start DynamoDB Local", ex
             );
