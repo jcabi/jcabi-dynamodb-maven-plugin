@@ -36,6 +36,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
+import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.Tables;
@@ -130,7 +131,6 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
      * @param aws DynamoDB client
      * @param json JSON definition of table
      * @checkstyle ExecutableStatementCount (50 lines)
-     * @checkstyle ExecutableStatementCount (50 lines)
      */
     private void createTable(final AmazonDynamoDB aws,  final JsonObject json) {
         final String name = json.getString("TableName");
@@ -175,23 +175,12 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
             final JsonArray array =
                 json.getJsonArray("GlobalSecondaryIndexes");
             for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
-                final JsonObject projn = index.getJsonObject("Projection");
-                final Projection projection = new Projection()
-                    .withProjectionType(projn.getString("ProjectionType"));
-                final Collection<String> nonkeyattrs = new LinkedList<String>();
-                if (projn.containsKey("NonKeyAttributes")) {
-                    for (final JsonValue nonkey
-                        : projn.getJsonArray("NonKeyAttributes")) {
-                        nonkeyattrs.add(nonkey.toString());
-                    }
-                    projection.setNonKeyAttributes(nonkeyattrs);
-                }
                 final JsonObject throughput =
                     index.getJsonObject("ProvisionedThroughput");
                 final GlobalSecondaryIndex gsi = new GlobalSecondaryIndex()
                     .withIndexName(index.getString("IndexName"))
                     .withKeySchema(this.keySchema(index))
-                    .withProjection(projection)
+                    .withProjection(this.projection(index))
                     .withProvisionedThroughput(
                         new ProvisionedThroughput(
                             Long.parseLong(
@@ -206,10 +195,44 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
             }
             request.setGlobalSecondaryIndexes(indexes);
         }
+        if (json.containsKey("LocalSecondaryIndexes")) {
+            final Collection<LocalSecondaryIndex> indexes =
+                new LinkedList<LocalSecondaryIndex>();
+            final JsonArray array =
+                json.getJsonArray("LocalSecondaryIndexes");
+            for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
+                final LocalSecondaryIndex lsi = new LocalSecondaryIndex()
+                    .withIndexName(index.getString("IndexName"))
+                    .withKeySchema(this.keySchema(index))
+                    .withProjection(this.projection(index));
+                indexes.add(lsi);
+            }
+            request.setLocalSecondaryIndexes(indexes);
+        }
         aws.createTable(request);
         Logger.info(this, "Waiting for table '%s' to become active", name);
         Tables.waitForTableToBecomeActive(aws, name);
         Logger.info(this, "Table '%s' is now ready for use", name);
+    }
+
+    /**
+     * Get projection JSON element.
+     * @param json JSON input
+     * @return Projection
+     */
+    private Projection projection(final JsonObject json) {
+        final JsonObject projn = json.getJsonObject("Projection");
+        final Projection projection = new Projection()
+            .withProjectionType(projn.getString("ProjectionType"));
+        final Collection<String> nonkeyattrs = new LinkedList<String>();
+        if (projn.containsKey("NonKeyAttributes")) {
+            for (final JsonValue nonkey
+                : projn.getJsonArray("NonKeyAttributes")) {
+                nonkeyattrs.add(nonkey.toString());
+            }
+            projection.setNonKeyAttributes(nonkeyattrs);
+        }
+        return projection;
     }
 
     /**
