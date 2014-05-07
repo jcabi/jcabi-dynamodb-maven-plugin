@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
- * Copyright (c) 2012-2013, JCabi.com
+ * Copyright (c) 2012-2014, jcabi.com
  * All rights reserved.
  -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -23,19 +23,12 @@
 <link rel="shortcut icon" href="http://img.jcabi.com/favicon.ico"/>
                                                                                                                 
 <link rel="author" href="https://plus.google.com/u/0/114792568016408327418?rel=author"/>
-                                            <link rel="stylesheet" href="./css/highlight.css" />
-        <script src="./js/jquery-1.8.3.min.js"></script>
-        <script src="./js/highlight-7.3.min.js"></script>
+                                            <script src="./js/jquery-1.8.3.min.js"></script>
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
         <link href="./css/jcabi.css" rel="stylesheet"/>
         <script>
             $(document).ready(
                 function() {
-                    $('div.source pre').each(
-                        function (idx, element) {
-                            hljs.highlightBlock(element);
-                        }
-                    );
                     $(".menu-button").click(
                         function() {
                             if ($("#here-goes-menu").attr("class") == "menu-off") {
@@ -52,8 +45,8 @@
         </script>
     </head>
     <body>
-                <div class="page">
-            <div class="menu-section">
+                <section class="page">
+            <nav class="menu-section">
                 <ul id="menu">
                                                                                     <li>
                             Overview
@@ -161,7 +154,7 @@
                                                                     </ul>
                                                     </li>
                                                                                                                         <li>
-                                                                                    <a href="apidocs-0.6/index.html" title="JavaDocs">JavaDocs</a>
+                                                                                    <a href="apidocs-0.7/index.html" title="JavaDocs">JavaDocs</a>
                                                                                                                                                                         <ul>
                                                                     </ul>
                                                     </li>
@@ -190,7 +183,7 @@
                                                                                         </ul>
                                                     </li>
                                     </ul>
-            </div>
+            </nav>
             <div id="right-side">
                 <div id="content">
                     <i class="menu-button fa fa-align-justify"></i>
@@ -205,9 +198,9 @@
                     </div>
                     <div class="date">
                         <div class="date-numbers">
-                            <strong>0.6</strong>
+                            <strong>0.7</strong>
                             
-                            30-Apr-2014
+                            07-May-2014
                         </div>
                                                                             <div class="github">
                                 <iframe
@@ -233,50 +226,121 @@
                     <div id="here-goes-menu" class="menu-off"></div>
                     <article>
                         <div class="section">
-                            <div class="section">
 <h2>File Activity Report<a name="File_Activity_Report"></a></h2>
 <div class="section">
-<h3>Changes between 2014-03-31 and 2014-05-01<a name="Changes_between_2014-03-31_and_2014-05-01"></a></h3>
-<p>Total commits: 12<br />Total number of files changed: 20</p>
+<h3>Changes between 2014-04-07 and 2014-05-08<a name="Changes_between_2014-04-07_and_2014-05-08"></a></h3>
+<p>Total commits: 17<br />Total number of files changed: 40</p>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>Filename</th>
 <th>Number of Times Changed</th></tr>
 <tr class="b">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/pom.xml"><b>pom.xml</b></a> </td>
-<td>6</td></tr>
+<td>9</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/CreateTablesMojo.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>CreateTablesMojo.java</b></a> </td>
+<td>5</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/pom.xml">src/it/creates-table/<b>pom.xml</b></a> </td>
+<td>4</td></tr>
 <tr class="a">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/CreateTableMojo.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>CreateTableMojo.java</b></a> </td>
 <td>4</td></tr>
 <tr class="b">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/pom.xml">src/it/creates-table/<b>pom.xml</b></a> </td>
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/example-create-tables.apt.vm">src/site/apt/<b>example-create-tables.apt.vm</b></a> </td>
 <td>3</td></tr>
 <tr class="a">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/example-create-tables.apt.vm">src/site/apt/<b>example-create-tables.apt.vm</b></a> </td>
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/verify.groovy">src/it/creates-table/<b>verify.groovy</b></a> </td>
+<td>3</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/StartMojo.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>StartMojo.java</b></a> </td>
+<td>3</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/site.xml">src/site/<b>site.xml</b></a> </td>
+<td>3</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/index.apt.vm">src/site/apt/<b>index.apt.vm</b></a> </td>
+<td>2</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/usage.apt.vm">src/site/apt/<b>usage.apt.vm</b></a> </td>
 <td>2</td></tr>
 <tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/test/java/com/jcabi/dynamodb/maven/plugin/CreateTablesMojoTest.java">src/test/java/com/jcabi/dynamodb/maven/plugin/<b>CreateTablesMojoTest.java</b></a> </td>
+<td>2</td></tr>
+<tr class="a">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/test/java/com/jcabi/dynamodb/maven/plugin/CreateTableMojoTest.java">src/test/java/com/jcabi/dynamodb/maven/plugin/<b>CreateTableMojoTest.java</b></a> </td>
+<td>2</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/second.json">src/it/creates-table/<b>second.json</b></a> </td>
 <td>2</td></tr>
 <tr class="a">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/test.json">src/it/creates-table/<b>test.json</b></a> </td>
 <td>2</td></tr>
 <tr class="b">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/verify.groovy">src/it/creates-table/<b>verify.groovy</b></a> </td>
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/StopMojo.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>StopMojo.java</b></a> </td>
 <td>2</td></tr>
 <tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/first.json">src/it/creates-table/<b>first.json</b></a> </td>
+<td>2</td></tr>
+<tr class="b">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/README.md"><b>README.md</b></a> </td>
 <td>1</td></tr>
-<tr class="b">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/index.apt.vm">src/site/apt/<b>index.apt.vm</b></a> </td>
-<td>1</td></tr>
 <tr class="a">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/usage.apt.vm">src/site/apt/<b>usage.apt.vm</b></a> </td>
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/LICENSE.txt"><b>LICENSE.txt</b></a> </td>
 <td>1</td></tr>
 <tr class="b">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/CreateTablesMojo.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>CreateTablesMojo.java</b></a> </td>
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/changes/changes.xml">src/changes/<b>changes.xml</b></a> </td>
 <td>1</td></tr>
 <tr class="a">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/test/java/com/jcabi/dynamodb/maven/plugin/CreateTablesMojoTest.java">src/test/java/com/jcabi/dynamodb/maven/plugin/<b>CreateTablesMojoTest.java</b></a> </td>
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/basic-usage/pom.xml">src/it/basic-usage/<b>pom.xml</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/basic-usage/verify.groovy">src/it/basic-usage/<b>verify.groovy</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/emergency/pom.xml">src/it/emergency/<b>pom.xml</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/emergency/verify.groovy">src/it/emergency/<b>verify.groovy</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/parallel/pom.xml">src/it/parallel/<b>pom.xml</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/parallel/verify.groovy">src/it/parallel/<b>verify.groovy</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/settings.xml">src/it/<b>settings.xml</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/AbstractDynamoMojo.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>AbstractDynamoMojo.java</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/Instances.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>Instances.java</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/package-info.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>package-info.java</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/example-arguments.apt.vm">src/site/apt/<b>example-arguments.apt.vm</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/apt/example-it.apt.vm">src/site/apt/<b>example-it.apt.vm</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/fml/faq.fml">src/site/fml/<b>faq.fml</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/test/java/com/jcabi/dynamodb/maven/plugin/InstancesTest.java">src/test/java/com/jcabi/dynamodb/maven/plugin/<b>InstancesTest.java</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/test/java/com/jcabi/dynamodb/maven/plugin/StartMojoTest.java">src/test/java/com/jcabi/dynamodb/maven/plugin/<b>StartMojoTest.java</b></a> </td>
+<td>1</td></tr>
+<tr class="b">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/test/java/com/jcabi/dynamodb/maven/plugin/StopMojoTest.java">src/test/java/com/jcabi/dynamodb/maven/plugin/<b>StopMojoTest.java</b></a> </td>
+<td>1</td></tr>
+<tr class="a">
+<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/test/java/com/jcabi/dynamodb/maven/plugin/package-info.java">src/test/java/com/jcabi/dynamodb/maven/plugin/<b>package-info.java</b></a> </td>
 <td>1</td></tr>
 <tr class="b">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/.gitignore"><b>.gitignore</b></a> </td>
@@ -285,39 +349,23 @@
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/invoker.properties">src/it/creates-table/<b>invoker.properties</b></a> </td>
 <td>1</td></tr>
 <tr class="b">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/first.json">src/it/creates-table/<b>first.json</b></a> </td>
-<td>1</td></tr>
-<tr class="a">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/first2.json">src/it/creates-table/<b>first2.json</b></a> </td>
 <td>1</td></tr>
-<tr class="b">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/it/creates-table/second.json">src/it/creates-table/<b>second.json</b></a> </td>
-<td>1</td></tr>
 <tr class="a">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/main/java/com/jcabi/dynamodb/maven/plugin/StartMojo.java">src/main/java/com/jcabi/dynamodb/maven/plugin/<b>StartMojo.java</b></a> </td>
-<td>1</td></tr>
-<tr class="b">
 <td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/.travis.yml"><b>.travis.yml</b></a> </td>
-<td>1</td></tr>
-<tr class="a">
-<td><a class="externalLink" href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin/src/site/site.xml">src/site/<b>site.xml</b></a> </td>
 <td>1</td></tr></table></div></div>
-                        </div>
                     </article>
-                    <img class="maven-mobile" src="./images/built-by-maven.png"
-                        alt="built by maven" style="float:right" width="80"/>
+                    <img class="maven-mobile" src="./images/built-by-maven.png" alt="built by maven"/>
                 </div>
-                <div class="legal-notes">
-                    <div class="copyright">
-                        Copyright &#169;
-                                                                            2012-2014
-                                                <br/>
-                        jcabi.com, All Rights Reserved.
-                        <br/>
-                        <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a>.
-                    </div>
-                </div>
+                <footer class="legal-notes">
+                    Copyright &#169;
+                                                                2012-2014
+                                        <br/>
+                    jcabi.com, All Rights Reserved.
+                    <br/>
+                    <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a>.
+                </footer>
             </div>
-        </div>
+        </section>
     </body>
 </html>
