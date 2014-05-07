@@ -99,7 +99,7 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
     private transient String secret;
 
     @Override
-    protected void run(final Instances instances) throws MojoFailureException {
+    public void run(final Instances instances) throws MojoFailureException {
         final AmazonDynamoDB aws = new AmazonDynamoDBClient(
             new BasicAWSCredentials(this.key, this.secret)
         );

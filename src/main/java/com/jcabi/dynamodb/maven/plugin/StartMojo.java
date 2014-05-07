@@ -68,7 +68,7 @@ public final class StartMojo extends AbstractDynamoMojo {
     private transient File home;
 
     @Override
-    protected void run(final Instances instances) throws MojoFailureException {
+    public void run(final Instances instances) throws MojoFailureException {
         if (!this.dist.exists()) {
             throw new MojoFailureException(
                 String.format(
