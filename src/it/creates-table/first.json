@@ -3,6 +3,10 @@
         {
             "AttributeName": "first",
             "AttributeType": "S"
+        },
+        {
+            "AttributeName": "second",
+            "AttributeType": "S"
         }
     ],
     "KeySchema": [
@@ -15,5 +19,30 @@
         "ReadCapacityUnits": "100",
         "WriteCapacityUnits": "100"
     },
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "TheIndex",
+            "KeySchema": [
+                {
+                    "AttributeName": "first",
+                    "KeyType": "HASH"
+                },
+                {
+                    "AttributeName": "second",
+                    "KeyType": "RANGE"
+                }
+            ],
+            "Projection": {
+                "NonKeyAttributes": [
+                    "second"
+                ],
+                "ProjectionType": "INCLUDE"
+            },
+            "ProvisionedThroughput": {
+                "ReadCapacityUnits": "100",
+                "WriteCapacityUnits": "100"
+            }
+        }
+    ],
     "TableName": "FirstTable"
 }

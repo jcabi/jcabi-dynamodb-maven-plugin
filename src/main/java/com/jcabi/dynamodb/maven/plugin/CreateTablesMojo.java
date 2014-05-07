@@ -34,7 +34,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
+import com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
+import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.Tables;
 import com.jcabi.log.Logger;
@@ -68,6 +70,7 @@ import org.apache.maven.plugins.annotations.Parameter;
     threadSafe = true, name = "create-tables",
     defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
 )
+@SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
 public final class CreateTablesMojo extends AbstractDynamoMojo {
 
     /**
@@ -129,24 +132,12 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
      * @checkstyle ExecutableStatementCount (50 lines)
      * @checkstyle ExecutableStatementCount (50 lines)
      */
-    @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
     private void createTable(final AmazonDynamoDB aws,  final JsonObject json) {
         final String name = json.getString("TableName");
         final CreateTableRequest request =
             new CreateTableRequest().withTableName(name);
         if (json.containsKey("KeySchema")) {
-            final Collection<KeySchemaElement> keys =
-                new LinkedList<KeySchemaElement>();
-            final JsonArray schema = json.getJsonArray("KeySchema");
-            for (final JsonValue value : schema) {
-                final JsonObject element = (JsonObject) value;
-                keys.add(
-                    new KeySchemaElement(
-                        element.getString("AttributeName"),
-                        element.getString("KeyType")
-                    )
-                );
-            }
+            final Collection<KeySchemaElement> keys = this.keySchema(json);
             request.setKeySchema(keys);
         }
         if (json.containsKey("AttributeDefinitions")) {
@@ -154,8 +145,7 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
                 new LinkedList<AttributeDefinition>();
             final JsonArray schema =
                 json.getJsonArray("AttributeDefinitions");
-            for (final JsonValue value : schema) {
-                final JsonObject defn = (JsonObject) value;
+            for (final JsonObject defn : schema.getValuesAs(JsonObject.class)) {
                 attrs.add(
                     new AttributeDefinition(
                         defn.getString("AttributeName"),
@@ -179,10 +169,68 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
                 )
             );
         }
+        if (json.containsKey("GlobalSecondaryIndexes")) {
+            final Collection<GlobalSecondaryIndex> indexes =
+                new LinkedList<GlobalSecondaryIndex>();
+            final JsonArray array =
+                json.getJsonArray("GlobalSecondaryIndexes");
+            for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
+                final JsonObject projn = index.getJsonObject("Projection");
+                final Projection projection = new Projection()
+                    .withProjectionType(projn.getString("ProjectionType"));
+                final Collection<String> nonkeyattrs = new LinkedList<String>();
+                if (projn.containsKey("NonKeyAttributes")) {
+                    for (final JsonValue nonkey
+                        : projn.getJsonArray("NonKeyAttributes")) {
+                        nonkeyattrs.add(nonkey.toString());
+                    }
+                    projection.setNonKeyAttributes(nonkeyattrs);
+                }
+                final JsonObject throughput =
+                    index.getJsonObject("ProvisionedThroughput");
+                final GlobalSecondaryIndex gsi = new GlobalSecondaryIndex()
+                    .withIndexName(index.getString("IndexName"))
+                    .withKeySchema(this.keySchema(index))
+                    .withProjection(projection)
+                    .withProvisionedThroughput(
+                        new ProvisionedThroughput(
+                            Long.parseLong(
+                                throughput.getString("ReadCapacityUnits")
+                            ),
+                            Long.parseLong(
+                                throughput.getString("WriteCapacityUnits")
+                            )
+                        )
+                    );
+                indexes.add(gsi);
+            }
+            request.setGlobalSecondaryIndexes(indexes);
+        }
         aws.createTable(request);
         Logger.info(this, "Waiting for table '%s' to become active", name);
         Tables.waitForTableToBecomeActive(aws, name);
         Logger.info(this, "Table '%s' is now ready for use", name);
+    }
+
+    /**
+     * Get key schema elements.
+     * @param json JSON input
+     * @return Key schema elements
+     */
+    private Collection<KeySchemaElement> keySchema(final JsonObject json) {
+        final Collection<KeySchemaElement> keys =
+            new LinkedList<KeySchemaElement>();
+        final JsonArray schema = json.getJsonArray("KeySchema");
+        for (final JsonValue value : schema) {
+            final JsonObject element = (JsonObject) value;
+            keys.add(
+                new KeySchemaElement(
+                    element.getString("AttributeName"),
+                    element.getString("KeyType")
+                )
+            );
+        }
+        return keys;
     }
 
     /**
