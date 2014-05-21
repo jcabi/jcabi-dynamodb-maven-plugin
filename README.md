@@ -1,6 +1,7 @@
 <img src="http://img.jcabi.com/logo-square.png" width="64px" height="64px" />
  
 [![Build Status](https://travis-ci.org/jcabi/jcabi-dynamodb-maven-plugin.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-dynamodb-maven-plugin)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin)
 
 More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html)
 
