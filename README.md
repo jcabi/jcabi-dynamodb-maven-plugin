@@ -9,6 +9,14 @@
 More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html).
 Also, read this blog post: [DynamoDB Local Maven Plugin](http://www.yegor256.com/2014/05/01/dynamodb-local-maven-plugin.html).
 
+Currently [supported versions](http://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/)
+of DynamoDB Local:
+
+ * `2014-10-07`
+ * `2014-04-24`
+ * `2014-01-08`
+ * `2013-09-12`
+
 ## Questions?
 
 If you have any questions about the framework, or something doesn't work as expected,
