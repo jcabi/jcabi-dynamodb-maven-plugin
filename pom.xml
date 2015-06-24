@@ -63,7 +63,7 @@
     </distributionManagement>
     <properties>
         <maven.version>3.0.5</maven.version>
-        <dynamodb.version>2014-10-07</dynamodb.version>
+        <dynamodb.version>2015-04-27</dynamodb.version>
     </properties>
     <dependencies>
         <dependency>

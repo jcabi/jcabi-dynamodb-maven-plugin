@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jcabi</groupId>
     <artifactId>DynamoDBLocal</artifactId>
-    <version>2014-10-07</version>
+    <version>2015-04-27</version>
     <packaging>zip</packaging>
     <name>DynamoDB Local</name>
     <description>AWS DynamoDB Local Distribution</description>

@@ -74,6 +74,10 @@ Integration Testing of DynamoDB
 </project>
 +--
 
+  This example uses version <<<2013-09-12>>>, which is the first one (and the
+  oldest one). Full list of currently packaged and supported versions is
+  {{{./versions.html}here}}.
+
   Then, add <<<build-helper-maven-plugin>>> to reserve a random TCP port
   for DynamoDB Local running instance:
 
