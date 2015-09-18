@@ -32,17 +32,18 @@ package com.jcabi.dynamodb.maven.plugin;
 import com.jcabi.aspects.Loggable;
 import com.jcabi.log.VerboseProcess;
 import com.jcabi.log.VerboseRunnable;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
 import javax.validation.constraints.NotNull;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 /**
  * Running instances of DynamoDB Local.
@@ -142,25 +143,20 @@ final class Instances {
      */
     private static Process process(final File dist, final int port,
         final File home, final List<String> args) throws IOException {
-        final List<String> baseCommand = Arrays.asList(
-            new File(home, "bin/java").getAbsolutePath(),
-            new StringBuilder("-Djava.library.path=")
-                .append(dist)
-                .append(System.getProperty("path.separator"))
-                .append(new File(dist, "DynamoDBLocal_lib"))
-                .toString()
-            ,
-            "-jar",
-            "DynamoDBLocal.jar",
-            "--port",
-            Integer.toString(port)
-        );
-        final List<String> commandWithArgs =
-            new ArrayList<String>(baseCommand.size() + args.size());
-        commandWithArgs.addAll(baseCommand);
-        commandWithArgs.addAll(args);
-        return new ProcessBuilder().command(commandWithArgs)
-            .directory(dist).redirectErrorStream(true).start();
+        final int baseCommandCount = 6;
+        final List<String> command = new ArrayList<String>(baseCommandCount + args.size());
+        command.add(new File(home, "bin/java").getAbsolutePath());
+        command.add(new StringBuilder("-Djava.library.path=")
+                        .append(dist)
+                        .append(System.getProperty("path.separator"))
+                        .append(new File(dist, "DynamoDBLocal_lib"))
+                        .toString());
+        command.add("-jar");
+        command.add("DynamoDBLocal.jar");
+        command.add("--port");
+        command.add(Integer.toString(port));
+        command.addAll(args);
+        return new ProcessBuilder().command(command).directory(dist).redirectErrorStream(true).start();
     }
 
     /**
