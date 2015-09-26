@@ -12,6 +12,7 @@ Also, read this blog post: [DynamoDB Local Maven Plugin](http://www.yegor256.com
 Currently [supported versions](http://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/)
 of DynamoDB Local:
 
+ * `2015-07-16`
  * `2014-10-07`
  * `2014-04-24`
  * `2014-01-08`
