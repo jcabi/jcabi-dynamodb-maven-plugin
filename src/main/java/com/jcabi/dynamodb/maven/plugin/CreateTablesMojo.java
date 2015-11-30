@@ -160,8 +160,8 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
                 json.getJsonObject("ProvisionedThroughput");
             request.setProvisionedThroughput(
                 new ProvisionedThroughput(
-                    asLong(throughput, "ReadCapacityUnits"),
-                    asLong(throughput, "WriteCapacityUnits")
+                    this.asLong(throughput, "ReadCapacityUnits"),
+                    this.asLong(throughput, "WriteCapacityUnits")
                 )
             );
         }
@@ -179,8 +179,8 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
                     .withProjection(this.projection(index))
                     .withProvisionedThroughput(
                         new ProvisionedThroughput(
-                            asLong(throughput, "ReadCapacityUnits"),
-                            asLong(throughput, "WriteCapacityUnits")
+                            this.asLong(throughput, "ReadCapacityUnits"),
+                            this.asLong(throughput, "WriteCapacityUnits")
                         )
                     );
                 indexes.add(gsi);
@@ -208,18 +208,21 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
     }
 
     /**
-     * Get json value as a long - with a backward compatibility fallback for string values
+     * Get json value as a long - with a backward compatibility fallback for
+     * string values.
      *
      * @param json JSON input
      * @param name The element name
      * @return The element value converted as a long
      */
-    private long asLong(JsonObject json, String name){
+    private long asLong(final JsonObject json, final String name) {
+        long result;
         try {
-            return json.getJsonNumber(name).longValue();
-        }catch(ClassCastException e){
-            return Long.parseLong(json.getString(name));
+            result = json.getJsonNumber(name).longValue();
+        } catch (final ClassCastException ex) {
+            result = Long.parseLong(json.getString(name));
         }
+        return result;
     }
 
     /**
