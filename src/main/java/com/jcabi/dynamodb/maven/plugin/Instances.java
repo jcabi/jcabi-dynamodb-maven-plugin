@@ -62,7 +62,7 @@ final class Instances {
      * Running processes.
      */
     private final transient ConcurrentMap<Integer, Process> processes =
-        new ConcurrentHashMap<Integer, Process>(0);
+            new ConcurrentHashMap<Integer, Process>(0);
 
     /**
      * Public ctor.
@@ -99,6 +99,13 @@ final class Instances {
         thread.setDaemon(true);
         thread.start();
         this.processes.put(port, process);
+    }
+
+    public void run(@NotNull final File dist, final int port, final File home,
+                    @NotNull final List<String> args) throws IOException {
+        final Process process = Instances.process(dist, port, home, args);
+        this.processes.put(port, process);
+        new VerboseRunnable(new InstanceProcess(process)).run();
     }
 
     /**
