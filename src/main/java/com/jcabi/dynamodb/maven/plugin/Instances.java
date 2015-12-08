@@ -62,7 +62,7 @@ final class Instances {
      * Running processes.
      */
     private final transient ConcurrentMap<Integer, Process> processes =
-            new ConcurrentHashMap<Integer, Process>(0);
+        new ConcurrentHashMap<Integer, Process>(0);
 
     /**
      * Public ctor.
