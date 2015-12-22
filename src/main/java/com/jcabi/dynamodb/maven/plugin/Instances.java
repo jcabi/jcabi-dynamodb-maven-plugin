@@ -102,6 +102,22 @@ final class Instances {
     }
 
     /**
+     * Launch a new one at this port. This goal will block maven.
+     * @param dist Path to DynamoDBLocal distribution
+     * @param port The port to start at
+     * @param home Java home directory
+     * @param args Command line arguments
+     * @throws IOException If fails to start
+     * @checkstyle ParameterNumber (5 lines)
+     */
+    public void run(@NotNull final File dist, final int port, final File home,
+                    @NotNull final List<String> args) throws IOException {
+        final Process process = Instances.process(dist, port, home, args);
+        this.processes.put(port, process);
+        new VerboseRunnable(new InstanceProcess(process)).run();
+    }
+
+    /**
      * Stop a running one at this port.
      * @param port The port to stop at
      */
