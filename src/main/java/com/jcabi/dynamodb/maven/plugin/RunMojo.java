@@ -41,8 +41,8 @@ import org.apache.maven.plugins.annotations.Parameter;
  * Starts DynamoDB Local.
  *
  * @todo #41:30min Let's avoid code duplication between this class and `StartMojo`.
- *  One idea is to  create a decorator called `ThreadedMojo` that receives another
- *  mojo in its constructor and, when called, runs it inside a thread
+ *  One idea is to create a decorator called `ThreadedMojo` that receives
+ *  another mojo in its constructor and, when called, runs it inside a thread.
  *
  * @author Denis N. Antonioli (denisa@sunrun.com)
  * @version $Id$
