@@ -41,7 +41,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.slf4j.impl.StaticLoggerBinder;
 
 /**
- * Abstract MOJO.
+ * Abstract DynamoMOJO.
  *
  * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
@@ -96,6 +96,8 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
             Logger.info(this, "execution skipped because of 'skip' option");
             return;
         }
+        // @checkstyle Always make this.environment(); as the first call!
+        this.environment();
         this.run(AbstractDynamoMojo.INSTANCES);
     }
 
@@ -120,11 +122,19 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     }
 
     /**
+     * Set the project environment.
+     * {@link com.jcabi.dynamodb.maven.plugin.AbstractEnviromentMojo}.
+     * @throws MojoFailureException If fails
+     */
+    protected void environment() throws MojoFailureException {
+        // Intentionally empty!, To be implemented by sub classes.
+    }
+
+    /**
      * Run custom functionality.
      * @param instances Instances to work with
      * @throws MojoFailureException If fails
      */
-    protected abstract void run(Instances instances)
+    protected abstract void run(final Instances instances)
         throws MojoFailureException;
-
 }

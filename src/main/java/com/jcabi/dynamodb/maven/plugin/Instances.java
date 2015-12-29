@@ -90,8 +90,7 @@ final class Instances {
      * @checkstyle ParameterNumber (5 lines)
      */
     public void start(@NotNull final File dist, final int port, final File home,
-        @NotNull final List<String> args)
-        throws IOException {
+        @NotNull final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
             new VerboseRunnable(new InstanceProcess(process))
@@ -111,10 +110,14 @@ final class Instances {
      * @checkstyle ParameterNumber (5 lines)
      */
     public void run(@NotNull final File dist, final int port, final File home,
-                    @NotNull final List<String> args) throws IOException {
+        @NotNull final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
+        final Thread thread = new Thread(
+            new VerboseRunnable(new InstanceProcess(process))
+        );
+        thread.setDaemon(true);
+        thread.start();
         this.processes.put(port, process);
-        new VerboseRunnable(new InstanceProcess(process)).run();
     }
 
     /**
