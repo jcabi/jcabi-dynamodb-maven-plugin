@@ -52,18 +52,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 )
 public final class StartMojo extends AbstractEnviromentMojo {
 
-    /**
-     * Ctor.
-     */
-    public StartMojo() {
-        super();
-    }
-
     @Override
     public void run(final Instances instances) throws MojoFailureException {
         try {
             instances.start(
-                this.dist(), this.tcpPort(), this.home(), this.args()
+                this.distdir(), this.tcpPort(), this.homedir(), this.args()
             );
         } catch (final IOException ex) {
             throw new MojoFailureException(

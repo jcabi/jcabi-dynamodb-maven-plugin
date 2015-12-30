@@ -82,18 +82,18 @@ abstract class AbstractEnviromentMojo extends AbstractDynamoMojo {
     }
 
     /**
-     * Dist file.
+     * Location of DynamoDB Local distribution.
      * @return File dist
      */
-    protected File dist() {
+    protected File distdir() {
         return this.dist;
     }
 
     /**
-     * Home file.
+     * Java home directory, where "bin/java" can be executed.
      * @return File home
      */
-    protected File home() {
+    protected File homedir() {
         return this.home;
     }
 }

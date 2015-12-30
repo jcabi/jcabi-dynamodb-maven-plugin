@@ -39,14 +39,13 @@ import org.apache.maven.plugins.annotations.Mojo;
 /**
  * Runs DynamoDB Local.
  *
- * @todo #41:30min Let's avoid code duplication between this class and `StartMojo`.
- *  One idea is to create a decorator called `ThreadedMojo` that receives
- *  another mojo in its constructor and, when called, runs it inside a thread.
- *
  * @author Denis N. Antonioli (denisa@sunrun.com)
  * @author Simon Njenga (simtuje@gmail.com)
  * @version $Id$
  * @since 0.8
+ * @todo #41:30min Let's avoid code duplication between this class and `StartMojo`.
+ *  One idea is to create a decorator called `ThreadedMojo` that receives
+ *  another mojo in its constructor and, when called, runs it inside a thread.
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
@@ -56,18 +55,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 )
 public final class RunMojo extends AbstractEnviromentMojo {
 
-    /**
-     * Ctor.
-     */
-    public RunMojo() {
-        super();
-    }
-
     @Override
     public void run(final Instances instances) throws MojoFailureException {
         try {
             instances.start(
-                this.dist(), this.tcpPort(), this.home(), this.args()
+                this.distdir(), this.tcpPort(), this.homedir(), this.args()
             );
         } catch (final IOException ex) {
             throw new MojoFailureException(

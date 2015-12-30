@@ -127,7 +127,8 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * @throws MojoFailureException If fails
      */
     protected void environment() throws MojoFailureException {
-        // Intentionally empty!, To be implemented by sub classes.
+        // @checkstyle Intentionally empty!, To be implemented by sub classes!
+        return;
     }
 
     /**
