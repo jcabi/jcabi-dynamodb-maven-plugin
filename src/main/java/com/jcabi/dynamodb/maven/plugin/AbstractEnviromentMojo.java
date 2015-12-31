@@ -61,6 +61,9 @@ abstract class AbstractEnviromentMojo extends AbstractDynamoMojo {
     private transient File home;
 
     @Override
+    @SuppressWarnings({
+        "PMD.AvoidCatchingGenericException", "PMD.PreserveStackTrace"
+    })
     public void environment() throws MojoFailureException {
         if (!this.dist.exists() || !this.dist.isDirectory()) {
             throw new MojoFailureException(
