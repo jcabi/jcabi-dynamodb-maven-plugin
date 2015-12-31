@@ -61,9 +61,6 @@ abstract class AbstractEnviromentMojo extends AbstractDynamoMojo {
     private transient File home;
 
     @Override
-    @SuppressWarnings({
-        "PMD.AvoidCatchingGenericException", "PMD.PreserveStackTrace"
-    })
     public void environment() throws MojoFailureException {
         if (!this.dist.exists() || !this.dist.isDirectory()) {
             throw new MojoFailureException(
@@ -74,20 +71,15 @@ abstract class AbstractEnviromentMojo extends AbstractDynamoMojo {
                 )
             );
         }
+        // @checkstyle MultipleStringLiterals (2 lines)
         if (this.home == null) {
-            try {
+            if (new File(System.getProperty("java.home")).exists()) {
                 this.home = new File(System.getProperty("java.home"));
-             // @checkstyle IllegalCatch (1 line)
-            } catch (final Exception ex) {
+            } else {
                 throw new MojoFailureException(
-                    String.format("Java home property not set: %s", this.home)
+                    String.format("Java home doesn't exist: %s", this.home)
                 );
             }
-        }
-        if (!this.home.exists()) {
-            throw new MojoFailureException(
-                String.format("Java home doesn't exist: %s", this.home)
-            );
         }
     }
 
