@@ -96,7 +96,6 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
             Logger.info(this, "execution skipped because of 'skip' option");
             return;
         }
-        // @checkstyle Always make this.environment(); as the first call!
         this.environment();
         this.run(AbstractDynamoMojo.INSTANCES);
     }
@@ -125,9 +124,9 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * Set the project environment.
      * {@link com.jcabi.dynamodb.maven.plugin.AbstractEnviromentMojo}.
      * @throws MojoFailureException If fails
+     * @checkstyle Intentionally empty!, To be implemented by sub classes!
      */
     protected void environment() throws MojoFailureException {
-        // @checkstyle Intentionally empty!, To be implemented by sub classes!
         return;
     }
 

@@ -72,7 +72,14 @@ abstract class AbstractEnviromentMojo extends AbstractDynamoMojo {
             );
         }
         if (this.home == null) {
-            this.home = new File(System.getProperty("java.home"));
+            try {
+                this.home = new File(System.getProperty("java.home"));
+             // @checkstyle IllegalCatch (1 line)
+            } catch (final Exception ex) {
+                throw new MojoFailureException(
+                    String.format("Java home property not set: %s", this.home)
+                );
+            }
         }
         if (!this.home.exists()) {
             throw new MojoFailureException(

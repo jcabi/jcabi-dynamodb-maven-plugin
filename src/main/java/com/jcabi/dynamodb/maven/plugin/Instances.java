@@ -51,6 +51,9 @@ import lombok.ToString;
  * @since 0.1
  * @checkstyle ClassDataAbstractionCoupling (500 lines)
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
+ * @todo #44:30min Let's avoid code duplication between
+ * {@link #run(File, int, File, List)} & {@link #start(File, int, File, List)}
+ * A proper distinction between these two methods needs to be implemented.
  */
 @ToString
 @EqualsAndHashCode(of = "processes")
