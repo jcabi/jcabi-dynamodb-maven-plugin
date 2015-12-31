@@ -71,15 +71,13 @@ abstract class AbstractEnviromentMojo extends AbstractDynamoMojo {
                 )
             );
         }
-        // @checkstyle MultipleStringLiterals (2 lines)
         if (this.home == null) {
-            if (new File(System.getProperty("java.home")).exists()) {
-                this.home = new File(System.getProperty("java.home"));
-            } else {
-                throw new MojoFailureException(
-                    String.format("Java home doesn't exist: %s", this.home)
-                );
-            }
+            this.home = new File(System.getProperty("java.home"));
+        }
+        if (!this.home.exists()) {
+            throw new MojoFailureException(
+                String.format("Java home doesn't exist: %s", this.home)
+            );
         }
     }
 
