@@ -29,77 +29,38 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
-import java.io.File;
 import java.io.IOException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Starts DynamoDB Local.
- *
- * @todo #41:30min Let's avoid code duplication between this class and `StartMojo`.
- *  One idea is to create a decorator called `ThreadedMojo` that receives
- *  another mojo in its constructor and, when called, runs it inside a thread.
+ * Runs DynamoDB Local.
  *
  * @author Denis N. Antonioli (denisa@sunrun.com)
+ * @author Simon Njenga (simtuje@gmail.com)
  * @version $Id$
  * @since 0.8
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Mojo(
-    threadSafe = true, name = "run"
+    threadSafe = true, name = "run",
+    defaultPhase = LifecyclePhase.INTEGRATION_TEST
 )
-public final class RunMojo extends AbstractDynamoMojo {
-
-    /**
-     * Location of DynamoDB Local distribution.
-     * @since 0.4
-     */
-    @Parameter(required = true)
-    private transient File dist;
-
-    /**
-     * Java home directory, where "bin/java" can be executed.
-     * @since 0.3
-     */
-    @Parameter(required = false)
-    private transient File home;
+public final class RunMojo extends AbstractEnviromentMojo {
 
     @Override
     public void run(final Instances instances) throws MojoFailureException {
-        if (!this.dist.exists()) {
-            throw new MojoFailureException(
-                String.format(
-                    "DynamoDB Local distribution doesn't exist: %s",
-                    this.dist
-                )
-            );
-        }
-        if (!this.dist.isDirectory()) {
-            throw new MojoFailureException(
-                String.format(
-                    "DynamoDB Local distribution is not a directory: %s",
-                    this.dist
-                )
-            );
-        }
-        if (this.home == null) {
-            this.home = new File(System.getProperty("java.home"));
-        }
-        if (!this.home.exists()) {
-            throw new MojoFailureException(
-                String.format("Java home doesn't exist: %s", this.home)
-            );
-        }
         try {
-            instances.run(this.dist, this.tcpPort(), this.home, this.args());
+            instances.start(
+                this.distdir(), this.tcpPort(), this.homedir(), this.args()
+            );
         } catch (final IOException ex) {
             throw new MojoFailureException(
-                "failed to start DynamoDB Local", ex
+                "failed to run DynamoDB Local", ex
             );
         }
     }

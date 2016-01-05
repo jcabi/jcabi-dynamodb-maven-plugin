@@ -51,6 +51,9 @@ import lombok.ToString;
  * @since 0.1
  * @checkstyle ClassDataAbstractionCoupling (500 lines)
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
+ * @todo #42:30min Let's avoid code duplication between
+ * {@link #run(File, int, File, List)} & {@link #start(File, int, File, List)}
+ * A proper distinction between these two methods needs to be implemented.
  */
 @ToString
 @EqualsAndHashCode(of = "processes")
@@ -90,8 +93,7 @@ final class Instances {
      * @checkstyle ParameterNumber (5 lines)
      */
     public void start(@NotNull final File dist, final int port, final File home,
-        @NotNull final List<String> args)
-        throws IOException {
+        @NotNull final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
             new VerboseRunnable(new InstanceProcess(process))
@@ -111,10 +113,14 @@ final class Instances {
      * @checkstyle ParameterNumber (5 lines)
      */
     public void run(@NotNull final File dist, final int port, final File home,
-                    @NotNull final List<String> args) throws IOException {
+        @NotNull final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
+        final Thread thread = new Thread(
+            new VerboseRunnable(new InstanceProcess(process))
+        );
+        thread.setDaemon(true);
+        thread.start();
         this.processes.put(port, process);
-        new VerboseRunnable(new InstanceProcess(process)).run();
     }
 
     /**
