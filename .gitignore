@@ -3,6 +3,7 @@ target/
 *.iml
 local-repo/
 /bin
+.DS_Store
 .settings/
 .classpath
 .project
