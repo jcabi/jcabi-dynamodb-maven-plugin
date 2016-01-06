@@ -1,5 +1,8 @@
 target/
-.idea/
+.idea
 *.iml
+local-repo/
 /bin
-.DS_Store
+.settings/
+.classpath
+.project
