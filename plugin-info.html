@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>jcabi-dynamodb-maven-plugin - Plugin Documentation</title>
+        <title>jcabi-dynamodb-maven-plugin &#x2013; Plugin Documentation</title>
         <link media="all" rel="stylesheet" type="text/css" href="./css/jcabi.css"/>
+        <link media="all" rel="stylesheet" type="text/css" href="./ico/ico.css"/>
                             <script>
                 var _gaq = _gaq || [];
                 _gaq.push(['_setAccount', 'UA-1963507-23']);
@@ -19,24 +20,8 @@
 <link rel="shortcut icon" href="http://img.jcabi.com/favicon.ico"/>
                                                                                                                 
 <link rel="author" href="https://plus.google.com/u/0/114792568016408327418?rel=author"/>
-                                            <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
-        <script>
-            $(document).ready(
-                function() {
-                    $(".menu-button").click(
-                        function() {
-                            if ($("#here-goes-menu").attr("class") == "menu-off") {
-                                $("#menu").clone().attr("class", "mobile-menu").appendTo("#here-goes-menu");
-                                $("#here-goes-menu").attr("class", "menu-on");
-                            } else {
-                                $(".mobile-menu").hide();
-                                $("#here-goes-menu").attr("class", "menu-off");
-                            }
-                        }
-                    );
-                }
-            );
-        </script>
+                                            <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="./js/jcabi.js"></script>
     </head>
     <body>
                 <section class="page" itemscope="" itemtype="http://schema.org/BlogPosting">
@@ -106,7 +91,7 @@
                                                                                                     <li >
                             <span>                        <a href="project-info.html" title="Project Information">Project Information</a>
         </span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </li>
                                                                                                                         <li >
                             <span>                        <a href="project-reports.html" title="Project Reports">Project Reports</a>
         </span>
@@ -142,7 +127,7 @@
                                                                     </ul>
                                                     </li>
                                                                                                                         <li >
-                            <span>                        <a href="apidocs-0.7.1/index.html" title="JavaDocs">JavaDocs</a>
+                            <span>                        <a href="apidocs-0.7.2/index.html" title="JavaDocs">JavaDocs</a>
         </span>
                                                                                                                                                                 <ul>
                                                                     </ul>
@@ -187,17 +172,51 @@
                             </div>
                             <ul class="badges">
                                 <li>
-                                    <strong itemprop="version">0.7.1</strong>
+                                    <strong itemprop="version">0.7.2</strong>
                                 </li>
                                 <li>
                                     
-                                    <time itemprop="datePublished" datetime="2014-08-19T06:31:15Z">
+                                    <time itemprop="datePublished" datetime="2016-01-18T11:30:22Z">
                                         
-                                        19-Aug-2014
+                                        18-Jan-2016
                                     </time>
                                 </li>
                                 <li class="menu-button">menu</li>
                             </ul>
+                            <div class="social">
+                                <a href="http://www.facebook.com/sharer/sharer.php?u=URL"
+                                    title="Share on Facebook" class="ico">
+                                    <i class="icon-facebook"></i>
+                                </a>
+                                <a href="https://twitter.com/share?url=URL&amp;text=TITLE"
+                                    title="Share on Twitter" class="ico">
+                                    <i class="icon-twitter"></i>
+                                </a>
+                                <a href="https://plus.google.com/share?url=URL"
+                                    title="Share on Google+" class="ico">
+                                    <i class="icon-googleplus"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/cws/share?url=URL"
+                                    title="Share on LinkedIn" class="ico">
+                                    <i class="icon-linkedin"></i>
+                                </a>
+                                <a href="http://www.stumbleupon.com/submit?url=URL&amp;title=TITLE"
+                                    title="Share on StumbleUpon" class="ico">
+                                    <i class="icon-stumbleupon"></i>
+                                </a>
+                                <a href="http://digg.com/submit?phase=2&amp;url=URL&amp;title=TITLE"
+                                    title="Share on Digg" class="ico">
+                                    <i class="icon-digg"></i>
+                                </a>
+                                <a href="http://reddit.com/submit?url=URL&amp;title=TITLE"
+                                    title="Share on Reddit" class="ico">
+                                    <i class="icon-reddit"></i>
+                                </a>
+                                <a href="http://news.ycombinator.com/submitlink?u=URL&amp;t=TITLE"
+                                    title="Share on Hacker News" class="ico">
+                                    <i class="icon-hackernews"></i>
+                                </a>
+                            </div>
                         </header>
                         <div id="here-goes-menu" class="menu-off"></div>
                                                                             <a href="https://github.com/jcabi/jcabi-dynamodb-maven-plugin">
@@ -205,7 +224,7 @@
                             </a>
                                                 <article role="article" itemprop="articleBody">
                             <div class="section">
-<h2>Plugin Documentation<a name="Plugin_Documentation"></a></h2><a name="Plugin_Documentation"></a>
+<h2><a name="Plugin_Documentation"></a>Plugin Documentation</h2><a name="Plugin_Documentation"></a>
 <p>Goals available for this plugin:</p>
 <table border="0" class="bodyTable">
 <tr class="a">
@@ -215,13 +234,16 @@
 <td><a href="create-tables-mojo.html">jcabi-dynamodb:create-tables</a></td>
 <td>Creates DynamoDB tables.</td></tr>
 <tr class="a">
+<td><a href="run-mojo.html">jcabi-dynamodb:run</a></td>
+<td>Runs DynamoDB Local.</td></tr>
+<tr class="b">
 <td><a href="start-mojo.html">jcabi-dynamodb:start</a></td>
 <td>Starts DynamoDB Local.</td></tr>
-<tr class="b">
+<tr class="a">
 <td><a href="stop-mojo.html">jcabi-dynamodb:stop</a></td>
 <td>Stops DynamoDB Local.</td></tr></table>
 <div class="section">
-<h3>System Requirements<a name="System_Requirements"></a></h3><a name="System_Requirements"></a>
+<h3><a name="System_Requirements"></a>System Requirements</h3><a name="System_Requirements"></a>
 <p>The following specifies the minimum requirements to run this Maven plugin:</p>
 <table border="0" class="bodyTable">
 <tr class="a">
@@ -237,7 +259,7 @@
 <td>Disk Space</td>
 <td>No minimum requirement.</td></tr></table></div>
 <div class="section">
-<h3>Usage<a name="Usage"></a></h3><a name="Usage"></a>
+<h3><a name="Usage"></a>Usage</h3><a name="Usage"></a>
 <p>You should specify the version in your project's plugin configuration:</p>
 <div class="source">
 <pre>&lt;project&gt;
@@ -249,7 +271,7 @@
         &lt;plugin&gt;
           &lt;groupId&gt;com.jcabi&lt;/groupId&gt;
           &lt;artifactId&gt;jcabi-dynamodb-maven-plugin&lt;/artifactId&gt;
-          &lt;version&gt;0.7.1&lt;/version&gt;
+          &lt;version&gt;0.7.2&lt;/version&gt;
         &lt;/plugin&gt;
         ...
       &lt;/plugins&gt;
@@ -259,7 +281,7 @@
       &lt;plugin&gt;
         &lt;groupId&gt;com.jcabi&lt;/groupId&gt;
         &lt;artifactId&gt;jcabi-dynamodb-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;0.7.1&lt;/version&gt;
+        &lt;version&gt;0.7.2&lt;/version&gt;
       &lt;/plugin&gt;
       ...
     &lt;/plugins&gt;
@@ -274,7 +296,7 @@
                 <footer class="legal-notes">
                     <div>
                         Copyright &#169;
-                                                                            2012-2014
+                                                                            2012-2016
                                             </div>
                     <div>jcabi.com, All Rights Reserved.</div>
                     <div><a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a>.</div>
