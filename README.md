@@ -5,6 +5,7 @@
 [![We recommend IntelliJ IDEA](http://img.teamed.io/intellij-idea-recommend.svg)](https://www.jetbrains.com/idea/)
 
 [![Build Status](https://travis-ci.org/jcabi/jcabi-dynamodb-maven-plugin.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-dynamodb-maven-plugin)
+[![Build status](https://ci.appveyor.com/api/projects/status/4ads96yp0axlg9wv?svg=true)](https://ci.appveyor.com/project/yegor256/jcabi-dynamodb-maven-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin)
 
 More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html).

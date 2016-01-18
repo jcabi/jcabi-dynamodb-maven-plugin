@@ -29,6 +29,7 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
@@ -39,7 +40,8 @@ import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
-import com.amazonaws.services.dynamodbv2.util.Tables;
+import com.amazonaws.services.dynamodbv2.util.TableUtils;
+import com.jcabi.aspects.Tv;
 import com.jcabi.log.Logger;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -72,7 +74,16 @@ import org.apache.maven.plugins.annotations.Parameter;
         threadSafe = true, name = "create-tables",
         defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
     )
-@SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+@SuppressWarnings
+    (
+        {
+            "PMD.NPathComplexity",
+            "PMD.CyclomaticComplexity",
+            "PMD.StdCyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity",
+            "PMD.AvoidInstantiatingObjectsInLoops"
+        }
+    )
 public final class CreateTablesMojo extends AbstractDynamoMojo {
 
     /**
@@ -109,7 +120,7 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
             final JsonObject json = this.readJson(table);
             if (json.containsKey("TableName")) {
                 final String name = json.getString("TableName");
-                if (Tables.doesTableExist(aws, name)) {
+                if (CreateTablesMojo.exists(aws, name)) {
                     Logger.info(
                         this, "Table '%s' already exists, skipping...", name
                     );
@@ -127,11 +138,34 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
     }
 
     /**
+     * Table exists?
+     * @param aws AWS
+     * @param name Table name
+     * @return TRUE if it exists
+     */
+    private static boolean exists(final AmazonDynamoDB aws, final String name) {
+        boolean exists;
+        try {
+            TableUtils.waitUntilExists(
+                aws, name, Tv.THOUSAND, Tv.HUNDRED
+            );
+            exists = true;
+        } catch (final AmazonClientException ex) {
+            exists = false;
+        } catch (final InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException(ex);
+        }
+        return exists;
+    }
+
+    /**
      * Create DynamoDB table.
      *
      * @param aws DynamoDB client
      * @param json JSON definition of table
      * @checkstyle ExecutableStatementCount (50 lines)
+     * @checkstyle NPathComplexityCheck (100 lines)
      */
     private void createTable(final AmazonDynamoDB aws,  final JsonObject json) {
         final String name = json.getString("TableName");
@@ -204,7 +238,12 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
         }
         aws.createTable(request);
         Logger.info(this, "Waiting for table '%s' to become active", name);
-        Tables.waitForTableToBecomeActive(aws, name);
+        try {
+            TableUtils.waitUntilActive(aws, name);
+        } catch (final InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException(ex);
+        }
         Logger.info(this, "Table '%s' is now ready for use", name);
     }
 
