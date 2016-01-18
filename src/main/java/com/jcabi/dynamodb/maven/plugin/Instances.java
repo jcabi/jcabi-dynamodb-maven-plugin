@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import javax.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -64,13 +63,13 @@ final class Instances {
     /**
      * Running processes.
      */
-    private final transient ConcurrentMap<Integer, Process> processes =
-        new ConcurrentHashMap<Integer, Process>(0);
+    private final transient ConcurrentMap<Integer, Process> processes;
 
     /**
      * Public ctor.
      */
     Instances() {
+        this.processes = new ConcurrentHashMap<Integer, Process>(0);
         Runtime.getRuntime().addShutdownHook(
             new Thread(
                 new Runnable() {
@@ -92,8 +91,8 @@ final class Instances {
      * @throws IOException If fails to start
      * @checkstyle ParameterNumber (5 lines)
      */
-    public void start(@NotNull final File dist, final int port, final File home,
-        @NotNull final List<String> args) throws IOException {
+    public void start(final File dist, final int port, final File home,
+        final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
             new VerboseRunnable(new InstanceProcess(process))
@@ -112,8 +111,8 @@ final class Instances {
      * @throws IOException If fails to start
      * @checkstyle ParameterNumber (5 lines)
      */
-    public void run(@NotNull final File dist, final int port, final File home,
-        @NotNull final List<String> args) throws IOException {
+    public void run(final File dist, final int port, final File home,
+        final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
             new VerboseRunnable(new InstanceProcess(process))

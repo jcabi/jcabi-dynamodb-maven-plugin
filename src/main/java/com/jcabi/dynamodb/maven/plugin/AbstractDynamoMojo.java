@@ -59,10 +59,11 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     /**
      * Shall we skip execution?
      */
-    @Parameter(
-        defaultValue = "false",
-        required = false
-    )
+    @Parameter
+        (
+            defaultValue = "false",
+            required = false
+        )
     private transient boolean skip;
 
     /**
@@ -75,10 +76,11 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     /**
      * Port to use.
      */
-    @Parameter(
-        defaultValue = "10101",
-        required = false
-    )
+    @Parameter
+        (
+            defaultValue = "10101",
+            required = false
+        )
     private transient int port;
 
     /**

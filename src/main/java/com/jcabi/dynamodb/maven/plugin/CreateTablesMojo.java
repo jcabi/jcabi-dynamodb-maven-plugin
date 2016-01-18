@@ -67,10 +67,11 @@ import org.apache.maven.plugins.annotations.Parameter;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@Mojo(
-    threadSafe = true, name = "create-tables",
-    defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
-)
+@Mojo
+    (
+        threadSafe = true, name = "create-tables",
+        defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
+    )
 @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
 public final class CreateTablesMojo extends AbstractDynamoMojo {
 

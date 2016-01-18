@@ -44,10 +44,11 @@ import org.apache.maven.plugins.annotations.Mojo;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@Mojo(
-    threadSafe = true, name = "stop",
-    defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST
-)
+@Mojo
+    (
+        threadSafe = true, name = "stop",
+        defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST
+    )
 public final class StopMojo extends AbstractDynamoMojo {
 
     @Override

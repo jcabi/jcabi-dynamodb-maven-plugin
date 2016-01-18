@@ -46,10 +46,11 @@ import org.apache.maven.plugins.annotations.Mojo;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@Mojo(
-    threadSafe = true, name = "start",
-    defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
-)
+@Mojo
+    (
+        threadSafe = true, name = "start",
+        defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
+    )
 public final class StartMojo extends AbstractEnviromentMojo {
 
     @Override
