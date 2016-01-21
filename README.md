@@ -7,6 +7,7 @@
 [![Build Status](https://travis-ci.org/jcabi/jcabi-dynamodb-maven-plugin.svg?branch=master)](https://travis-ci.org/jcabi/jcabi-dynamodb-maven-plugin)
 [![Build status](https://ci.appveyor.com/api/projects/status/4ads96yp0axlg9wv?svg=true)](https://ci.appveyor.com/project/yegor256/jcabi-dynamodb-maven-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin)
+[![Javadoc](https://javadoc-emblem.rhcloud.com/doc/com.jcabi/jcabi-dynamodb-maven-plugin/badge.svg)](http://www.javadoc.io/doc/com.jcabi/jcabi-dynamodb-maven-plugin)
 
 More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html).
 Also, read this blog post: [DynamoDB Local Maven Plugin](http://www.yegor256.com/2014/05/01/dynamodb-local-maven-plugin.html).
