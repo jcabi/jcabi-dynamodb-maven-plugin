@@ -65,7 +65,7 @@ public final class Instances {
     /**
      * Public ctor.
      */
-    Instances() {
+    public Instances() {
         this.processes = new ConcurrentHashMap<Integer, Process>(0);
         Runtime.getRuntime().addShutdownHook(
             new Thread(
