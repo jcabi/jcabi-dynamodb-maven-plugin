@@ -29,6 +29,7 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
+import com.jcabi.dynamodb.core.Instances;
 import com.jcabi.log.Logger;
 import java.util.Collections;
 import java.util.LinkedList;

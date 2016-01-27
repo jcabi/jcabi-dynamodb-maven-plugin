@@ -27,7 +27,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.jcabi.dynamodb.maven.plugin;
+package com.jcabi.dynamodb.core;
 
 import com.jcabi.aspects.Loggable;
 import com.jcabi.log.VerboseProcess;
@@ -55,7 +55,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "processes")
 @Loggable(Loggable.INFO)
 @SuppressWarnings("PMD.DoNotUseThreads")
-final class Instances {
+public final class Instances {
 
     /**
      * Running processes.

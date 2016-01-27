@@ -42,6 +42,7 @@ import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
 import com.jcabi.aspects.Tv;
+import com.jcabi.dynamodb.core.Instances;
 import com.jcabi.log.Logger;
 import java.io.FileInputStream;
 import java.io.IOException;

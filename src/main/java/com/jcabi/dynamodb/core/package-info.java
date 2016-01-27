@@ -27,34 +27,21 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.jcabi.dynamodb.maven.plugin;
-
-import com.jcabi.dynamodb.core.Instances;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
 
 /**
- * Stops DynamoDB Local.
+ * DynamoDB core.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * <p>The only dependency you need is (check our latest version available
+ * at <a href="http://www.jcabi.com">www.jcabi.com</a>):
+ *
+ * <pre>&lt;depedency&gt;
+ *   &lt;groupId&gt;com.jcabi&lt;/groupId&gt;
+ *   &lt;artifactId&gt;jcabi-dynamodb-maven-plugin&lt;/artifactId&gt;
+ * &lt;/dependency&gt;</pre>
+ *
+ * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.4
+ * @see <a href="http://www.jcabi.com/jcabi-dynamodb-maven-plugin">project website</a>
  */
-@ToString
-@EqualsAndHashCode(callSuper = false)
-@Mojo
-    (
-        threadSafe = true, name = "stop",
-        defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST
-    )
-public final class StopMojo extends AbstractDynamoMojo {
-
-    @Override
-    public void run(final Instances instances) throws MojoFailureException {
-        instances.stop(this.tcpPort());
-    }
-
-}
+package com.jcabi.dynamodb.core;
