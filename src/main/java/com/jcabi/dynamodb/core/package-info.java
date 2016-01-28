@@ -31,17 +31,18 @@
 /**
  * DynamoDB core.
  *
- * <p>The only dependency you need is (check our latest version available
- * at <a href="http://www.jcabi.com">www.jcabi.com</a>):
- *
- * <pre>&lt;depedency&gt;
+ * <pre>
+ * {@code
+ * &lt;depedency&gt;
  *   &lt;groupId&gt;com.jcabi&lt;/groupId&gt;
  *   &lt;artifactId&gt;jcabi-dynamodb-maven-plugin&lt;/artifactId&gt;
- * &lt;/dependency&gt;</pre>
+ * &lt;/dependency&gt;
+ * }
+ * </pre>
  *
  * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
  * @version $Id$
- * @since 0.4
+ * @since 0.8
  * @see <a href="http://www.jcabi.com/jcabi-dynamodb-maven-plugin">project website</a>
  */
 package com.jcabi.dynamodb.core;
