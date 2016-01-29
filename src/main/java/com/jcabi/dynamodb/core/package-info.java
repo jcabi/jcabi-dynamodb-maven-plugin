@@ -29,7 +29,8 @@
  */
 
 /**
- * DynamoDB core.
+ * DynamoDB core package.
+ * Logic for running local dynamodb directly.
  *
  * <pre>
  * {@code
@@ -39,10 +40,8 @@
  * &lt;/dependency&gt;
  * }
  * </pre>
- *
  * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
  * @version $Id$
  * @since 0.8
- * @see <a href="http://www.jcabi.com/jcabi-dynamodb-maven-plugin">project website</a>
  */
 package com.jcabi.dynamodb.core;

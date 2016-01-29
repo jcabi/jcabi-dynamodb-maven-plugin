@@ -67,6 +67,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @version $Id$
  * @checkstyle ClassDataAbstractionCoupling (300 lines)
  * @checkstyle MultipleStringLiterals (300 lines)
+ * @checkstyle ExcessiveImports (400 lines)
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
