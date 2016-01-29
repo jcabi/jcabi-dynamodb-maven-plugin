@@ -35,9 +35,9 @@
  * <pre>
  * {@code
  * <depedency>
- *   <groupId>com.jcabi</groupId>
- *   <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
- * </dependency>
+ *   <groupId>com.jcabi&lt;/groupId>
+ *   <artifactId>jcabi-dynamodb-maven-plugin&lt;/artifactId>
+ * &lt;/dependency>
  * }
  * </pre>
  * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
