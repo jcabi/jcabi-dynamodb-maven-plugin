@@ -62,6 +62,16 @@ import javax.json.JsonValue;
  * @checkstyle ClassDataAbstractionCoupling (300 lines)
  * @checkstyle MultipleStringLiterals (300 lines)
  */
+@SuppressWarnings
+    (
+        {
+            "PMD.NPathComplexity",
+            "PMD.CyclomaticComplexity",
+            "PMD.StdCyclomaticComplexity",
+            "PMD.ModifiedCyclomaticComplexity",
+            "PMD.AvoidInstantiatingObjectsInLoops"
+        }
+    )
 public final class Tables {
 
     /**

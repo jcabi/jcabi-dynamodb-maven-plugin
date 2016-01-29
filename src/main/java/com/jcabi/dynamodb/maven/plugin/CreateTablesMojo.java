@@ -53,16 +53,6 @@ import org.apache.maven.plugins.annotations.Parameter;
         threadSafe = true, name = "create-tables",
         defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
     )
-@SuppressWarnings
-    (
-        {
-            "PMD.NPathComplexity",
-            "PMD.CyclomaticComplexity",
-            "PMD.StdCyclomaticComplexity",
-            "PMD.ModifiedCyclomaticComplexity",
-            "PMD.AvoidInstantiatingObjectsInLoops"
-        }
-    )
 public final class CreateTablesMojo extends AbstractDynamoMojo {
 
     /**
