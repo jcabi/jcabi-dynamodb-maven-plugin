@@ -55,7 +55,7 @@ import javax.json.JsonObject;
 import javax.json.JsonValue;
 
 /**
- * Handles DynamoDB tables.
+ * Handles DynamoDB locations.
  * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
  * @version $Id$
  * @since 1.0
@@ -77,7 +77,7 @@ public final class Tables {
     /**
      * Location of the tables to be created.
      */
-    private final transient Collection<String> tables;
+    private final transient Collection<String> locations;
 
     /**
      * AWS endpoint.
@@ -87,7 +87,7 @@ public final class Tables {
     /**
      * Port to connect.
      */
-    private final Integer port;
+    private final transient Integer port;
 
     /**
      * AWS key.
@@ -101,16 +101,16 @@ public final class Tables {
 
     /**
      * Public ctor.
-     * @param tables The location of the tables to be created, in JSON format
+     * @param locations The location of the tables to be created, in JSON format
      * @param endpoint AWS endpoint
      * @param port Tcp port
      * @param key AWS key
      * @param secret AWS secret
      * @checkstyle ParameterNumberCheck (3 lines)
      */
-    public Tables(final Collection<String> tables, final String endpoint,
+    public Tables(final Collection<String> locations, final String endpoint,
         final Integer port, final String key, final String secret) {
-        this.tables = tables;
+        this.locations = locations;
         this.endpoint = endpoint;
         this.port = port;
         this.key = key;
@@ -127,7 +127,7 @@ public final class Tables {
             new BasicAWSCredentials(this.key, this.secret)
         );
         aws.setEndpoint(String.format("%s:%d", this.endpoint, this.port));
-        for (final String table : this.tables) {
+        for (final String table : this.locations) {
             final JsonObject json = this.readJson(table);
             if (json.containsKey("TableName")) {
                 final String name = json.getString("TableName");

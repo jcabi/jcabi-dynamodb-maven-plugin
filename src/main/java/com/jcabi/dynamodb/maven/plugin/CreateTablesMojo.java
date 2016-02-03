@@ -44,7 +44,6 @@ import org.apache.maven.plugins.annotations.Parameter;
  * Creates DynamoDB tables.
  * @author Carlos Miranda (miranda.cma@gmail.com)
  * @version $Id$
- * @checkstyle ProtectedMethodInFinalClassCheck (100 lines)
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
@@ -80,18 +79,15 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
     private transient String secret;
 
     @Override
-    protected void run(final Instances instances) throws MojoFailureException {
+    public void run(final Instances instances) throws MojoFailureException {
         try {
             new Tables(
-                this.tables,
-                this.endpoint,
-                this.tcpPort(),
-                this.key,
+                this.tables, this.endpoint, this.tcpPort(), this.key,
                 this.secret
             )
                 .create(instances);
         } catch (final IOException ex) {
-            throw new MojoFailureException(ex.getMessage());
+            throw new MojoFailureException(ex.getMessage(), ex);
         }
     }
 }
