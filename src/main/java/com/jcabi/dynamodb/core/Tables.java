@@ -57,8 +57,9 @@ import javax.json.JsonValue;
 /**
  * Handles DynamoDB locations.
  * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
+ * @author Carlos Miranda (miranda.cma@gmail.com)
  * @version $Id$
- * @since 1.0
+ * @since 0.8
  * @checkstyle ClassDataAbstractionCoupling (300 lines)
  * @checkstyle MultipleStringLiterals (300 lines)
  */

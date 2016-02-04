@@ -31,11 +31,6 @@
 /**
  * DynamoDB core package. Logic for running local dynamodb directly.
  *
- * <pre>&lt;depedency&gt;
- *   &lt;groupId&gt;com.jcabi&lt;/groupId&gt;
- *   &lt;artifactId&gt;jcabi-dynamodb-maven-plugin&lt;/artifactId&gt;
- * &lt;/dependency&gt;</pre>
- *
  * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
  * @version $Id$
  * @since 0.8

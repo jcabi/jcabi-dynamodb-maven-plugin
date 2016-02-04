@@ -87,7 +87,12 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
             )
                 .create(instances);
         } catch (final IOException ex) {
-            throw new MojoFailureException(ex.getMessage(), ex);
+            throw new MojoFailureException(
+                String.format(
+                    "Failed to create tables for instances: %s", instances
+                ),
+                ex
+            );
         }
     }
 }
