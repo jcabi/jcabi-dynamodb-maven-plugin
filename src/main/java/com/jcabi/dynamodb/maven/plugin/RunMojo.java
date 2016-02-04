@@ -29,6 +29,7 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
+import com.jcabi.dynamodb.core.Instances;
 import java.io.IOException;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

@@ -27,34 +27,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.jcabi.dynamodb.maven.plugin;
-
-import com.jcabi.dynamodb.core.Instances;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
 
 /**
- * Stops DynamoDB Local.
+ * DynamoDB core package. Logic for running local dynamodb directly.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
+ * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
  * @version $Id$
- * @since 0.1
+ * @since 0.8
+ * @todo #38:30min Logic of the plugin should be extracted from maven mojos to
+ *  this package to allow directly running local dynamodb.
  */
-@ToString
-@EqualsAndHashCode(callSuper = false)
-@Mojo
-    (
-        threadSafe = true, name = "stop",
-        defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST
-    )
-public final class StopMojo extends AbstractDynamoMojo {
-
-    @Override
-    public void run(final Instances instances) throws MojoFailureException {
-        instances.stop(this.tcpPort());
-    }
-
-}
+package com.jcabi.dynamodb.core;
