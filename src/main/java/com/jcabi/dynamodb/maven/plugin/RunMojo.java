@@ -30,7 +30,9 @@
 package com.jcabi.dynamodb.maven.plugin;
 
 import com.jcabi.dynamodb.core.Instances;
+import com.jcabi.log.Logger;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.MojoFailureException;
@@ -64,6 +66,18 @@ public final class RunMojo extends AbstractEnviromentMojo {
             throw new MojoFailureException(
                 "failed to run DynamoDB Local", ex
             );
+        }
+        Logger.info(
+                this, "DynamoDB is up and running on port %d",
+                this.tcpPort()
+        );
+        Logger.info(this, "Press Ctrl-C to stop...");
+        while (true) {
+            try {
+                TimeUnit.MINUTES.sleep(1L);
+            } catch (final InterruptedException ex) {
+                throw new MojoFailureException("DynamoDB terminated", ex);
+            }
         }
     }
 
