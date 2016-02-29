@@ -85,7 +85,7 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
                 this.tables, this.endpoint, this.tcpPort(), this.key,
                 this.secret
             )
-                .create(instances);
+                .create();
         } catch (final IOException ex) {
             throw new MojoFailureException(
                 String.format(

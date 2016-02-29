@@ -120,10 +120,9 @@ public final class Tables {
 
     /**
      * Creates tables.
-     * @param instances Instances to create
      * @throws IOException if something goes wrong
      */
-    public void create(final Instances instances) throws IOException {
+    public void create() throws IOException {
         final AmazonDynamoDB aws = new AmazonDynamoDBClient(
             new BasicAWSCredentials(this.key, this.secret)
         );
