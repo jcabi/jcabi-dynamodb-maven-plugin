@@ -29,12 +29,11 @@
  */
 
 /**
- * DynamoDB core package. Logic for running local dynamodb directly.
+ * Core package. Logic of the plugin should be extracted from
+ * maven mojos to this package to allow directly running local dynamodb.
  *
  * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
  * @version $Id$
  * @since 0.8
- * @todo #38:30min Logic of the plugin should be extracted from maven mojos to
- *  this package to allow directly running local dynamodb.
  */
 package com.jcabi.dynamodb.core;
