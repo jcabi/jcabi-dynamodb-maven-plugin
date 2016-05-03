@@ -38,7 +38,7 @@
         <version>1.21</version>
     </parent>
     <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.8</version>
     <packaging>maven-plugin</packaging>
     <name>jcabi-dynamodb-maven-plugin</name>
     <description>AWS DynamoDB plugin for integration testing</description>
