@@ -79,6 +79,11 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
     private transient String secret;
 
     @Override
+    public void environment() throws MojoFailureException {
+        return;
+    }
+
+    @Override
     public void run(final Instances instances) throws MojoFailureException {
         try {
             new Tables(

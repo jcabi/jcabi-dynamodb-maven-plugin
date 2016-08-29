@@ -124,14 +124,11 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     }
 
     /**
-     * Set the project environment. This method is intentionally empty!.
-     * Implementation to be provided by sub classes.
+     * Set the project environment.
      * {@link com.jcabi.dynamodb.maven.plugin.AbstractEnviromentMojo}.
      * @throws MojoFailureException If fails
      */
-    protected void environment() throws MojoFailureException {
-        return;
-    }
+    protected abstract void environment() throws MojoFailureException;
 
     /**
      * Run custom functionality.
