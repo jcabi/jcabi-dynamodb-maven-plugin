@@ -40,19 +40,20 @@ import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
+import com.amazonaws.services.dynamodbv2.model.StreamSpecification;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
 import com.jcabi.aspects.Tv;
 import com.jcabi.log.Logger;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonValue;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedList;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
 
 /**
  * Handles DynamoDB locations.
@@ -245,6 +246,16 @@ public final class Tables {
                 indexes.add(lsi);
             }
             request.setLocalSecondaryIndexes(indexes);
+        }
+        if (json.containsKey("StreamSpecification")) {
+            final JsonObject stream = json.getJsonObject("StreamSpecification");
+            if (stream != null && stream.getBoolean("StreamEnabled")) {
+                final StreamSpecification streamSpecification =
+                    new StreamSpecification()
+                        .withStreamEnabled(stream.getBoolean("StreamEnabled"))
+                        .withStreamViewType(stream.getString("StreamViewType"));
+                request.setStreamSpecification(streamSpecification);
+            }
         }
         aws.createTable(request);
         Logger.info(this, "Waiting for table '%s' to become active", name);

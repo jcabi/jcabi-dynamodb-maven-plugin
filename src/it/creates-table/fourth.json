@@ -1,0 +1,23 @@
+{
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "fourth",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "fourth",
+      "KeyType": "HASH"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": "100",
+    "WriteCapacityUnits": "100"
+  },
+  "StreamSpecification": {
+    "StreamEnabled": true,
+    "StreamViewType": "KEYS_ONLY"
+  },
+  "TableName": "FourthTable"
+}
