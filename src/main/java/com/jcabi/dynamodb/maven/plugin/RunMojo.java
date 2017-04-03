@@ -30,7 +30,9 @@
 package com.jcabi.dynamodb.maven.plugin;
 
 import com.jcabi.dynamodb.core.Instances;
+import com.jcabi.log.Logger;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.apache.maven.plugin.MojoFailureException;
@@ -50,7 +52,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 @Mojo
     (
         threadSafe = true, name = "run",
-        defaultPhase = LifecyclePhase.INTEGRATION_TEST
+        defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
     )
 public final class RunMojo extends AbstractEnviromentMojo {
 
@@ -64,6 +66,16 @@ public final class RunMojo extends AbstractEnviromentMojo {
             throw new MojoFailureException(
                 "failed to run DynamoDB Local", ex
             );
+        }
+        Logger.info(
+            this, "DynamoDB Local is listening on port %d... (Ctrl-C to stop)",
+            this.tcpPort()
+        );
+        try {
+            TimeUnit.SECONDS.sleep(Long.MAX_VALUE);
+        } catch (final InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException(ex);
         }
     }
 
