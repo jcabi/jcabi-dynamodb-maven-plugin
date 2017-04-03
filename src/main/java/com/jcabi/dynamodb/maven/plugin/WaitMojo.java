@@ -31,7 +31,6 @@ package com.jcabi.dynamodb.maven.plugin;
 
 import com.jcabi.dynamodb.core.Instances;
 import com.jcabi.log.Logger;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -40,33 +39,23 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 
 /**
- * Runs DynamoDB Local.
+ * Put the plugin on hold.
  *
- * @author Denis N. Antonioli (denisa@sunrun.com)
- * @author Simon Njenga (simtuje@gmail.com)
+ * @author Yegor Bugayenko (yegor@tpc2.com)
  * @version $Id$
- * @since 0.8
+ * @since 0.9
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Mojo
     (
-        threadSafe = true, name = "run",
-        defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
+        threadSafe = true, name = "wait",
+        defaultPhase = LifecyclePhase.INTEGRATION_TEST
     )
-public final class RunMojo extends AbstractEnviromentMojo {
+public final class WaitMojo extends AbstractEnviromentMojo {
 
     @Override
     public void run(final Instances instances) throws MojoFailureException {
-        try {
-            instances.start(
-                this.distdir(), this.tcpPort(), this.homedir(), this.args()
-            );
-        } catch (final IOException ex) {
-            throw new MojoFailureException(
-                "failed to run DynamoDB Local", ex
-            );
-        }
         Logger.info(
             this, "DynamoDB Local is listening on port %d... (Ctrl-C to stop)",
             this.tcpPort()
