@@ -14,7 +14,7 @@ More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html
 Also, read this blog post: [DynamoDB Local Maven Plugin](http://www.yegor256.com/2014/05/01/dynamodb-local-maven-plugin.html).
 
 Currently [supported versions](http://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/)
-of DynamoDB Local:
+of [DynamoDB Local](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html):
 
  * `2015-07-16`
  * `2014-10-07`
