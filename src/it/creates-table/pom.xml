@@ -65,7 +65,7 @@
                                 <artifactItem>
                                     <groupId>com.jcabi</groupId>
                                     <artifactId>DynamoDBLocal</artifactId>
-                                    <version>2014-01-08</version>
+                                    <version>2015-07-16</version>
                                     <type>zip</type>
                                     <outputDirectory>${project.build.directory}/dynamodb-dist</outputDirectory>
                                     <overWrite>false</overWrite>
@@ -87,6 +87,8 @@
                         <table>${basedir}/first2.json</table>
                         <table>${basedir}/second.json</table>
                         <table>${basedir}/third.json</table>
+                        <table>${basedir}/fourth.json</table>
+                        <table>${basedir}/fourth2.json</table>
                     </tables>
                     <arguments>
                         <argument>-inMemory</argument>
