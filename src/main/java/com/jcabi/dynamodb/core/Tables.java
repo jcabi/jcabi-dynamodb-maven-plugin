@@ -41,6 +41,7 @@ import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
+import com.google.common.annotations.VisibleForTesting;
 import com.jcabi.aspects.Tv;
 import com.jcabi.log.Logger;
 import java.io.FileInputStream;
@@ -52,6 +53,7 @@ import java.util.LinkedList;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.JsonString;
 import javax.json.JsonValue;
 
 /**
@@ -279,7 +281,8 @@ public final class Tables {
      * @param json JSON input
      * @return Projection
      */
-    private Projection projection(final JsonObject json) {
+    @VisibleForTesting
+    Projection projection(final JsonObject json) {
         final JsonObject projn = json.getJsonObject("Projection");
         final Projection projection = new Projection()
             .withProjectionType(projn.getString("ProjectionType"));
@@ -287,7 +290,10 @@ public final class Tables {
         if (projn.containsKey("NonKeyAttributes")) {
             for (final JsonValue nonkey
                 : projn.getJsonArray("NonKeyAttributes")) {
-                nonkeyattrs.add(nonkey.toString());
+                if (nonkey.getValueType() != JsonValue.ValueType.STRING) {
+                    throw new IllegalArgumentException(String.format("NonKeyAttributes must be strings: %s", nonkey.toString()));
+                }
+                nonkeyattrs.add(((JsonString) nonkey).getString());
             }
             projection.setNonKeyAttributes(nonkeyattrs);
         }
