@@ -49,10 +49,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedList;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
+import javax.json.*;
 
 /**
  * Handles DynamoDB locations.
@@ -287,7 +284,8 @@ public final class Tables {
         if (projn.containsKey("NonKeyAttributes")) {
             for (final JsonValue nonkey
                 : projn.getJsonArray("NonKeyAttributes")) {
-                nonkeyattrs.add(nonkey.toString());
+                final JsonString nonKeyAttributeName = (JsonString) nonkey;
+                nonkeyattrs.add(nonKeyAttributeName.getString());
             }
             projection.setNonKeyAttributes(nonkeyattrs);
         }
