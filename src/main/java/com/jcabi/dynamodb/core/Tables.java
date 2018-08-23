@@ -288,8 +288,8 @@ public final class Tables {
         if (projn.containsKey("NonKeyAttributes")) {
             for (final JsonValue nonkey
                 : projn.getJsonArray("NonKeyAttributes")) {
-                final JsonString nonKeyAttributeName = (JsonString) nonkey;
-                nonkeyattrs.add(nonKeyAttributeName.getString());
+                final JsonString nonKeyName = (JsonString) nonkey;
+                nonkeyattrs.add(nonKeyName.getString());
             }
             projection.setNonKeyAttributes(nonkeyattrs);
         }
