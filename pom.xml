@@ -98,7 +98,7 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-dynamodb</artifactId>
-            <version>1.11.25</version>
+            <version>1.11.909</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
