@@ -24,6 +24,8 @@ of [DynamoDB Local](http://docs.aws.amazon.com/amazondynamodb/latest/developergu
  * `2014-01-08`
  * `2013-09-12`
 
+See how [Jare](https://github.com/yegor256/jare) project is using this plugin.
+
 ## How to contribute?
 
 Fork the repository, make changes, submit a pull request.
