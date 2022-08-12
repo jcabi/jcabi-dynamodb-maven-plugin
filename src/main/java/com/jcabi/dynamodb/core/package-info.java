@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,8 +32,6 @@
  * Core package. Logic of the plugin should be extracted from
  * maven mojos to this package to allow directly running local dynamodb.
  *
- * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
- * @version $Id$
  * @since 0.8
  */
 package com.jcabi.dynamodb.core;

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,8 +42,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Creates DynamoDB tables.
- * @author Carlos Miranda (miranda.cma@gmail.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
@@ -79,8 +79,8 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
     private transient String secret;
 
     @Override
-    public void environment() throws MojoFailureException {
-        return;
+    public void environment() {
+        // nothing here
     }
 
     @Override

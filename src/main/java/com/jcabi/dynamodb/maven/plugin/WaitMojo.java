@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,15 +34,12 @@ import com.jcabi.log.Logger;
 import java.util.concurrent.TimeUnit;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Put the plugin on hold.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.9
  */
 @ToString
@@ -55,7 +52,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 public final class WaitMojo extends AbstractEnviromentMojo {
 
     @Override
-    public void run(final Instances instances) throws MojoFailureException {
+    public void run(final Instances instances) {
         Logger.info(
             this, "DynamoDB Local is listening on port %d... (Ctrl-C to stop)",
             this.tcpPort()

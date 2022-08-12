@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,19 +29,15 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StartMojo} (more detailed test is in maven invoker).
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
+ *
+ * @since 0.1
  */
 public final class StartMojoTest {
 
-    /**
-     * StartMojo can skip execution when flag is set.
-     * @throws Exception If something is wrong
-     */
     @Test
     public void skipsExecutionWhenRequired() throws Exception {
         final StartMojo mojo = new StartMojo();

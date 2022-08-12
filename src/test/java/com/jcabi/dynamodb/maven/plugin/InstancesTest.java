@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,9 +29,12 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
@@ -47,13 +50,12 @@ import java.net.ServerSocket;
 import java.util.Collections;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link Instances}.
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
+ *
+ * @since 0.1
  */
 public final class InstancesTest {
 
@@ -62,10 +64,6 @@ public final class InstancesTest {
      */
     private static final String DIST = System.getProperty("surefire.dist");
 
-    /**
-     * Instances can start and stop.
-     * @throws Exception If something is wrong
-     */
     @Test
     public void startsAndStops() throws Exception {
         final int port = this.reserve();
@@ -76,10 +74,21 @@ public final class InstancesTest {
             Collections.singletonList("-inMemory")
         );
         try {
-            final AmazonDynamoDB aws = new AmazonDynamoDBClient(
-                new BasicAWSCredentials("AWS-key", "AWS-secret")
-            );
-            aws.setEndpoint(String.format("http://localhost:%d", port));
+            final AmazonDynamoDB aws = AmazonDynamoDBClientBuilder.standard()
+                .withEndpointConfiguration(
+                    new AwsClientBuilder.EndpointConfiguration(
+                        String.format("http://localhost:%d", port),
+                        Regions.US_EAST_1.getName()
+                    )
+                )
+                .withCredentials(
+                    new AWSStaticCredentialsProvider(
+                        new BasicAWSCredentials(
+                            "AWS-key", "AWS-secret"
+                        )
+                    )
+                )
+                .build();
             final String table = "test";
             final String attr = "key";
             final CreateTableResult result = aws.createTable(

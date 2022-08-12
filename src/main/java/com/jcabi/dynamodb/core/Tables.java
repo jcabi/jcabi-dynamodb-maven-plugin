@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,9 +30,12 @@
 package com.jcabi.dynamodb.core;
 
 import com.amazonaws.AmazonClientException;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndex;
@@ -43,10 +46,11 @@ import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
 import com.jcabi.aspects.Tv;
 import com.jcabi.log.Logger;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.LinkedList;
 import javax.json.Json;
@@ -57,12 +61,7 @@ import javax.json.JsonValue;
 
 /**
  * Handles DynamoDB locations.
- * @author Igor Piddubnyi (igor.piddubnyi@gmail.com)
- * @author Carlos Miranda (miranda.cma@gmail.com)
- * @version $Id$
  * @since 0.8
- * @checkstyle ClassDataAbstractionCoupling (300 lines)
- * @checkstyle MultipleStringLiterals (300 lines)
  */
 @SuppressWarnings
     (
@@ -70,8 +69,7 @@ import javax.json.JsonValue;
             "PMD.NPathComplexity",
             "PMD.CyclomaticComplexity",
             "PMD.StdCyclomaticComplexity",
-            "PMD.ModifiedCyclomaticComplexity",
-            "PMD.AvoidInstantiatingObjectsInLoops"
+            "PMD.ModifiedCyclomaticComplexity"
         }
     )
 public final class Tables {
@@ -124,10 +122,21 @@ public final class Tables {
      * @throws IOException if something goes wrong
      */
     public void create() throws IOException {
-        final AmazonDynamoDB aws = new AmazonDynamoDBClient(
-            new BasicAWSCredentials(this.key, this.secret)
-        );
-        aws.setEndpoint(String.format("%s:%d", this.endpoint, this.port));
+        final AmazonDynamoDB aws = AmazonDynamoDBClientBuilder.standard()
+            .withEndpointConfiguration(
+                new AwsClientBuilder.EndpointConfiguration(
+                    String.format("%s:%d", this.endpoint, this.port),
+                    Regions.US_EAST_1.getName()
+                )
+            )
+            .withCredentials(
+                new AWSStaticCredentialsProvider(
+                    new BasicAWSCredentials(
+                        this.key, this.secret
+                    )
+                )
+            )
+            .build();
         for (final String table : this.locations) {
             final JsonObject json = this.readJson(table);
             if (json.containsKey("TableName")) {
@@ -183,12 +192,12 @@ public final class Tables {
         final CreateTableRequest request =
             new CreateTableRequest().withTableName(name);
         if (json.containsKey("KeySchema")) {
-            final Collection<KeySchemaElement> keys = this.keySchema(json);
+            final Collection<KeySchemaElement> keys = Tables.keySchema(json);
             request.setKeySchema(keys);
         }
         if (json.containsKey("AttributeDefinitions")) {
             final Collection<AttributeDefinition> attrs =
-                new LinkedList<AttributeDefinition>();
+                new LinkedList<>();
             final JsonArray schema =
                 json.getJsonArray("AttributeDefinitions");
             for (final JsonObject defn : schema.getValuesAs(JsonObject.class)) {
@@ -206,14 +215,14 @@ public final class Tables {
                 json.getJsonObject("ProvisionedThroughput");
             request.setProvisionedThroughput(
                 new ProvisionedThroughput(
-                    this.asLong(throughput, "ReadCapacityUnits"),
-                    this.asLong(throughput, "WriteCapacityUnits")
+                    Tables.asLong(throughput, "ReadCapacityUnits"),
+                    Tables.asLong(throughput, "WriteCapacityUnits")
                 )
             );
         }
         if (json.containsKey("GlobalSecondaryIndexes")) {
             final Collection<GlobalSecondaryIndex> indexes =
-                new LinkedList<GlobalSecondaryIndex>();
+                new LinkedList<>();
             final JsonArray array =
                 json.getJsonArray("GlobalSecondaryIndexes");
             for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
@@ -221,12 +230,12 @@ public final class Tables {
                     index.getJsonObject("ProvisionedThroughput");
                 final GlobalSecondaryIndex gsi = new GlobalSecondaryIndex()
                     .withIndexName(index.getString("IndexName"))
-                    .withKeySchema(this.keySchema(index))
-                    .withProjection(this.projection(index))
+                    .withKeySchema(Tables.keySchema(index))
+                    .withProjection(Tables.projection(index))
                     .withProvisionedThroughput(
                         new ProvisionedThroughput(
-                            this.asLong(throughput, "ReadCapacityUnits"),
-                            this.asLong(throughput, "WriteCapacityUnits")
+                            Tables.asLong(throughput, "ReadCapacityUnits"),
+                            Tables.asLong(throughput, "WriteCapacityUnits")
                         )
                     );
                 indexes.add(gsi);
@@ -235,14 +244,14 @@ public final class Tables {
         }
         if (json.containsKey("LocalSecondaryIndexes")) {
             final Collection<LocalSecondaryIndex> indexes =
-                new LinkedList<LocalSecondaryIndex>();
+                new LinkedList<>();
             final JsonArray array =
                 json.getJsonArray("LocalSecondaryIndexes");
             for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
                 final LocalSecondaryIndex lsi = new LocalSecondaryIndex()
                     .withIndexName(index.getString("IndexName"))
-                    .withKeySchema(this.keySchema(index))
-                    .withProjection(this.projection(index));
+                    .withKeySchema(Tables.keySchema(index))
+                    .withProjection(Tables.projection(index));
                 indexes.add(lsi);
             }
             request.setLocalSecondaryIndexes(indexes);
@@ -265,7 +274,7 @@ public final class Tables {
      * @param name The element name
      * @return The element value converted as a long
      */
-    private long asLong(final JsonObject json, final String name) {
+    private static long asLong(final JsonObject json, final String name) {
         long result;
         try {
             result = json.getJsonNumber(name).longValue();
@@ -280,18 +289,18 @@ public final class Tables {
      * @param json JSON input
      * @return Projection
      */
-    private Projection projection(final JsonObject json) {
+    private static Projection projection(final JsonObject json) {
         final JsonObject projn = json.getJsonObject("Projection");
         final Projection projection = new Projection()
             .withProjectionType(projn.getString("ProjectionType"));
-        final Collection<String> nonkeyattrs = new LinkedList<String>();
         if (projn.containsKey("NonKeyAttributes")) {
-            for (final JsonValue nonkey
+            final Collection<String> attrs = new LinkedList<>();
+            for (final JsonValue attr
                 : projn.getJsonArray("NonKeyAttributes")) {
-                final JsonString nonKeyName = (JsonString) nonkey;
-                nonkeyattrs.add(nonKeyName.getString());
+                final JsonString name = (JsonString) attr;
+                attrs.add(name.getString());
             }
-            projection.setNonKeyAttributes(nonkeyattrs);
+            projection.setNonKeyAttributes(attrs);
         }
         return projection;
     }
@@ -301,9 +310,9 @@ public final class Tables {
      * @param json JSON input
      * @return Key schema elements
      */
-    private Collection<KeySchemaElement> keySchema(final JsonObject json) {
+    private static Collection<KeySchemaElement> keySchema(final JsonObject json) {
         final Collection<KeySchemaElement> keys =
-            new LinkedList<KeySchemaElement>();
+            new LinkedList<>();
         final JsonArray schema = json.getJsonArray("KeySchema");
         for (final JsonValue value : schema) {
             final JsonObject element = (JsonObject) value;
@@ -325,9 +334,9 @@ public final class Tables {
      */
     private JsonObject readJson(final String file) throws IOException {
         InputStream stream = null;
-        JsonObject json = null;
+        final JsonObject json;
         try {
-            stream = new FileInputStream(file);
+            stream = Files.newInputStream(Paths.get(file));
             json = Json.createReader(stream).readObject();
         } catch (final FileNotFoundException ex) {
             throw new IOException("Failed to read table definition", ex);

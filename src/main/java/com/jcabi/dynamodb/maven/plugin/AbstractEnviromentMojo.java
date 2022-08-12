@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,8 +38,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 /**
  * Abstract EnviromentMOJO.
  *
- * @author Simon Njenga (simtuje@gmail.com)
- * @version $Id$
  * @since 0.8
  */
 @ToString

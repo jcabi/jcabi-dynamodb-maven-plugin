@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,15 +32,12 @@ package com.jcabi.dynamodb.maven.plugin;
 import com.jcabi.dynamodb.core.Instances;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Stops DynamoDB Local.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString
@@ -53,12 +50,12 @@ import org.apache.maven.plugins.annotations.Mojo;
 public final class StopMojo extends AbstractDynamoMojo {
 
     @Override
-    public void environment() throws MojoFailureException {
-        return;
+    public void environment() {
+        // nothing here
     }
 
     @Override
-    public void run(final Instances instances) throws MojoFailureException {
+    public void run(final Instances instances) {
         instances.stop(this.tcpPort());
     }
 }

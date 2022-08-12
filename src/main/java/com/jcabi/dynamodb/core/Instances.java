@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,15 +45,12 @@ import lombok.ToString;
 /**
  * Running instances of DynamoDB Local.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
- * @checkstyle ClassDataAbstractionCoupling (500 lines)
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
  */
 @ToString
 @EqualsAndHashCode(of = "processes")
-@Loggable(Loggable.INFO)
+@Loggable
 @SuppressWarnings("PMD.DoNotUseThreads")
 public final class Instances {
 
@@ -66,17 +63,7 @@ public final class Instances {
      * Public ctor.
      */
     public Instances() {
-        this.processes = new ConcurrentHashMap<Integer, Process>(0);
-        Runtime.getRuntime().addShutdownHook(
-            new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        Instances.this.shutdown();
-                    }
-                }
-            )
-        );
+        this.processes = new ConcurrentHashMap<>(0);
     }
 
     /**
@@ -97,6 +84,11 @@ public final class Instances {
         thread.setDaemon(true);
         thread.start();
         this.processes.put(port, process);
+        Runtime.getRuntime().addShutdownHook(
+            new Thread(
+                this::shutdown
+            )
+        );
     }
 
     /**
@@ -139,7 +131,7 @@ public final class Instances {
      */
     private static Process process(final File dist, final int port,
         final File home, final List<String> args) throws IOException {
-        final List<String> command = new ArrayList<String>(args.size());
+        final List<String> command = new ArrayList<>(args.size());
         command.add(new File(home, "bin/java").getAbsolutePath());
         command.add(
             new StringBuilder("-Djava.library.path=")
@@ -159,12 +151,15 @@ public final class Instances {
 
     /**
      * Instance process of each local DynamoDB.
+     *
+     * @since 0.1
      */
     private static final class InstanceProcess implements Callable<Void> {
         /**
          * Process.
          */
         private final transient Process prc;
+
         /**
          * Constructor.
          * @param process The process to work with.
@@ -172,8 +167,9 @@ public final class Instances {
         InstanceProcess(final Process process) {
             this.prc = process;
         }
+
         @Override
-        public Void call() throws Exception {
+        public Void call() {
             new VerboseProcess(this.prc).stdoutQuietly();
             return null;
         }

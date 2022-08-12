@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2012-2017, jcabi.com
+/*
+ * Copyright (c) 2012-2022, jcabi.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,6 +31,7 @@ package com.jcabi.dynamodb.maven.plugin;
 
 import com.jcabi.dynamodb.core.Instances;
 import com.jcabi.log.Logger;
+import com.jcabi.slf4j.MavenSlf4j;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,13 +40,10 @@ import lombok.ToString;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Abstract DynamoMOJO.
  *
- * @author Yegor Bugayenko (yegor@tpc2.com)
- * @version $Id$
  * @since 0.1
  */
 @ToString
@@ -62,8 +60,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      */
     @Parameter
         (
-            defaultValue = "false",
-            required = false
+            defaultValue = "false"
         )
     private transient boolean skip;
 
@@ -71,7 +68,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * Command line arguments of DynamoDBLocal.
      * @since 0.5
      */
-    @Parameter(required = false)
+    @Parameter
     private transient List<String> arguments;
 
     /**
@@ -79,22 +76,28 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      */
     @Parameter
         (
-            defaultValue = "10101",
-            required = false
+            defaultValue = "10101"
         )
     private transient int port;
+
+    /**
+     * Ctor.
+     */
+    protected AbstractDynamoMojo() {
+        // nothing here
+    }
 
     /**
      * Set skip option.
      * @param skp Shall we skip execution?
      */
-    public void setSkip(final boolean skp) {
+    public final void setSkip(final boolean skp) {
         this.skip = skp;
     }
 
     @Override
-    public void execute() throws MojoFailureException {
-        StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());
+    public final void execute() throws MojoFailureException {
+        MavenSlf4j.setMavenLog(this.getLog());
         if (this.skip) {
             Logger.info(this, "execution skipped because of 'skip' option");
             return;
@@ -107,7 +110,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * Get TCP port we're on.
      * @return Port number
      */
-    protected int tcpPort() {
+    protected final int tcpPort() {
         return this.port;
     }
 
@@ -115,8 +118,8 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * Command line arguments.
      * @return List of arguments
      */
-    protected List<String> args() {
-        final List<String> args = new LinkedList<String>();
+    protected final List<String> args() {
+        final List<String> args = new LinkedList<>();
         if (this.arguments != null) {
             args.addAll(this.arguments);
         }
@@ -125,7 +128,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
 
     /**
      * Set the project environment.
-     * {@link com.jcabi.dynamodb.maven.plugin.AbstractEnviromentMojo}.
+     * {@link AbstractEnviromentMojo}.
      * @throws MojoFailureException If fails
      */
     protected abstract void environment() throws MojoFailureException;
@@ -135,6 +138,6 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * @param instances Instances to work with
      * @throws MojoFailureException If fails
      */
-    protected abstract void run(final Instances instances)
+    protected abstract void run(Instances instances)
         throws MojoFailureException;
 }
