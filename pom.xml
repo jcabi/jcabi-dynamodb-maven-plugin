@@ -36,7 +36,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <version>1.34.1</version>
   </parent>
   <artifactId>jcabi-dynamodb-maven-plugin</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.10.1</version>
   <packaging>maven-plugin</packaging>
   <name>jcabi-dynamodb-maven-plugin</name>
   <description>AWS DynamoDB plugin for integration testing</description>
