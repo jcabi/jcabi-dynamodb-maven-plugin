@@ -12,9 +12,10 @@
 [![codecov](https://codecov.io/gh/jcabi/jcabi-dynamo-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jcabi/jcabi-dynamo-maven-plugin)
 
 More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html).
+
 Also, read this blog post: [DynamoDB Local Maven Plugin](http://www.yegor256.com/2014/05/01/dynamodb-local-maven-plugin.html).
 
-Currently [supported versions](http://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/)
+Currently, the [supported versions](http://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/)
 of [DynamoDB Local](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html):
 
  * `2015-07-16`
@@ -22,11 +23,6 @@ of [DynamoDB Local](http://docs.aws.amazon.com/amazondynamodb/latest/developergu
  * `2014-04-24`
  * `2014-01-08`
  * `2013-09-12`
-
-## Questions?
-
-If you have any questions about the framework, or something doesn't work as expected,
-please [submit an issue here](https://github.com/jcabi/jcabi-dynamodb-maven-plugin/issues/new).
 
 ## How to contribute?
 

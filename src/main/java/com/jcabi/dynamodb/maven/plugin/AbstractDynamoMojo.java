@@ -31,7 +31,6 @@ package com.jcabi.dynamodb.maven.plugin;
 
 import com.jcabi.dynamodb.core.Instances;
 import com.jcabi.log.Logger;
-import com.jcabi.slf4j.MavenSlf4j;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +39,7 @@ import lombok.ToString;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Abstract DynamoMOJO.
@@ -97,7 +97,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
 
     @Override
     public final void execute() throws MojoFailureException {
-        MavenSlf4j.setMavenLog(this.getLog());
+        StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());
         if (this.skip) {
             Logger.info(this, "execution skipped because of 'skip' option");
             return;
