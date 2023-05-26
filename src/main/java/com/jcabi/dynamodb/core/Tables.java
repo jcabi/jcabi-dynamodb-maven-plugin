@@ -165,6 +165,7 @@ public final class Tables {
      * @return TRUE if it exists
      */
     private static boolean exists(final AmazonDynamoDB aws, final String name) {
+        Logger.info(Tables.class, "Waiting for the table '%s' in DynamoDB...", name);
         boolean exists;
         try {
             TableUtils.waitUntilExists(
@@ -177,6 +178,7 @@ public final class Tables {
             Thread.currentThread().interrupt();
             throw new IllegalStateException(ex);
         }
+        Logger.info(Tables.class, "The existence of the table '%s': %s", name, exists);
         return exists;
     }
 
