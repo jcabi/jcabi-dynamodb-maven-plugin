@@ -8,7 +8,7 @@
 [![PDD status](http://www.0pdd.com/svg?name=jcabi/jcabi-dynamodb-maven-plugin)](http://www.0pdd.com/p?name=jcabi/jcabi-dynamodb-maven-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin)
 [![Javadoc](https://javadoc.io/badge/com.jcabi/jcabi-dynamodb-maven-plugin.svg)](http://www.javadoc.io/doc/com.jcabi/jcabi-dynamodb-maven-plugin)
-[![codecov](https://codecov.io/gh/jcabi/jcabi-dynamo-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jcabi/jcabi-dynamo-maven-plugin)
+[![codecov](https://codecov.io/gh/jcabi/jcabi-dynamodb-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jcabi/jcabi-dynamodb-maven-plugin)
 
 More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html).
 
