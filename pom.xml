@@ -60,7 +60,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     </site>
   </distributionManagement>
   <properties>
-    <dynamodb.version>2015-07-16</dynamodb.version>
+    <dynamodb.version>2023-05-26</dynamodb.version>
   </properties>
   <dependencies>
     <dependency>

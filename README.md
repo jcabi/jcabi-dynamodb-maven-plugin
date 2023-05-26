@@ -17,6 +17,7 @@ Also, read this blog post: [DynamoDB Local Maven Plugin](http://www.yegor256.com
 Currently, the [supported versions](http://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/)
 of [DynamoDB Local](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html):
 
+ * `2023-05-26` (works with M1)
  * `2015-07-16`
  * `2014-10-07`
  * `2014-04-24`

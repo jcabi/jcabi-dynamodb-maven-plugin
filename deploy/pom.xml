@@ -32,7 +32,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.jcabi</groupId>
   <artifactId>DynamoDBLocal</artifactId>
-  <version>2015-07-16</version>
+  <version>2023-05-26</version>
   <packaging>zip</packaging>
   <name>DynamoDB Local</name>
   <description>AWS DynamoDB Local Distribution</description>
@@ -43,18 +43,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
       <name>BSD</name>
       <url>http://www.jcabi.com/LICENSE.txt</url>
       <distribution>repo</distribution>
-      <comments><![CDATA[
-                This is free open source project, feel free to redistribute it
-                ]]></comments>
+      <comments>This is free open source project, feel free to redistribute it</comments>
     </license>
   </licenses>
   <developers>
     <developer>
       <id>1</id>
       <name>Yegor Bugayenko</name>
-      <email>yegor@tpc2.com</email>
-      <organization>tpc2.com</organization>
-      <organizationUrl>http://www.tpc2.com</organizationUrl>
+      <email>yegor256@gmail.com</email>
+      <organization>Zerocracy</organization>
+      <organizationUrl>https://www.zerocracy.com</organizationUrl>
       <roles>
         <role>Architect</role>
         <role>Developer</role>
