@@ -18,11 +18,11 @@ Currently, the [supported versions](http://repo1.maven.org/maven2/com/jcabi/Dyna
 of [DynamoDB Local](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html):
 
  * `2023-05-26` (works with M1)
- * `2015-07-16`
- * `2014-10-07`
- * `2014-04-24`
- * `2014-01-08`
- * `2013-09-12`
+ * [`2015-07-16`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2015-07-16/)
+ * [`2014-10-07`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2015-04-27/)
+ * [`2014-04-24`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2014-04-24/)
+ * [`2014-01-08`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2014-01-08/)
+ * [`2013-09-12`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2013-09-12/)
 
 See how [Jare](https://github.com/yegor256/jare) project is using this plugin.
 
