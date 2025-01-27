@@ -1,19 +1,19 @@
 {
-    "AttributeDefinitions": [
-        {
-            "AttributeName": "first",
-            "AttributeType": "S"
-        }
-    ],
-    "KeySchema": [
-        {
-            "AttributeName": "first",
-            "KeyType": "HASH"
-        }
-    ],
-    "ProvisionedThroughput": {
-        "ReadCapacityUnits": "100",
-        "WriteCapacityUnits": "100"
-    },
-    "TableName": "FirstTable"
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "first",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "first",
+      "KeyType": "HASH"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": "100",
+    "WriteCapacityUnits": "100"
+  },
+  "TableName": "FirstTable"
 }

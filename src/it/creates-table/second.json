@@ -1,48 +1,48 @@
 {
-    "AttributeDefinitions": [
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "first",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "second",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "first",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "second",
+      "KeyType": "RANGE"
+    }
+  ],
+  "LocalSecondaryIndexes": [
+    {
+      "IndexName": "TheIndex",
+      "KeySchema": [
         {
-            "AttributeName": "first",
-            "AttributeType": "S"
-        }
-        ,{
-            "AttributeName": "second",
-            "AttributeType": "S"
-        }
-    ],
-    "KeySchema": [
-        {
-            "AttributeName": "first",
-            "KeyType": "HASH"
+          "AttributeName": "first",
+          "KeyType": "HASH"
         },
         {
-            "AttributeName": "second",
-            "KeyType": "RANGE"
+          "AttributeName": "second",
+          "KeyType": "RANGE"
         }
-    ],
-    "ProvisionedThroughput": {
-        "ReadCapacityUnits": "100",
-        "WriteCapacityUnits": "100"
-    },
-    "LocalSecondaryIndexes": [
-        {
-            "IndexName": "TheIndex",
-            "KeySchema": [
-                {
-                    "AttributeName": "first",
-                    "KeyType": "HASH"
-                },
-                {
-                    "AttributeName": "second",
-                    "KeyType": "RANGE"
-                }
-            ],
-            "Projection": {
-                "NonKeyAttributes": [
-                    "second"
-                ],
-                "ProjectionType": "INCLUDE"
-            }
-        }
-    ],
-    "TableName": "SecondTable"
+      ],
+      "Projection": {
+        "NonKeyAttributes": [
+          "second"
+        ],
+        "ProjectionType": "INCLUDE"
+      }
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": "100",
+    "WriteCapacityUnits": "100"
+  },
+  "TableName": "SecondTable"
 }

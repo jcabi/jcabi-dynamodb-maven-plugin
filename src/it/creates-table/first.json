@@ -1,48 +1,48 @@
 {
-    "AttributeDefinitions": [
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "first",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "second",
+      "AttributeType": "S"
+    }
+  ],
+  "GlobalSecondaryIndexes": [
+    {
+      "IndexName": "TheIndex",
+      "KeySchema": [
         {
-            "AttributeName": "first",
-            "AttributeType": "S"
+          "AttributeName": "first",
+          "KeyType": "HASH"
         },
         {
-            "AttributeName": "second",
-            "AttributeType": "S"
+          "AttributeName": "second",
+          "KeyType": "RANGE"
         }
-    ],
-    "KeySchema": [
-        {
-            "AttributeName": "first",
-            "KeyType": "HASH"
-        }
-    ],
-    "ProvisionedThroughput": {
+      ],
+      "Projection": {
+        "NonKeyAttributes": [
+          "second"
+        ],
+        "ProjectionType": "INCLUDE"
+      },
+      "ProvisionedThroughput": {
         "ReadCapacityUnits": "100",
         "WriteCapacityUnits": "100"
-    },
-    "GlobalSecondaryIndexes": [
-        {
-            "IndexName": "TheIndex",
-            "KeySchema": [
-                {
-                    "AttributeName": "first",
-                    "KeyType": "HASH"
-                },
-                {
-                    "AttributeName": "second",
-                    "KeyType": "RANGE"
-                }
-            ],
-            "Projection": {
-                "NonKeyAttributes": [
-                    "second"
-                ],
-                "ProjectionType": "INCLUDE"
-            },
-            "ProvisionedThroughput": {
-                "ReadCapacityUnits": "100",
-                "WriteCapacityUnits": "100"
-            }
-        }
-    ],
-    "TableName": "FirstTable"
+      }
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "first",
+      "KeyType": "HASH"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": "100",
+    "WriteCapacityUnits": "100"
+  },
+  "TableName": "FirstTable"
 }
