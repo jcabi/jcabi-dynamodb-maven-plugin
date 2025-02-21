@@ -45,8 +45,9 @@ import lombok.ToString;
 /**
  * Running instances of DynamoDB Local.
  *
- * @since 0.1
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
+ * @since 0.1
+ *
  */
 @ToString
 @EqualsAndHashCode(of = "processes")
