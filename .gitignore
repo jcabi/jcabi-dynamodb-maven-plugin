@@ -1,9 +1,11 @@
-target/
-.idea
 *.iml
-local-repo/
-/bin
 .DS_Store
-.settings/
 .classpath
+.idea
+.idea/
 .project
+.settings/
+/bin
+local-repo/
+node_modules/
+target/
