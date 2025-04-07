@@ -1,13 +1,13 @@
 <img src="https://www.jcabi.com/logo-square.svg" width="64px" height="64px" />
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
-[![DevOps By Rultor.com](http://www.rultor.com/b/jcabi/jcabi-dynamodb-maven-plugin)](http://www.rultor.com/p/jcabi/jcabi-dynamodb-maven-plugin)
+[![DevOps By Rultor.com](https://www.rultor.com/b/jcabi/jcabi-dynamodb-maven-plugin)](https://www.rultor.com/p/jcabi/jcabi-dynamodb-maven-plugin)
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
 [![mvn](https://github.com/jcabi/jcabi-dynamodb-maven-plugin/actions/workflows/mvn.yml/badge.svg)](https://github.com/jcabi/jcabi-dynamodb-maven-plugin/actions/workflows/mvn.yml)
-[![PDD status](http://www.0pdd.com/svg?name=jcabi/jcabi-dynamodb-maven-plugin)](http://www.0pdd.com/p?name=jcabi/jcabi-dynamodb-maven-plugin)
+[![PDD status](https://www.0pdd.com/svg?name=jcabi/jcabi-dynamodb-maven-plugin)](https://www.0pdd.com/p?name=jcabi/jcabi-dynamodb-maven-plugin)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jcabi/jcabi-dynamodb-maven-plugin)
-[![Javadoc](https://javadoc.io/badge/com.jcabi/jcabi-dynamodb-maven-plugin.svg)](http://www.javadoc.io/doc/com.jcabi/jcabi-dynamodb-maven-plugin)
+[![Javadoc](https://javadoc.io/badge/com.jcabi/jcabi-dynamodb-maven-plugin.svg)](https://www.javadoc.io/doc/com.jcabi/jcabi-dynamodb-maven-plugin)
 [![codecov](https://codecov.io/gh/jcabi/jcabi-dynamodb-maven-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/jcabi/jcabi-dynamodb-maven-plugin)
 
 More details are here: [dynamodb.jcabi.com](http://dynamodb.jcabi.com/index.html).
