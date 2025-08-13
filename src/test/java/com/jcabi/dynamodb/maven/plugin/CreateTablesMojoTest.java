@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.1
  */
-public final class CreateTablesMojoTest {
+final class CreateTablesMojoTest {
 
     @Test
-    public void skipsExecutionWhenRequired() throws Exception {
+    void skipsExecutionWhenRequired() throws Exception {
         final CreateTablesMojo mojo = new CreateTablesMojo();
         mojo.setSkip(true);
         mojo.execute();
