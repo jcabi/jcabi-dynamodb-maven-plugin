@@ -40,12 +40,12 @@ import javax.json.JsonValue;
  */
 @SuppressWarnings
     (
-        {
-            "PMD.NPathComplexity",
-            "PMD.CyclomaticComplexity",
-            "PMD.StdCyclomaticComplexity",
-            "PMD.ModifiedCyclomaticComplexity"
-        }
+    {
+        "PMD.NPathComplexity",
+        "PMD.CyclomaticComplexity",
+        "PMD.StdCyclomaticComplexity",
+        "PMD.ModifiedCyclomaticComplexity"
+    }
     )
 public final class Tables {
 

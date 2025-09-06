@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.1
  */
-public final class StartMojoTest {
+final class StartMojoTest {
 
     @Test
-    public void skipsExecutionWhenRequired() throws Exception {
+    void skipsExecutionWhenRequired() throws Exception {
         final StartMojo mojo = new StartMojo();
         mojo.setSkip(true);
         mojo.execute();
