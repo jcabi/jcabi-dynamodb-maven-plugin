@@ -72,4 +72,4 @@ DynamoDB Maven Plugin
   If you use it somewhere else and it works for you, please let us know
   and we'll add your platform to this list.
   If you have problems or suggestions, please submit them as issues to
-  {{{http://github.com/jcabi/jcabi-dynamodb-maven-plugin/issues}Github}}.
+  {{{https://github.com/jcabi/jcabi-dynamodb-maven-plugin/issues}Github}}.
