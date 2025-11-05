@@ -38,15 +38,14 @@ import javax.json.JsonValue;
  * Handles DynamoDB locations.
  * @since 0.8
  */
-@SuppressWarnings
-    (
-        {
-            "PMD.NPathComplexity",
-            "PMD.CyclomaticComplexity",
-            "PMD.StdCyclomaticComplexity",
-            "PMD.ModifiedCyclomaticComplexity"
-        }
-    )
+@SuppressWarnings(
+    {
+        "PMD.NPathComplexity",
+        "PMD.CyclomaticComplexity",
+        "PMD.StdCyclomaticComplexity",
+        "PMD.ModifiedCyclomaticComplexity"
+    }
+)
 public final class Tables {
 
     /**
