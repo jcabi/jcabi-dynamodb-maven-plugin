@@ -11,13 +11,13 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Abstract EnviromentMOJO.
+ * Abstract EnvironmentMOJO.
  *
  * @since 0.8
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-abstract class AbstractEnviromentMojo extends AbstractDynamoMojo {
+abstract class AbstractEnvironmentMojo extends AbstractDynamoMojo {
 
     /**
      * Location of DynamoDB Local distribution.

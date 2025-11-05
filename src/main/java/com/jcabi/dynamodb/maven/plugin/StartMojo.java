@@ -24,7 +24,7 @@ import org.apache.maven.plugins.annotations.Mojo;
         threadSafe = true, name = "start",
         defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST
     )
-public final class StartMojo extends AbstractEnviromentMojo {
+public final class StartMojo extends AbstractEnvironmentMojo {
 
     @Override
     public void run(final Instances instances) throws MojoFailureException {

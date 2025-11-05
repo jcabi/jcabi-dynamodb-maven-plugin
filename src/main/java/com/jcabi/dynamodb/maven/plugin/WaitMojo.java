@@ -24,7 +24,7 @@ import org.apache.maven.plugins.annotations.Mojo;
         threadSafe = true, name = "wait",
         defaultPhase = LifecyclePhase.INTEGRATION_TEST
     )
-public final class WaitMojo extends AbstractEnviromentMojo {
+public final class WaitMojo extends AbstractEnvironmentMojo {
 
     @Override
     public void run(final Instances instances) {
