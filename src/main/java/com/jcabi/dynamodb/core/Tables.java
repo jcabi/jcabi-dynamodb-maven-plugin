@@ -112,7 +112,7 @@ public final class Tables {
             )
             .build();
         for (final String table : this.locations) {
-            final JsonObject json = this.readJson(table);
+            final JsonObject json = readJson(table);
             if (json.containsKey("TableName")) {
                 final String name = json.getString("TableName");
                 if (Tables.exists(aws, name)) {
@@ -308,26 +308,12 @@ public final class Tables {
      * @return The JSON object
      * @throws IOException If there is an execution failure.
      */
-    private JsonObject readJson(final String file) throws IOException {
-        InputStream stream = null;
+    private static JsonObject readJson(final String file) throws IOException {
         final JsonObject json;
-        try {
-            stream = Files.newInputStream(Paths.get(file));
+        try (InputStream stream = Files.newInputStream(Paths.get(file))) {
             json = Json.createReader(stream).readObject();
         } catch (final FileNotFoundException ex) {
             throw new IOException("Failed to read table definition", ex);
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (final IOException ex) {
-                    Logger.error(
-                        this,
-                        "Failed to close stream with message %s",
-                        ex.getMessage()
-                    );
-                }
-            }
         }
         return json;
     }
