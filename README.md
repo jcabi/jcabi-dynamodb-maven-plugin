@@ -1,4 +1,4 @@
-<img src="https://www.jcabi.com/logo-square.svg" width="64px" height="64px" />
+# [![logo](https://www.jcabi.com/logo-square.svg)](https://www.jcabi.com/logo-square.svg)
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](https://www.rultor.com/b/jcabi/jcabi-dynamodb-maven-plugin)](https://www.rultor.com/p/jcabi/jcabi-dynamodb-maven-plugin)
@@ -17,12 +17,12 @@ Also, read this blog post: [DynamoDB Local Maven Plugin](http://www.yegor256.com
 Currently, the [supported versions](http://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/)
 of [DynamoDB Local](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html):
 
- * `2023-05-26` (works with M1)
- * [`2015-07-16`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2015-07-16/)
- * [`2014-10-07`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2015-04-27/)
- * [`2014-04-24`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2014-04-24/)
- * [`2014-01-08`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2014-01-08/)
- * [`2013-09-12`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2013-09-12/)
+* `2023-05-26` (works with M1)
+* [`2015-07-16`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2015-07-16/)
+* [`2014-10-07`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2015-04-27/)
+* [`2014-04-24`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2014-04-24/)
+* [`2014-01-08`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2014-01-08/)
+* [`2013-09-12`](https://repo1.maven.org/maven2/com/jcabi/DynamoDBLocal/2013-09-12/)
 
 See how [Jare](https://github.com/yegor256/jare) project is using this plugin.
 
@@ -34,6 +34,6 @@ the `master` branch, if they look correct.
 
 Please run Maven build before submitting a pull request:
 
-```
-$ mvn clean install -Pqulice
+```bash
+mvn clean install -Pqulice
 ```

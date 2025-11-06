@@ -103,7 +103,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
 
     /**
      * Set the project environment.
-     * {@link AbstractEnviromentMojo}.
+     * {@link AbstractEnvironmentMojo}.
      * @throws MojoFailureException If fails
      */
     protected abstract void environment() throws MojoFailureException;

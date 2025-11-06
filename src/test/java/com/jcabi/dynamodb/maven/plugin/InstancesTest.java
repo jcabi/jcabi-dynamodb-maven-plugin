@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.1
  */
-public final class InstancesTest {
+final class InstancesTest {
 
     /**
      * Location of DynamoDBLocal distribution.
@@ -40,7 +40,7 @@ public final class InstancesTest {
     private static final String DIST = System.getProperty("surefire.dist");
 
     @Test
-    public void startsAndStops() throws Exception {
+    void startsAndStops() throws Exception {
         final int port = this.reserve();
         final Instances instances = new Instances();
         instances.start(
@@ -86,6 +86,7 @@ public final class InstancesTest {
                     )
             );
             MatcherAssert.assertThat(
+                "should be equal the table name",
                 result.getTableDescription().getTableName(),
                 Matchers.equalTo(table)
             );
@@ -105,11 +106,8 @@ public final class InstancesTest {
      * @throws Exception If fails
      */
     private int reserve() throws Exception {
-        final ServerSocket socket = new ServerSocket(0);
-        try {
+        try (ServerSocket socket = new ServerSocket(0)) {
             return socket.getLocalPort();
-        } finally {
-            socket.close();
         }
     }
 
