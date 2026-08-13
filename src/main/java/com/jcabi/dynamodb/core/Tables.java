@@ -19,7 +19,6 @@ import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
-import com.jcabi.aspects.Tv;
 import com.jcabi.log.Logger;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -143,7 +142,7 @@ public final class Tables {
         boolean exists;
         try {
             TableUtils.waitUntilExists(
-                aws, name, Tv.THOUSAND, Tv.HUNDRED
+                aws, name, 1000, 100
             );
             exists = true;
         } catch (final AmazonClientException ex) {

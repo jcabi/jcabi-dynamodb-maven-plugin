@@ -24,6 +24,13 @@ import org.apache.maven.plugins.annotations.Mojo;
     )
 public final class StopMojo extends AbstractDynamoMojo {
 
+    /**
+     * Public ctor.
+     */
+    public StopMojo() {
+        // nothing to initialize
+    }
+
     @Override
     public void environment() {
         // nothing here

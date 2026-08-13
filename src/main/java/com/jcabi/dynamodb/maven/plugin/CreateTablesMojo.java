@@ -53,6 +53,13 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
     @Parameter(required = false, defaultValue = "AWS-Secret")
     private transient String secret;
 
+    /**
+     * Public ctor.
+     */
+    public CreateTablesMojo() {
+        // nothing to initialize
+    }
+
     @Override
     public void environment() {
         // nothing here

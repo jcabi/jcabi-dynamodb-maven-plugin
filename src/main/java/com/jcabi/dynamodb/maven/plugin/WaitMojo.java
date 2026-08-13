@@ -26,6 +26,13 @@ import org.apache.maven.plugins.annotations.Mojo;
     )
 public final class WaitMojo extends AbstractEnvironmentMojo {
 
+    /**
+     * Public ctor.
+     */
+    public WaitMojo() {
+        // nothing to initialize
+    }
+
     @Override
     public void run(final Instances instances) {
         Logger.info(
