@@ -26,7 +26,6 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "processes")
 @Loggable
-@SuppressWarnings("PMD.DoNotUseThreads")
 public final class Instances {
 
     /**
@@ -71,18 +70,15 @@ public final class Instances {
      * @param port The port to stop at
      */
     public void stop(final int port) {
-        synchronized (this.processes) {
-            final Process process = this.processes.get(port);
-            if (process == null) {
-                throw new IllegalArgumentException(
-                    String.format(
-                        "No DynamoDB Local instances running on port %d", port
-                    )
-                );
-            }
-            process.destroy();
-            this.processes.remove(port);
+        final Process process = this.processes.remove(port);
+        if (process == null) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "No DynamoDB Local instances running on port %d", port
+                )
+            );
         }
+        process.destroy();
     }
 
     /**

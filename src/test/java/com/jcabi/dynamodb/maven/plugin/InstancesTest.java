@@ -13,7 +13,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
@@ -66,7 +65,7 @@ final class InstancesTest {
                 .build();
             final String table = "test";
             final String attr = "key";
-            final CreateTableResult result = aws.createTable(
+            aws.createTable(
                 new CreateTableRequest()
                     .withTableName(table)
                     .withProvisionedThroughput(
@@ -85,15 +84,15 @@ final class InstancesTest {
                             .withKeyType(KeyType.HASH)
                     )
             );
-            MatcherAssert.assertThat(
-                "should be equal the table name",
-                result.getTableDescription().getTableName(),
-                Matchers.equalTo(table)
-            );
             aws.putItem(
                 new PutItemRequest()
                     .withTableName(table)
                     .addItemEntry(attr, new AttributeValue("testvalue"))
+            );
+            MatcherAssert.assertThat(
+                "the table cannot be missing from a running instance",
+                aws.describeTable(table).getTable().getTableName(),
+                Matchers.equalTo(table)
             );
         } finally {
             instances.stop(port);
@@ -106,9 +105,11 @@ final class InstancesTest {
      * @throws Exception If fails
      */
     private int reserve() throws Exception {
+        final int port;
         try (ServerSocket socket = new ServerSocket(0)) {
-            return socket.getLocalPort();
+            port = socket.getLocalPort();
         }
+        return port;
     }
 
 }

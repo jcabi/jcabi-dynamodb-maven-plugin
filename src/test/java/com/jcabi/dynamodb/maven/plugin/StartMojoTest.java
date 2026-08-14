@@ -4,6 +4,7 @@
  */
 package com.jcabi.dynamodb.maven.plugin;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,10 +15,13 @@ import org.junit.jupiter.api.Test;
 final class StartMojoTest {
 
     @Test
-    void skipsExecutionWhenRequired() throws Exception {
+    void skipsExecutionWhenRequired() {
         final StartMojo mojo = new StartMojo();
         mojo.setSkip(true);
-        mojo.execute();
+        Assertions.assertDoesNotThrow(
+            mojo::execute,
+            "skipped execution cannot fail"
+        );
     }
 
 }

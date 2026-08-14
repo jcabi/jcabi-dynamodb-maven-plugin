@@ -11,40 +11,21 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
-import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.GlobalSecondaryIndex;
-import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
-import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
-import com.amazonaws.services.dynamodbv2.model.Projection;
-import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
 import com.jcabi.log.Logger;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.LinkedList;
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonString;
-import javax.json.JsonValue;
+import javax.json.JsonReader;
 
 /**
  * Handles DynamoDB locations.
  * @since 0.8
  */
-@SuppressWarnings(
-    {
-        "PMD.NPathComplexity",
-        "PMD.CyclomaticComplexity",
-        "PMD.StdCyclomaticComplexity",
-        "PMD.ModifiedCyclomaticComplexity"
-    }
-)
 public final class Tables {
 
     /**
@@ -159,79 +140,10 @@ public final class Tables {
      * Create DynamoDB table.
      * @param aws DynamoDB client
      * @param json JSON definition of table
-     * @checkstyle ExecutableStatementCount (50 lines)
-     * @checkstyle NPathComplexityCheck (100 lines)
      */
     private void createTable(final AmazonDynamoDB aws, final JsonObject json) {
         final String name = json.getString("TableName");
-        final CreateTableRequest request =
-            new CreateTableRequest().withTableName(name);
-        if (json.containsKey("KeySchema")) {
-            final Collection<KeySchemaElement> keys = Tables.keySchema(json);
-            request.setKeySchema(keys);
-        }
-        if (json.containsKey("AttributeDefinitions")) {
-            final Collection<AttributeDefinition> attrs =
-                new LinkedList<>();
-            final JsonArray schema =
-                json.getJsonArray("AttributeDefinitions");
-            for (final JsonObject defn : schema.getValuesAs(JsonObject.class)) {
-                attrs.add(
-                    new AttributeDefinition(
-                        defn.getString("AttributeName"),
-                        defn.getString("AttributeType")
-                    )
-                );
-            }
-            request.setAttributeDefinitions(attrs);
-        }
-        if (json.containsKey("ProvisionedThroughput")) {
-            final JsonObject throughput =
-                json.getJsonObject("ProvisionedThroughput");
-            request.setProvisionedThroughput(
-                new ProvisionedThroughput(
-                    Tables.asLong(throughput, "ReadCapacityUnits"),
-                    Tables.asLong(throughput, "WriteCapacityUnits")
-                )
-            );
-        }
-        if (json.containsKey("GlobalSecondaryIndexes")) {
-            final Collection<GlobalSecondaryIndex> indexes =
-                new LinkedList<>();
-            final JsonArray array =
-                json.getJsonArray("GlobalSecondaryIndexes");
-            for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
-                final JsonObject throughput =
-                    index.getJsonObject("ProvisionedThroughput");
-                final GlobalSecondaryIndex gsi = new GlobalSecondaryIndex()
-                    .withIndexName(index.getString("IndexName"))
-                    .withKeySchema(Tables.keySchema(index))
-                    .withProjection(Tables.projection(index))
-                    .withProvisionedThroughput(
-                        new ProvisionedThroughput(
-                            Tables.asLong(throughput, "ReadCapacityUnits"),
-                            Tables.asLong(throughput, "WriteCapacityUnits")
-                        )
-                    );
-                indexes.add(gsi);
-            }
-            request.setGlobalSecondaryIndexes(indexes);
-        }
-        if (json.containsKey("LocalSecondaryIndexes")) {
-            final Collection<LocalSecondaryIndex> indexes =
-                new LinkedList<>();
-            final JsonArray array =
-                json.getJsonArray("LocalSecondaryIndexes");
-            for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
-                final LocalSecondaryIndex lsi = new LocalSecondaryIndex()
-                    .withIndexName(index.getString("IndexName"))
-                    .withKeySchema(Tables.keySchema(index))
-                    .withProjection(Tables.projection(index));
-                indexes.add(lsi);
-            }
-            request.setLocalSecondaryIndexes(indexes);
-        }
-        aws.createTable(request);
+        aws.createTable(new TableRequest(json).request());
         Logger.info(this, "Waiting for table '%s' to become active", name);
         try {
             TableUtils.waitUntilActive(aws, name);
@@ -243,65 +155,6 @@ public final class Tables {
     }
 
     /**
-     * Get json value as a long - with a backward compatibility fallback for
-     * string values.
-     * @param json JSON input
-     * @param name The element name
-     * @return The element value converted as a long
-     */
-    private static long asLong(final JsonObject json, final String name) {
-        long result;
-        try {
-            result = json.getJsonNumber(name).longValue();
-        } catch (final ClassCastException ex) {
-            result = Long.parseLong(json.getString(name));
-        }
-        return result;
-    }
-
-    /**
-     * Get projection JSON element.
-     * @param json JSON input
-     * @return Projection
-     */
-    private static Projection projection(final JsonObject json) {
-        final JsonObject projn = json.getJsonObject("Projection");
-        final Projection projection = new Projection()
-            .withProjectionType(projn.getString("ProjectionType"));
-        if (projn.containsKey("NonKeyAttributes")) {
-            final Collection<String> attrs = new LinkedList<>();
-            for (final JsonValue attr
-                : projn.getJsonArray("NonKeyAttributes")) {
-                final JsonString name = (JsonString) attr;
-                attrs.add(name.getString());
-            }
-            projection.setNonKeyAttributes(attrs);
-        }
-        return projection;
-    }
-
-    /**
-     * Get key schema elements.
-     * @param json JSON input
-     * @return Key schema elements
-     */
-    private static Collection<KeySchemaElement> keySchema(final JsonObject json) {
-        final Collection<KeySchemaElement> keys =
-            new LinkedList<>();
-        final JsonArray schema = json.getJsonArray("KeySchema");
-        for (final JsonValue value : schema) {
-            final JsonObject element = (JsonObject) value;
-            keys.add(
-                new KeySchemaElement(
-                    element.getString("AttributeName"),
-                    element.getString("KeyType")
-                )
-            );
-        }
-        return keys;
-    }
-
-    /**
      * Reads a file's contents into a JsonObject.
      * @param file The path of the file to read
      * @return The JSON object
@@ -309,8 +162,10 @@ public final class Tables {
      */
     private static JsonObject readJson(final String file) throws IOException {
         final JsonObject json;
-        try (InputStream stream = Files.newInputStream(Paths.get(file))) {
-            json = Json.createReader(stream).readObject();
+        try (JsonReader reader = Json.createReader(
+            Files.newInputStream(Paths.get(file))
+        )) {
+            json = reader.readObject();
         } catch (final FileNotFoundException ex) {
             throw new IOException("Failed to read table definition", ex);
         }
