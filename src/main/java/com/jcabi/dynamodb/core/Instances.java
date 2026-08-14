@@ -19,7 +19,6 @@ import lombok.ToString;
 
 /**
  * Running instances of DynamoDB Local.
- *
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
  * @since 0.1
  */
@@ -53,7 +52,7 @@ public final class Instances {
         final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
-            new VerboseRunnable(new InstanceProcess(process))
+            new VerboseRunnable(new Instances.InstanceProcess(process))
         );
         thread.setDaemon(true);
         thread.start();
@@ -98,18 +97,18 @@ public final class Instances {
      * @param args Extra command line args
      * @return Process ready to be started
      * @throws IOException If fails to start
-     * @checkstyle ParameterNumber (5 lines)
      */
     private static Process process(final File dist, final int port,
         final File home, final List<String> args) throws IOException {
         final List<String> command = new ArrayList<>(args.size());
         command.add(new File(home, "bin/java").getAbsolutePath());
         command.add(
-            new StringBuilder("-Djava.library.path=")
-                .append(dist)
-                .append(System.getProperty("path.separator"))
-                .append(new File(dist, "DynamoDBLocal_lib"))
-                .toString()
+            String.format(
+                "-Djava.library.path=%s%s%s",
+                dist,
+                System.getProperty("path.separator"),
+                new File(dist, "DynamoDBLocal_lib")
+            )
         );
         command.add("-jar");
         command.add("DynamoDBLocal.jar");
@@ -122,10 +121,10 @@ public final class Instances {
 
     /**
      * Instance process of each local DynamoDB.
-     *
      * @since 0.1
      */
     private static final class InstanceProcess implements Callable<Void> {
+
         /**
          * Process.
          */
@@ -133,7 +132,7 @@ public final class Instances {
 
         /**
          * Constructor.
-         * @param process The process to work with.
+         * @param process The process to work with
          */
         InstanceProcess(final Process process) {
             this.prc = process;

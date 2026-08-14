@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StopMojo} (more detailed test is in maven invoker).
- *
  * @since 0.1
  */
 final class StopMojoTest {
@@ -23,5 +22,4 @@ final class StopMojoTest {
             "skipped execution cannot fail"
         );
     }
-
 }

@@ -14,7 +14,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Put the plugin on hold.
- *
  * @since 0.9
  */
 @ToString
@@ -46,5 +45,4 @@ public final class WaitMojo extends AbstractEnvironmentMojo {
             throw new IllegalStateException(ex);
         }
     }
-
 }

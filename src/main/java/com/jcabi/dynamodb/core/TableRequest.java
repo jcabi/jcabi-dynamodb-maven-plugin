@@ -11,8 +11,8 @@ import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.LocalSecondaryIndex;
 import com.amazonaws.services.dynamodbv2.model.Projection;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonString;
@@ -51,9 +51,7 @@ final class TableRequest {
         }
         if (this.json.containsKey("ProvisionedThroughput")) {
             request.setProvisionedThroughput(
-                TableRequest.throughput(
-                    this.json.getJsonObject("ProvisionedThroughput")
-                )
+                TableRequest.throughput(this.json)
             );
         }
         if (this.json.containsKey("GlobalSecondaryIndexes")) {
@@ -72,7 +70,7 @@ final class TableRequest {
      */
     private static Collection<AttributeDefinition> attributes(
         final JsonObject json) {
-        final Collection<AttributeDefinition> attrs = new LinkedList<>();
+        final Collection<AttributeDefinition> attrs = new ArrayList<>(0);
         final JsonArray schema = json.getJsonArray("AttributeDefinitions");
         for (final JsonObject defn : schema.getValuesAs(JsonObject.class)) {
             attrs.add(
@@ -91,9 +89,12 @@ final class TableRequest {
      * @return Provisioned throughput
      */
     private static ProvisionedThroughput throughput(final JsonObject json) {
+        final JsonObject provisioned = json.getJsonObject(
+            "ProvisionedThroughput"
+        );
         return new ProvisionedThroughput(
-            TableRequest.asLong(json, "ReadCapacityUnits"),
-            TableRequest.asLong(json, "WriteCapacityUnits")
+            TableRequest.asLong(provisioned, "ReadCapacityUnits"),
+            TableRequest.asLong(provisioned, "WriteCapacityUnits")
         );
     }
 
@@ -104,7 +105,7 @@ final class TableRequest {
      */
     private static Collection<GlobalSecondaryIndex> globals(
         final JsonObject json) {
-        final Collection<GlobalSecondaryIndex> indexes = new LinkedList<>();
+        final Collection<GlobalSecondaryIndex> indexes = new ArrayList<>(0);
         final JsonArray array = json.getJsonArray("GlobalSecondaryIndexes");
         for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
             indexes.add(
@@ -112,11 +113,7 @@ final class TableRequest {
                     .withIndexName(index.getString("IndexName"))
                     .withKeySchema(TableRequest.keySchema(index))
                     .withProjection(TableRequest.projection(index))
-                    .withProvisionedThroughput(
-                        TableRequest.throughput(
-                            index.getJsonObject("ProvisionedThroughput")
-                        )
-                    )
+                    .withProvisionedThroughput(TableRequest.throughput(index))
             );
         }
         return indexes;
@@ -129,7 +126,7 @@ final class TableRequest {
      */
     private static Collection<LocalSecondaryIndex> locals(
         final JsonObject json) {
-        final Collection<LocalSecondaryIndex> indexes = new LinkedList<>();
+        final Collection<LocalSecondaryIndex> indexes = new ArrayList<>(0);
         final JsonArray array = json.getJsonArray("LocalSecondaryIndexes");
         for (final JsonObject index : array.getValuesAs(JsonObject.class)) {
             indexes.add(
@@ -169,7 +166,7 @@ final class TableRequest {
         final Projection projection = new Projection()
             .withProjectionType(projn.getString("ProjectionType"));
         if (projn.containsKey("NonKeyAttributes")) {
-            final Collection<String> attrs = new LinkedList<>();
+            final Collection<String> attrs = new ArrayList<>(0);
             final JsonArray array = projn.getJsonArray("NonKeyAttributes");
             for (final JsonString attr : array.getValuesAs(JsonString.class)) {
                 attrs.add(attr.getString());
@@ -186,7 +183,7 @@ final class TableRequest {
      */
     private static Collection<KeySchemaElement> keySchema(
         final JsonObject json) {
-        final Collection<KeySchemaElement> keys = new LinkedList<>();
+        final Collection<KeySchemaElement> keys = new ArrayList<>(0);
         final JsonArray schema = json.getJsonArray("KeySchema");
         for (final JsonObject element : schema.getValuesAs(JsonObject.class)) {
             keys.add(
@@ -198,5 +195,4 @@ final class TableRequest {
         }
         return keys;
     }
-
 }

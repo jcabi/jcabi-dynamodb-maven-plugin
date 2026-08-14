@@ -60,7 +60,6 @@ public final class Tables {
      * @param port Tcp port
      * @param key AWS key
      * @param secret AWS secret
-     * @checkstyle ParameterNumberCheck (3 lines)
      */
     public Tables(final Collection<String> locations, final String endpoint,
         final Integer port, final String key, final String secret) {
@@ -76,14 +75,13 @@ public final class Tables {
      * @throws IOException if something goes wrong
      */
     public void create() throws IOException {
-        final AmazonDynamoDB aws = AmazonDynamoDBClientBuilder.standard()
-            .withEndpointConfiguration(
+        final AmazonDynamoDB aws = AmazonDynamoDBClientBuilder
+            .standard().withEndpointConfiguration(
                 new AwsClientBuilder.EndpointConfiguration(
                     String.format("%s:%d", this.endpoint, this.port),
                     Regions.US_EAST_1.getName()
                 )
-            )
-            .withCredentials(
+            ).withCredentials(
                 new AWSStaticCredentialsProvider(
                     new BasicAWSCredentials(
                         this.key, this.secret
@@ -162,9 +160,11 @@ public final class Tables {
      */
     private static JsonObject readJson(final String file) throws IOException {
         final JsonObject json;
-        try (JsonReader reader = Json.createReader(
-            Files.newInputStream(Paths.get(file))
-        )) {
+        try (
+            JsonReader reader = Json.createReader(
+                Files.newInputStream(Paths.get(file))
+            )
+        ) {
             json = reader.readObject();
         } catch (final FileNotFoundException ex) {
             throw new IOException("Failed to read table definition", ex);

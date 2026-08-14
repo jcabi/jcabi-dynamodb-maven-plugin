@@ -6,8 +6,8 @@ package com.jcabi.dynamodb.maven.plugin;
 
 import com.jcabi.dynamodb.core.Instances;
 import com.jcabi.log.Logger;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -18,7 +18,6 @@ import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Abstract DynamoMOJO.
- *
  * @since 0.1
  */
 @ToString
@@ -62,14 +61,6 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
         // nothing here
     }
 
-    /**
-     * Set skip option.
-     * @param skp Shall we skip execution?
-     */
-    public final void setSkip(final boolean skp) {
-        this.skip = skp;
-    }
-
     @Override
     public final void execute() throws MojoFailureException {
         StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());
@@ -94,7 +85,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      * @return List of arguments
      */
     protected final List<String> args() {
-        final List<String> args = new LinkedList<>();
+        final List<String> args = new ArrayList<>(0);
         if (this.arguments != null) {
             args.addAll(this.arguments);
         }
@@ -115,4 +106,12 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
      */
     protected abstract void run(Instances instances)
         throws MojoFailureException;
+
+    /**
+     * Set skip option.
+     * @param skp Shall we skip execution?
+     */
+    final void setSkip(final boolean skp) {
+        this.skip = skp;
+    }
 }

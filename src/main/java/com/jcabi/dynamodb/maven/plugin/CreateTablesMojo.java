@@ -17,7 +17,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Creates DynamoDB tables.
- *
  * @since 0.1
  */
 @ToString
@@ -71,12 +70,11 @@ public final class CreateTablesMojo extends AbstractDynamoMojo {
             new Tables(
                 this.tables, this.endpoint, this.tcpPort(), this.key,
                 this.secret
-            )
-                .create();
+            ).create();
         } catch (final IOException ex) {
             throw new MojoFailureException(
                 String.format(
-                    "Failed to create tables for instances: %s", instances
+                    "Failed to create tables at port %d", this.tcpPort()
                 ),
                 ex
             );

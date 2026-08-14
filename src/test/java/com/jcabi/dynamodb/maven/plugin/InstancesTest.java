@@ -28,7 +28,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link Instances}.
- *
  * @since 0.1
  */
 final class InstancesTest {
@@ -48,14 +47,13 @@ final class InstancesTest {
             Collections.singletonList("-inMemory")
         );
         try {
-            final AmazonDynamoDB aws = AmazonDynamoDBClientBuilder.standard()
-                .withEndpointConfiguration(
+            final AmazonDynamoDB aws = AmazonDynamoDBClientBuilder
+                .standard().withEndpointConfiguration(
                     new AwsClientBuilder.EndpointConfiguration(
                         String.format("http://localhost:%d", port),
                         Regions.US_EAST_1.getName()
                     )
-                )
-                .withCredentials(
+                ).withCredentials(
                     new AWSStaticCredentialsProvider(
                         new BasicAWSCredentials(
                             "AWS-key", "AWS-secret"
@@ -67,18 +65,15 @@ final class InstancesTest {
             final String attr = "key";
             aws.createTable(
                 new CreateTableRequest()
-                    .withTableName(table)
-                    .withProvisionedThroughput(
+                    .withTableName(table).withProvisionedThroughput(
                         new ProvisionedThroughput()
                             .withReadCapacityUnits(1L)
                             .withWriteCapacityUnits(1L)
-                    )
-                    .withAttributeDefinitions(
+                    ).withAttributeDefinitions(
                         new AttributeDefinition()
                             .withAttributeName(attr)
                             .withAttributeType(ScalarAttributeType.S)
-                    )
-                    .withKeySchema(
+                    ).withKeySchema(
                         new KeySchemaElement()
                             .withAttributeName(attr)
                             .withKeyType(KeyType.HASH)
@@ -111,5 +106,4 @@ final class InstancesTest {
         }
         return port;
     }
-
 }

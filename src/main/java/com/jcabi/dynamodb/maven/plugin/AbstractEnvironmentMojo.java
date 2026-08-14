@@ -12,7 +12,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Abstract EnvironmentMOJO.
- *
  * @since 0.8
  */
 @ToString
@@ -38,7 +37,6 @@ abstract class AbstractEnvironmentMojo extends AbstractDynamoMojo {
         if (!this.dist.exists() || !this.dist.isDirectory()) {
             throw new MojoFailureException(
                 String.format(
-                    // @checkstyle LineLength (1 line)
                     "DynamoDB Local distribution doesn't exist or is not a directory: %s",
                     this.dist
                 )
