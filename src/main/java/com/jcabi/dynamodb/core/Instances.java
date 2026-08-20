@@ -5,13 +5,11 @@
 package com.jcabi.dynamodb.core;
 
 import com.jcabi.aspects.Loggable;
-import com.jcabi.log.VerboseProcess;
 import com.jcabi.log.VerboseRunnable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import lombok.EqualsAndHashCode;
@@ -52,7 +50,7 @@ public final class Instances {
         final List<String> args) throws IOException {
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
-            new VerboseRunnable(new Instances.InstanceProcess(process))
+            new VerboseRunnable(new InstanceProcess(process))
         );
         thread.setDaemon(true);
         thread.start();
@@ -80,24 +78,12 @@ public final class Instances {
         process.destroy();
     }
 
-    /**
-     * Shutdown everything that is still running.
-     */
     private void shutdown() {
         for (final int port : this.processes.keySet()) {
             this.stop(port);
         }
     }
 
-    /**
-     * Create new process.
-     * @param dist Path to DynamoDBLocal distribution
-     * @param port The port to start at
-     * @param home Java home directory
-     * @param args Extra command line args
-     * @return Process ready to be started
-     * @throws IOException If fails to start
-     */
     private static Process process(final File dist, final int port,
         final File home, final List<String> args) throws IOException {
         final List<String> command = new ArrayList<>(args.size());
@@ -117,31 +103,5 @@ public final class Instances {
         command.addAll(args);
         return new ProcessBuilder().command(command)
             .directory(dist).redirectErrorStream(true).start();
-    }
-
-    /**
-     * Instance process of each local DynamoDB.
-     * @since 0.1
-     */
-    private static final class InstanceProcess implements Callable<Void> {
-
-        /**
-         * Process.
-         */
-        private final transient Process prc;
-
-        /**
-         * Constructor.
-         * @param process The process to work with
-         */
-        InstanceProcess(final Process process) {
-            this.prc = process;
-        }
-
-        @Override
-        public Void call() {
-            new VerboseProcess(this.prc).stdoutQuietly();
-            return null;
-        }
     }
 }

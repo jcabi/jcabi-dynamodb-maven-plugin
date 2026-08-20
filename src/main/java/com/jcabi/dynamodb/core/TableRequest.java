@@ -63,11 +63,6 @@ final class TableRequest {
         return request;
     }
 
-    /**
-     * Get attribute definitions.
-     * @param json JSON input
-     * @return Attribute definitions
-     */
     private static Collection<AttributeDefinition> attributes(
         final JsonObject json) {
         final Collection<AttributeDefinition> attrs = new ArrayList<>(0);
@@ -83,11 +78,6 @@ final class TableRequest {
         return attrs;
     }
 
-    /**
-     * Get provisioned throughput.
-     * @param json JSON input
-     * @return Provisioned throughput
-     */
     private static ProvisionedThroughput throughput(final JsonObject json) {
         final JsonObject provisioned = json.getJsonObject(
             "ProvisionedThroughput"
@@ -98,11 +88,6 @@ final class TableRequest {
         );
     }
 
-    /**
-     * Get global secondary indexes.
-     * @param json JSON input
-     * @return Global secondary indexes
-     */
     private static Collection<GlobalSecondaryIndex> globals(
         final JsonObject json) {
         final Collection<GlobalSecondaryIndex> indexes = new ArrayList<>(0);
@@ -119,11 +104,6 @@ final class TableRequest {
         return indexes;
     }
 
-    /**
-     * Get local secondary indexes.
-     * @param json JSON input
-     * @return Local secondary indexes
-     */
     private static Collection<LocalSecondaryIndex> locals(
         final JsonObject json) {
         final Collection<LocalSecondaryIndex> indexes = new ArrayList<>(0);
@@ -139,13 +119,6 @@ final class TableRequest {
         return indexes;
     }
 
-    /**
-     * Get json value as a long - with a backward compatibility fallback for
-     * string values.
-     * @param json JSON input
-     * @param name The element name
-     * @return The element value converted as a long
-     */
     private static long asLong(final JsonObject json, final String name) {
         long result;
         try {
@@ -156,11 +129,6 @@ final class TableRequest {
         return result;
     }
 
-    /**
-     * Get projection JSON element.
-     * @param json JSON input
-     * @return Projection
-     */
     private static Projection projection(final JsonObject json) {
         final JsonObject projn = json.getJsonObject("Projection");
         final Projection projection = new Projection()
@@ -176,11 +144,6 @@ final class TableRequest {
         return projection;
     }
 
-    /**
-     * Get key schema elements.
-     * @param json JSON input
-     * @return Key schema elements
-     */
     private static Collection<KeySchemaElement> keySchema(
         final JsonObject json) {
         final Collection<KeySchemaElement> keys = new ArrayList<>(0);

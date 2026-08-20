@@ -110,12 +110,6 @@ public final class Tables {
         }
     }
 
-    /**
-     * Table exists?
-     * @param aws AWS
-     * @param name Table name
-     * @return TRUE if it exists
-     */
     private static boolean exists(final AmazonDynamoDB aws, final String name) {
         Logger.info(Tables.class, "Waiting for the table '%s' in DynamoDB...", name);
         boolean exists;
@@ -134,11 +128,6 @@ public final class Tables {
         return exists;
     }
 
-    /**
-     * Create DynamoDB table.
-     * @param aws DynamoDB client
-     * @param json JSON definition of table
-     */
     private void createTable(final AmazonDynamoDB aws, final JsonObject json) {
         final String name = json.getString("TableName");
         aws.createTable(new TableRequest(json).request());
@@ -152,12 +141,6 @@ public final class Tables {
         Logger.info(this, "Table '%s' is now ready for use", name);
     }
 
-    /**
-     * Reads a file's contents into a JsonObject.
-     * @param file The path of the file to read
-     * @return The JSON object
-     * @throws IOException If there is an execution failure.
-     */
     private static JsonObject readJson(final String file) throws IOException {
         final JsonObject json;
         try (

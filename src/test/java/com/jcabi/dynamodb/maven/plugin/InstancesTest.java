@@ -94,11 +94,6 @@ final class InstancesTest {
         }
     }
 
-    /**
-     * Find and return the first available port.
-     * @return The port number
-     * @throws Exception If fails
-     */
     private int reserve() throws Exception {
         final int port;
         try (ServerSocket socket = new ServerSocket(0)) {
