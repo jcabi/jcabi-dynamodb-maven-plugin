@@ -28,6 +28,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link Instances}.
+ *
  * @since 0.1
  */
 final class InstancesTest {

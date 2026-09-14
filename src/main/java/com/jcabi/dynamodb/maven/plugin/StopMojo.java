@@ -12,6 +12,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Stops DynamoDB Local.
+ *
  * @since 0.1
  */
 @ToString

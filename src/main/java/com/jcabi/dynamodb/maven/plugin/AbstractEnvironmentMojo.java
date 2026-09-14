@@ -12,6 +12,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Abstract EnvironmentMOJO.
+ *
  * @since 0.8
  */
 @ToString
@@ -20,6 +21,7 @@ abstract class AbstractEnvironmentMojo extends AbstractDynamoMojo {
 
     /**
      * Location of DynamoDB Local distribution.
+     *
      * @since 0.4
      */
     @Parameter(required = true)
@@ -27,6 +29,7 @@ abstract class AbstractEnvironmentMojo extends AbstractDynamoMojo {
 
     /**
      * Java home directory, where "bin/java" can be executed.
+     *
      * @since 0.3
      */
     @Parameter(required = false)
@@ -54,6 +57,7 @@ abstract class AbstractEnvironmentMojo extends AbstractDynamoMojo {
 
     /**
      * Location of DynamoDB Local distribution.
+     *
      * @return File dist
      */
     protected File distdir() {
@@ -62,6 +66,7 @@ abstract class AbstractEnvironmentMojo extends AbstractDynamoMojo {
 
     /**
      * Java home directory, where "bin/java" can be executed.
+     *
      * @return File home
      */
     protected File homedir() {

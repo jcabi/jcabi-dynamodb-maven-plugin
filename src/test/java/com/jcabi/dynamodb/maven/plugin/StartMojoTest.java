@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link StartMojo} (more detailed test is in maven invoker).
+ *
  * @since 0.1
  */
 final class StartMojoTest {

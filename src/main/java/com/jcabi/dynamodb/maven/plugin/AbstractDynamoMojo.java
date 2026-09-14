@@ -18,6 +18,7 @@ import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Abstract DynamoMOJO.
+ *
  * @since 0.1
  */
 @ToString
@@ -40,6 +41,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
 
     /**
      * Command line arguments of DynamoDBLocal.
+     *
      * @since 0.5
      */
     @Parameter
@@ -74,6 +76,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
 
     /**
      * Get TCP port we're on.
+     *
      * @return Port number
      */
     protected final int tcpPort() {
@@ -82,6 +85,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
 
     /**
      * Command line arguments.
+     *
      * @return List of arguments
      */
     protected final List<String> args() {
@@ -95,12 +99,14 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
     /**
      * Set the project environment.
      * {@link AbstractEnvironmentMojo}.
+     *
      * @throws MojoFailureException If fails
      */
     protected abstract void environment() throws MojoFailureException;
 
     /**
      * Run custom functionality.
+     *
      * @param instances Instances to work with
      * @throws MojoFailureException If fails
      */
@@ -109,6 +115,7 @@ abstract class AbstractDynamoMojo extends AbstractMojo {
 
     /**
      * Set skip option.
+     *
      * @param skp Shall we skip execution?
      */
     final void setSkip(final boolean skp) {

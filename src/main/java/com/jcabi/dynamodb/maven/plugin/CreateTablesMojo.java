@@ -17,6 +17,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Creates DynamoDB tables.
+ *
  * @since 0.1
  */
 @ToString

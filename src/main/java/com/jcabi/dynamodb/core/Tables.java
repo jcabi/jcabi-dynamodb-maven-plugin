@@ -24,6 +24,7 @@ import javax.json.JsonReader;
 
 /**
  * Handles DynamoDB locations.
+ *
  * @since 0.8
  */
 public final class Tables {
@@ -55,6 +56,7 @@ public final class Tables {
 
     /**
      * Public ctor.
+     *
      * @param locations The location of the tables to be created, in JSON format
      * @param endpoint AWS endpoint
      * @param port Tcp port
@@ -72,6 +74,7 @@ public final class Tables {
 
     /**
      * Creates tables.
+     *
      * @throws IOException if something goes wrong
      */
     public void create() throws IOException {

@@ -19,6 +19,7 @@ import javax.json.JsonString;
 
 /**
  * JSON definition of a table, as a DynamoDB creation request.
+ *
  * @since 1.0
  */
 final class TableRequest {
@@ -30,6 +31,7 @@ final class TableRequest {
 
     /**
      * Public ctor.
+     *
      * @param definition JSON definition of the table
      */
     TableRequest(final JsonObject definition) {
@@ -38,6 +40,7 @@ final class TableRequest {
 
     /**
      * Make the request that creates the table.
+     *
      * @return The request
      */
     CreateTableRequest request() {

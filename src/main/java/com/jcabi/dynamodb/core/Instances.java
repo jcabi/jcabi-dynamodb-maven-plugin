@@ -17,6 +17,7 @@ import lombok.ToString;
 
 /**
  * Running instances of DynamoDB Local.
+ *
  * @see <a href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tools.html">DynamoDB Local</a>
  * @since 0.1
  */
@@ -39,6 +40,7 @@ public final class Instances {
 
     /**
      * Start a new one at this port.
+     *
      * @param dist Path to DynamoDBLocal distribution
      * @param port The port to start at
      * @param home Java home directory
@@ -64,6 +66,7 @@ public final class Instances {
 
     /**
      * Stop a running one at this port.
+     *
      * @param port The port to stop at
      */
     public void stop(final int port) {

@@ -9,6 +9,7 @@ import java.util.concurrent.Callable;
 
 /**
  * Instance process of each local DynamoDB.
+ *
  * @since 0.1
  */
 final class InstanceProcess implements Callable<Void> {
@@ -20,6 +21,7 @@ final class InstanceProcess implements Callable<Void> {
 
     /**
      * Constructor.
+     *
      * @param process The process to work with
      */
     InstanceProcess(final Process process) {
@@ -28,7 +30,9 @@ final class InstanceProcess implements Callable<Void> {
 
     @Override
     public Void call() {
-        new VerboseProcess(this.prc).stdoutQuietly();
+        try (VerboseProcess proc = new VerboseProcess(this.prc)) {
+            proc.stdoutQuietly();
+        }
         return null;
     }
 }

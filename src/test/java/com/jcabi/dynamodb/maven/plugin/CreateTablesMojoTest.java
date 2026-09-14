@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test case for {@link CreateTablesMojo} (more detailed test is in maven
  * invoker).
+ *
  * @since 0.1
  */
 final class CreateTablesMojoTest {

@@ -14,6 +14,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Starts DynamoDB Local.
+ *
  * @since 0.1
  */
 @ToString

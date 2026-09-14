@@ -14,6 +14,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * Put the plugin on hold.
+ *
  * @since 0.9
  */
 @ToString
