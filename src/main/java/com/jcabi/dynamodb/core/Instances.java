@@ -46,10 +46,16 @@ public final class Instances {
      * @param home Java home directory
      * @param args Command line arguments
      * @throws IOException If fails to start
+     * @throws IllegalStateException If another instance owns this port
      * @checkstyle ParameterNumber (5 lines)
      */
-    public void start(final File dist, final int port, final File home,
+    public synchronized void start(final File dist, final int port, final File home,
         final List<String> args) throws IOException {
+        if (this.processes.containsKey(port)) {
+            throw new IllegalStateException(
+                String.format("A DynamoDB Local instance already owns port %d", port)
+            );
+        }
         final Process process = Instances.process(dist, port, home, args);
         final Thread thread = new Thread(
             new VerboseRunnable(new InstanceProcess(process))
@@ -69,7 +75,7 @@ public final class Instances {
      *
      * @param port The port to stop at
      */
-    public void stop(final int port) {
+    public synchronized void stop(final int port) {
         final Process process = this.processes.remove(port);
         if (process == null) {
             throw new IllegalArgumentException(
@@ -81,7 +87,7 @@ public final class Instances {
         process.destroy();
     }
 
-    private void shutdown() {
+    private synchronized void shutdown() {
         for (final int port : this.processes.keySet()) {
             this.stop(port);
         }
